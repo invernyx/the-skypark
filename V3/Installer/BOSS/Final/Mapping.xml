@@ -1,0 +1,506 @@
+<mapping><renamedTypes><renamedClass oldName="[The Skypark Installer]TSP_Installer.LicensingInstance" newName="[The Skypark Installer]A.A"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance::get_ProductID[0]()" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance::set_ProductID[1]([mscorlib]System.Guid)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance::get_ApplicationKey[0]()" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance::set_ApplicationKey[1]([mscorlib]System.Byte[])" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance::get_LicenseKey[0]()" newName="B" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance::set_LicenseKey[1]([mscorlib]System.String)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance::get_Identifier[0]()" newName="b" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance::set_Identifier[1]([mscorlib]System.String)" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance::DecodeContent[1]([mscorlib]System.String)" newName="B" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance::GetAppKey[1]([mscorlib]System.Byte[])" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance::GetOrbxIdentifier[0]()" newName="C" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance::GetSystemIdentifier[0]()" newName="c" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance::GetParameters[0]()" newName="D" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance::IsValid[0]()" newName="d" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance::Refresh[0]()" newName="E" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance::GetKey[0]()" newName="e" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance::WriteKey[1]([mscorlib]System.String)" newName="b" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.LicensingInstance::.ctor[2]([mscorlib]System.Guid,[mscorlib]System.Byte[])" reason="special name" />
+<renamedField oldName="[The Skypark Installer]System.Guid TSP_Installer.LicensingInstance::&lt;ProductID&gt;k__BackingField" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Byte[] TSP_Installer.LicensingInstance::&lt;ApplicationKey&gt;k__BackingField" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.LicensingInstance::&lt;LicenseKey&gt;k__BackingField" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.LicensingInstance::&lt;Identifier&gt;k__BackingField" newName="a" />
+<renamedProperty oldName="[The Skypark Installer]System.Guid TSP_Installer.LicensingInstance::ProductID" newName="dropped" />
+<renamedProperty oldName="[The Skypark Installer]System.Byte[] TSP_Installer.LicensingInstance::ApplicationKey" newName="dropped" />
+<renamedProperty oldName="[The Skypark Installer]System.String TSP_Installer.LicensingInstance::LicenseKey" newName="dropped" />
+<renamedProperty oldName="[The Skypark Installer]System.String TSP_Installer.LicensingInstance::Identifier" newName="dropped" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.Properties.Resources" newName="[The Skypark Installer]A.C"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.Properties.Resources::get_ResourceManager[0]()" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Properties.Resources::get_Culture[0]()" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Properties.Resources::set_Culture[1]([mscorlib]System.Globalization.CultureInfo)" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.Properties.Resources::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]System.Resources.ResourceManager TSP_Installer.Properties.Resources::resourceMan" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Globalization.CultureInfo TSP_Installer.Properties.Resources::resourceCulture" newName="A" />
+<renamedProperty oldName="[The Skypark Installer]System.Resources.ResourceManager TSP_Installer.Properties.Resources::ResourceManager" newName="A" />
+<renamedProperty oldName="[The Skypark Installer]System.Globalization.CultureInfo TSP_Installer.Properties.Resources::Culture" newName="a" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.Properties.Settings" newName="[The Skypark Installer]A.c"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.Properties.Settings::get_Default[0]()" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.Properties.Settings::.ctor[0]()" reason="special name" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.Properties.Settings::.cctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.Properties.Settings TSP_Installer.Properties.Settings::defaultInstance" newName="A" />
+<renamedProperty oldName="[The Skypark Installer]TSP_Installer.Properties.Settings TSP_Installer.Properties.Settings::Default" newName="dropped" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.Utilities.EmbeddedAssembly" newName="[The Skypark Installer]A.D"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.Utilities.EmbeddedAssembly::Load[2]([mscorlib]System.String,[mscorlib]System.String)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Utilities.EmbeddedAssembly::Get[1]([mscorlib]System.String)" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.Utilities.EmbeddedAssembly::.ctor[0]()" reason="special name" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.Utilities.EmbeddedAssembly::.cctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]System.Collections.Generic.Dictionary`2&lt;System.String,System.Reflection.Assembly&gt; TSP_Installer.Utilities.EmbeddedAssembly::dic" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Utilities.EmbeddedAssembly::guid" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.Models.UpdateInfo" newName="[The Skypark Installer]A.d"><skippedMethod name="[The Skypark Installer]TSP_Installer.Models.UpdateInfo::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.UpdateInfo::Name" newName="A" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.LicensingManager/LicenseApplication TSP_Installer.Models.UpdateInfo::Lic" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.UpdateInfo::ManifestsURL" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.UpdateInfo::ConsoleDir" newName="B" />
+<renamedField oldName="[The Skypark Installer]System.Collections.Generic.Dictionary`2&lt;System.String,System.Byte[]&gt; TSP_Installer.Models.UpdateInfo::ManifestData" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Collections.Generic.List`1&lt;TSP_Installer.Models.UpdateModule&gt; TSP_Installer.Models.UpdateInfo::Modules" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.Models.UpdateModule" newName="[The Skypark Installer]A.E"><skippedMethod name="[The Skypark Installer]TSP_Installer.Models.UpdateModule::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.UpdateModule::Name" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.UpdateModule::ID" newName="a" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.LicensingManager/LicenseApplication TSP_Installer.Models.UpdateModule::Lic" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.UpdateModule::DownloadURL" newName="B" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.UpdateModule::ManifestSubDirName" newName="b" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.UpdateModule::InstallPath" newName="C" />
+<renamedField oldName="[The Skypark Installer]System.Boolean TSP_Installer.Models.UpdateModule::SkipValidate" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Boolean TSP_Installer.Models.UpdateModule::CanDropConsole" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.Boolean TSP_Installer.Models.UpdateModule::CleanupExcess" newName="B" />
+<renamedField oldName="[The Skypark Installer]System.Boolean TSP_Installer.Models.UpdateModule::CleanupExcessExcludeRoot" newName="b" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.Models.ExtWebClient" newName="[The Skypark Installer]A.e"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.ExtWebClient::get_PostParam[0]()" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.ExtWebClient::set_PostParam[1]([System]System.Collections.Specialized.NameValueCollection)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.ExtWebClient::get_Timeout[0]()" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.ExtWebClient::set_Timeout[1]([mscorlib]System.Int32)" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.Models.ExtWebClient::.ctor[0]()" reason="special name" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.Models.ExtWebClient::GetWebRequest[1]([System]System.Uri)" reason="external base class or interface" />
+<renamedField oldName="[The Skypark Installer]System.Collections.Specialized.NameValueCollection TSP_Installer.Models.ExtWebClient::&lt;PostParam&gt;k__BackingField" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Int32 TSP_Installer.Models.ExtWebClient::&lt;Timeout&gt;k__BackingField" newName="A" />
+<renamedProperty oldName="[The Skypark Installer]System.Collections.Specialized.NameValueCollection TSP_Installer.Models.ExtWebClient::PostParam" newName="dropped" />
+<renamedProperty oldName="[The Skypark Installer]System.Int32 TSP_Installer.Models.ExtWebClient::Timeout" newName="dropped" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.Models.Updater" newName="[The Skypark Installer]A.f"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::CheckDownloadDir[0]()" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::SetDownloadDir[0]()" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::Download[1]([mscorlib]System.Boolean)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::Install[0]()" newName="B" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::IsReady[0]()" newName="b" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::Exit[1]([mscorlib]System.Int32)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::Cleanup[0]()" newName="C" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::SetProduct[1]([The Skypark Installer]TSP_Installer.Models.UpdateInfo)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::SetInstall[1]([mscorlib]System.Boolean)" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::SetModule[1]([The Skypark Installer]TSP_Installer.Models.UpdateModule)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::SetExcessCleanup[2]([mscorlib]System.Boolean,[mscorlib]System.Boolean)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::SetChannel[2]([mscorlib]System.String,[mscorlib]System.String)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::SetManifestDir[1]([mscorlib]System.String)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::SetInstallDir[1]([mscorlib]System.String)" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::DeleteUpdateDir[0]()" newName="c" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::GetManifest[0]()" newName="D" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::DeleteManifests[0]()" newName="d" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::CompareManifest[2]([mscorlib]System.String,[mscorlib]System.String)" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::CalculateMD5[1]([mscorlib]System.String)" newName="B" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::MakeProgressEl[0]()" newName="E" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::&lt;SetDownloadDir&gt;b__25_0[1]([mscorlib]System.IO.DriveInfo)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::&lt;SetDownloadDir&gt;b__25_1[1]([mscorlib]System.IO.DriveInfo)" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater::&lt;Download&gt;b__26_0[2]([mscorlib]System.Object,[System]System.Net.DownloadProgressChangedEventArgs)" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.Models.Updater::.ctor[0]()" reason="special name" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.Models.Updater::.cctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.Updater::UpdateDir" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Collections.Generic.List`1&lt;System.Int32&gt; TSP_Installer.Models.Updater::ExitCodes" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Collections.Generic.List`1&lt;System.Int32&gt; TSP_Installer.Models.Updater::DownloadCodes" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.Int32 TSP_Installer.Models.Updater::ExitCodeIndex" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Int32 TSP_Installer.Models.Updater::DownloadCodeIndex" newName="a" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.Models.UpdateInfo TSP_Installer.Models.Updater::Product" newName="A" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.Models.UpdateModule TSP_Installer.Models.Updater::Module" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.Updater::FailedReason" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.Boolean TSP_Installer.Models.Updater::CleanupExcess" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Boolean TSP_Installer.Models.Updater::CleanupExcessExcludeRoot" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.Boolean TSP_Installer.Models.Updater::DoInstall" newName="B" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.Updater::InstallDir" newName="B" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.Updater::ManifestDir" newName="b" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.Updater::Channel" newName="C" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.Updater::DownloadURL" newName="c" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.Updater::ManifestsURL" newName="D" />
+<renamedField oldName="[The Skypark Installer]System.Int64 TSP_Installer.Models.Updater::DownloadSize" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Grid TSP_Installer.Models.Updater::ProgressUIBase" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.TextBlock TSP_Installer.Models.Updater::StateText" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Border TSP_Installer.Models.Updater::ProgressUIOutline" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Border TSP_Installer.Models.Updater::ProgressUIFillDownload" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Border TSP_Installer.Models.Updater::ProgressUIFillUnpacking" newName="B" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Border TSP_Installer.Models.Updater::ProgressUIFillInstalling" newName="b" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Border TSP_Installer.Models.Updater::ProgressUIFillChecking" newName="C" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]&lt;PrivateImplementationDetails&gt;" newName="[The Skypark Installer]A.G"><renamedField oldName="[The Skypark Installer]&lt;PrivateImplementationDetails&gt;/__StaticArrayInitTypeSize=16 &lt;PrivateImplementationDetails&gt;::2194D3256A4E3CBE6C7EB6FAFE09DF9524C931A1" newName="A" />
+<renamedField oldName="[The Skypark Installer]&lt;PrivateImplementationDetails&gt;/__StaticArrayInitTypeSize=174 &lt;PrivateImplementationDetails&gt;::982DCB7F756CB8CA149A452332352607B336C5B9" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiError" newName="[The Skypark Installer]A.A/A"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiError::get_Message[0]()" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiError::set_Message[1]([mscorlib]System.String)" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiError::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.LicensingInstance/OrbxApiError::&lt;Message&gt;k__BackingField" newName="A" />
+<renamedProperty oldName="[The Skypark Installer]System.String TSP_Installer.LicensingInstance/OrbxApiError::Message" newName="dropped" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiData" newName="[The Skypark Installer]A.A/a"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiData::get_Key[0]()" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiData::set_Key[1]([mscorlib]System.String)" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiData::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.LicensingInstance/OrbxApiData::&lt;Key&gt;k__BackingField" newName="A" />
+<renamedProperty oldName="[The Skypark Installer]System.String TSP_Installer.LicensingInstance/OrbxApiData::Key" newName="dropped" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiResponse" newName="[The Skypark Installer]A.A/B"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiResponse::get_Success[0]()" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiResponse::set_Success[1]([mscorlib]System.Boolean)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiResponse::get_Error[0]()" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiResponse::set_Error[1]([The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiError)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiResponse::get_Data[0]()" newName="B" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiResponse::set_Data[1]([The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiData)" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiResponse::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]System.Boolean TSP_Installer.LicensingInstance/OrbxApiResponse::&lt;Success&gt;k__BackingField" newName="A" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiError TSP_Installer.LicensingInstance/OrbxApiResponse::&lt;Error&gt;k__BackingField" newName="A" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiData TSP_Installer.LicensingInstance/OrbxApiResponse::&lt;Data&gt;k__BackingField" newName="A" />
+<renamedProperty oldName="[The Skypark Installer]System.Boolean TSP_Installer.LicensingInstance/OrbxApiResponse::Success" newName="dropped" />
+<renamedProperty oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiError TSP_Installer.LicensingInstance/OrbxApiResponse::Error" newName="dropped" />
+<renamedProperty oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/OrbxApiData TSP_Installer.LicensingInstance/OrbxApiResponse::Data" newName="dropped" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/&lt;&gt;c__DisplayClass20_0" newName="[The Skypark Installer]A.A/b"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/&lt;&gt;c__DisplayClass20_0::&lt;DecodeContent&gt;b__0[1]([mscorlib]System.Int32)" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.LicensingInstance/&lt;&gt;c__DisplayClass20_0::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.LicensingInstance/&lt;&gt;c__DisplayClass20_0::sig" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/&lt;&gt;c" newName="[The Skypark Installer]A.A/C"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/&lt;&gt;c::&lt;IsValid&gt;b__25_0[1]([mscorlib]System.Byte)" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.LicensingInstance/&lt;&gt;c::.cctor[0]()" reason="special name" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.LicensingInstance/&lt;&gt;c::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/&lt;&gt;c TSP_Installer.LicensingInstance/&lt;&gt;c::&lt;&gt;9" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Func`2&lt;System.Byte,System.String&gt; TSP_Installer.LicensingInstance/&lt;&gt;c::&lt;&gt;9__25_0" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.LicensingInstance/&lt;Refresh&gt;d__26" newName="[The Skypark Installer]A.A/c"><skippedMethod name="[The Skypark Installer]TSP_Installer.LicensingInstance/&lt;Refresh&gt;d__26::MoveNext[0]()" reason="external base class or interface" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.LicensingInstance/&lt;Refresh&gt;d__26::SetStateMachine[1]([mscorlib]System.Runtime.CompilerServices.IAsyncStateMachine)" reason="external base class or interface" />
+<renamedField oldName="[The Skypark Installer]System.Int32 TSP_Installer.LicensingInstance/&lt;Refresh&gt;d__26::&lt;&gt;1__state" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Runtime.CompilerServices.AsyncTaskMethodBuilder TSP_Installer.LicensingInstance/&lt;Refresh&gt;d__26::&lt;&gt;t__builder" newName="A" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.LicensingInstance TSP_Installer.LicensingInstance/&lt;Refresh&gt;d__26::&lt;&gt;4__this" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Net.Http.HttpClient TSP_Installer.LicensingInstance/&lt;Refresh&gt;d__26::&lt;client&gt;5__2" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Net.Http.FormUrlEncodedContent TSP_Installer.LicensingInstance/&lt;Refresh&gt;d__26::&lt;content&gt;5__3" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Runtime.CompilerServices.TaskAwaiter`1&lt;System.Net.Http.HttpResponseMessage&gt; TSP_Installer.LicensingInstance/&lt;Refresh&gt;d__26::&lt;&gt;u__1" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Runtime.CompilerServices.TaskAwaiter`1&lt;System.String&gt; TSP_Installer.LicensingInstance/&lt;Refresh&gt;d__26::&lt;&gt;u__2" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.LicensingManager/LicenseApplication" newName="[The Skypark Installer]A.a/A"><renamedField oldName="[The Skypark Installer]TSP_Installer.LicensingManager/LicenseApplication TSP_Installer.LicensingManager/LicenseApplication::None" newName="A" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.LicensingManager/LicenseApplication TSP_Installer.LicensingManager/LicenseApplication::Skypark" newName="a" />
+<skippedField name="[The Skypark Installer]System.Int32 TSP_Installer.LicensingManager/LicenseApplication::value__" reason="special name" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.LicensingManager/ApplicationMetadata" newName="[The Skypark Installer]A.a/a"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingManager/ApplicationMetadata::get_ID[0]()" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingManager/ApplicationMetadata::set_ID[1]([mscorlib]System.Guid)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingManager/ApplicationMetadata::get_Key[0]()" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingManager/ApplicationMetadata::set_Key[1]([mscorlib]System.Byte[])" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingManager/ApplicationMetadata::get_App[0]()" newName="B" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingManager/ApplicationMetadata::set_App[1]([The Skypark Installer]TSP_Installer.LicensingManager/LicenseApplication)" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.LicensingManager/ApplicationMetadata::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]System.Guid TSP_Installer.LicensingManager/ApplicationMetadata::&lt;ID&gt;k__BackingField" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Byte[] TSP_Installer.LicensingManager/ApplicationMetadata::&lt;Key&gt;k__BackingField" newName="A" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.LicensingManager/LicenseApplication TSP_Installer.LicensingManager/ApplicationMetadata::&lt;App&gt;k__BackingField" newName="A" />
+<renamedProperty oldName="[The Skypark Installer]System.Guid TSP_Installer.LicensingManager/ApplicationMetadata::ID" newName="dropped" />
+<renamedProperty oldName="[The Skypark Installer]System.Byte[] TSP_Installer.LicensingManager/ApplicationMetadata::Key" newName="dropped" />
+<renamedProperty oldName="[The Skypark Installer]TSP_Installer.LicensingManager/LicenseApplication TSP_Installer.LicensingManager/ApplicationMetadata::App" newName="dropped" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.LicensingManager/&lt;&gt;c" newName="[The Skypark Installer]A.a/B"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingManager/&lt;&gt;c::&lt;GetValidApps&gt;b__3_0[1]([The Skypark Installer]TSP_Installer.LicensingManager/ApplicationMetadata)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingManager/&lt;&gt;c::&lt;GetValidApps&gt;b__3_1[1]([The Skypark Installer]TSP_Installer.LicensingManager/ApplicationMetadata)" newName="a" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.LicensingManager/&lt;&gt;c::.cctor[0]()" reason="special name" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.LicensingManager/&lt;&gt;c::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.LicensingManager/&lt;&gt;c TSP_Installer.LicensingManager/&lt;&gt;c::&lt;&gt;9" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Func`2&lt;TSP_Installer.LicensingManager/ApplicationMetadata,System.Boolean&gt; TSP_Installer.LicensingManager/&lt;&gt;c::&lt;&gt;9__3_0" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Func`2&lt;TSP_Installer.LicensingManager/ApplicationMetadata,TSP_Installer.LicensingManager/LicenseApplication&gt; TSP_Installer.LicensingManager/&lt;&gt;c::&lt;&gt;9__3_1" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.LicensingManager/&lt;&gt;c__DisplayClass4_0" newName="[The Skypark Installer]A.a/b"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingManager/&lt;&gt;c__DisplayClass4_0::&lt;Refresh&gt;b__0[0]()" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.LicensingManager/&lt;&gt;c__DisplayClass4_0::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.LicensingManager/ApplicationMetadata TSP_Installer.LicensingManager/&lt;&gt;c__DisplayClass4_0::app" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.App/ControlWriter" newName="[The Skypark Installer]TSP_Installer.App/A"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.App/ControlWriter::Disp[0]()" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App/ControlWriter::WriteFile[2]([mscorlib]System.Int32,[mscorlib]System.Boolean)" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.App/ControlWriter::.ctor[1]([mscorlib]System.String)" reason="special name" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.App/ControlWriter::Write[1]([mscorlib]System.Char)" reason="external base class or interface" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.App/ControlWriter::Write[1]([mscorlib]System.String)" reason="external base class or interface" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.App/ControlWriter::get_Encoding[0]()" reason="external base class or interface" />
+<renamedField oldName="[The Skypark Installer]System.IO.StreamWriter TSP_Installer.App/ControlWriter::Writer" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.App/ControlWriter::FilePath" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Collections.Generic.List`1&lt;System.String&gt; TSP_Installer.App/ControlWriter::Buffer" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Int32 TSP_Installer.App/ControlWriter::BufferSize" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.App/ControlWriter::CNewLine" newName="a" />
+<renamedProperty oldName="[The Skypark Installer]System.Text.Encoding TSP_Installer.App/ControlWriter::Encoding" newName="dropped" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c__DisplayClass24_0" newName="[The Skypark Installer]TSP_Installer.App/a"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c__DisplayClass24_0::&lt;App_Startup&gt;b__4[1]([mscorlib]System.String)" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c__DisplayClass24_0::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.Models.UpdateModule TSP_Installer.App/&lt;&gt;c__DisplayClass24_0::Module" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c__DisplayClass24_1" newName="[The Skypark Installer]TSP_Installer.App/B"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c__DisplayClass24_1::&lt;App_Startup&gt;b__5[0]()" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c__DisplayClass24_1::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.Models.Updater TSP_Installer.App/&lt;&gt;c__DisplayClass24_1::U" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c__DisplayClass24_2" newName="[The Skypark Installer]TSP_Installer.App/b"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c__DisplayClass24_2::&lt;App_Startup&gt;b__6[1]([The Skypark Installer]TSP_Installer.Models.Updater)" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c__DisplayClass24_2::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.Models.UpdateInfo TSP_Installer.App/&lt;&gt;c__DisplayClass24_2::U0" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Predicate`1&lt;TSP_Installer.Models.Updater&gt; TSP_Installer.App/&lt;&gt;c__DisplayClass24_2::&lt;&gt;9__6" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c" newName="[The Skypark Installer]TSP_Installer.App/C"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c::&lt;App_Startup&gt;b__24_0[1]([mscorlib]System.String)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c::&lt;App_Startup&gt;b__24_2[1]([mscorlib]System.String)" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c::&lt;App_Startup&gt;b__24_3[1]([The Skypark Installer]TSP_Installer.Models.UpdateInfo)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c::&lt;Uninstall&gt;b__29_0[0]()" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c::&lt;Uninstall&gt;b__29_1[0]()" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c::&lt;Uninstall&gt;b__29_4[0]()" newName="B" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c::&lt;Uninstall&gt;b__29_5[0]()" newName="b" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c::&lt;Uninstall&gt;b__29_2[0]()" newName="C" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c::&lt;Uninstall&gt;b__29_3[0]()" newName="c" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c::&lt;GenerateLogFile&gt;b__39_0[1]([System.Management]System.Management.ManagementObject)" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c::.cctor[0]()" reason="special name" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.App/&lt;&gt;c TSP_Installer.App/&lt;&gt;c::&lt;&gt;9" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Func`2&lt;System.String,System.Boolean&gt; TSP_Installer.App/&lt;&gt;c::&lt;&gt;9__24_0" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Predicate`1&lt;System.String&gt; TSP_Installer.App/&lt;&gt;c::&lt;&gt;9__24_2" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Action`1&lt;TSP_Installer.Models.UpdateInfo&gt; TSP_Installer.App/&lt;&gt;c::&lt;&gt;9__24_3" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Action TSP_Installer.App/&lt;&gt;c::&lt;&gt;9__29_0" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Action TSP_Installer.App/&lt;&gt;c::&lt;&gt;9__29_4" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.Action TSP_Installer.App/&lt;&gt;c::&lt;&gt;9__29_5" newName="B" />
+<renamedField oldName="[The Skypark Installer]System.Action TSP_Installer.App/&lt;&gt;c::&lt;&gt;9__29_2" newName="b" />
+<renamedField oldName="[The Skypark Installer]System.Action TSP_Installer.App/&lt;&gt;c::&lt;&gt;9__29_3" newName="C" />
+<renamedField oldName="[The Skypark Installer]System.Threading.ThreadStart TSP_Installer.App/&lt;&gt;c::&lt;&gt;9__29_1" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Func`2&lt;System.Management.ManagementObject,System.Object&gt; TSP_Installer.App/&lt;&gt;c::&lt;&gt;9__39_0" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.MainWindow/WindowCompositionAttributeData" newName="[The Skypark Installer]TSP_Installer.MainWindow/A"><renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow/WindowCompositionAttribute TSP_Installer.MainWindow/WindowCompositionAttributeData::Attribute" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.IntPtr TSP_Installer.MainWindow/WindowCompositionAttributeData::Data" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Int32 TSP_Installer.MainWindow/WindowCompositionAttributeData::SizeOfData" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.MainWindow/WindowCompositionAttribute" newName="[The Skypark Installer]TSP_Installer.MainWindow/a"><renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow/WindowCompositionAttribute TSP_Installer.MainWindow/WindowCompositionAttribute::WCA_ACCENT_POLICY" newName="A" />
+<skippedField name="[The Skypark Installer]System.Int32 TSP_Installer.MainWindow/WindowCompositionAttribute::value__" reason="special name" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.MainWindow/AccentState" newName="[The Skypark Installer]TSP_Installer.MainWindow/B"><renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow/AccentState TSP_Installer.MainWindow/AccentState::ACCENT_DISABLED" newName="A" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow/AccentState TSP_Installer.MainWindow/AccentState::ACCENT_ENABLE_GRADIENT" newName="a" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow/AccentState TSP_Installer.MainWindow/AccentState::ACCENT_ENABLE_TRANSPARENTGRADIENT" newName="B" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow/AccentState TSP_Installer.MainWindow/AccentState::ACCENT_ENABLE_BLURBEHIND" newName="b" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow/AccentState TSP_Installer.MainWindow/AccentState::ACCENT_INVALID_STATE" newName="C" />
+<skippedField name="[The Skypark Installer]System.Int32 TSP_Installer.MainWindow/AccentState::value__" reason="special name" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.MainWindow/AccentPolicy" newName="[The Skypark Installer]TSP_Installer.MainWindow/b"><renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow/AccentState TSP_Installer.MainWindow/AccentPolicy::AccentState" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Int32 TSP_Installer.MainWindow/AccentPolicy::AccentFlags" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Int32 TSP_Installer.MainWindow/AccentPolicy::GradientColor" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.Int32 TSP_Installer.MainWindow/AccentPolicy::AnimationId" newName="B" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.MainWindow/DownloadStages" newName="[The Skypark Installer]TSP_Installer.MainWindow/C"><renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow/DownloadStages TSP_Installer.MainWindow/DownloadStages::Checking" newName="A" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow/DownloadStages TSP_Installer.MainWindow/DownloadStages::Downloading" newName="a" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow/DownloadStages TSP_Installer.MainWindow/DownloadStages::Unpacking" newName="B" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow/DownloadStages TSP_Installer.MainWindow/DownloadStages::Installing" newName="b" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow/DownloadStages TSP_Installer.MainWindow/DownloadStages::Failed" newName="C" />
+<skippedField name="[The Skypark Installer]System.Int32 TSP_Installer.MainWindow/DownloadStages::value__" reason="special name" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c" newName="[The Skypark Installer]TSP_Installer.MainWindow/c"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c::&lt;.ctor&gt;b__6_0[2]([mscorlib]System.Object,[mscorlib]System.EventArgs)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c::&lt;Exit&gt;b__16_1[1]([mscorlib]System.String)" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c::.cctor[0]()" reason="special name" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c TSP_Installer.MainWindow/&lt;&gt;c::&lt;&gt;9" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.EventHandler TSP_Installer.MainWindow/&lt;&gt;c::&lt;&gt;9__6_0" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Predicate`1&lt;System.String&gt; TSP_Installer.MainWindow/&lt;&gt;c::&lt;&gt;9__16_1" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass13_0" newName="[The Skypark Installer]TSP_Installer.MainWindow/D"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass13_0::&lt;StepGoTo&gt;b__0[0]()" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass13_0::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass13_0::&lt;&gt;4__this" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Int16 TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass13_0::Index" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Grid TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass13_0::g" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass14_0" newName="[The Skypark Installer]TSP_Installer.MainWindow/d"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass14_0::&lt;UpdateStatus&gt;b__0[0]()" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass14_0::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass14_0::State" newName="A" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass14_0::&lt;&gt;4__this" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass15_0" newName="[The Skypark Installer]TSP_Installer.MainWindow/E"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass15_0::&lt;UpdateDownloadUI&gt;b__0[0]()" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass15_0::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass15_0::&lt;&gt;4__this" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Grid TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass15_0::El" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Single TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass15_0::Progress" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Border TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass15_0::FillChecking" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Border TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass15_0::FillDownload" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Border TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass15_0::FillUnpacking" newName="B" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Border TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass15_0::FillInstalling" newName="b" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Border TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass15_0::Outline" newName="C" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow/DownloadStages TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass15_0::Stage" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.TextBlock TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass15_0::Status" newName="A" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.Models.Updater TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass15_0::Updtr" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass16_0" newName="[The Skypark Installer]TSP_Installer.MainWindow/e"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass16_0::&lt;Exit&gt;b__0[0]()" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass16_0::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]System.Int32 TSP_Installer.MainWindow/&lt;&gt;c__DisplayClass16_0::Code" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.Models.TaskBarFinder/TaskBarLocation" newName="[The Skypark Installer]A.F/A"><renamedField oldName="[The Skypark Installer]TSP_Installer.Models.TaskBarFinder/TaskBarLocation TSP_Installer.Models.TaskBarFinder/TaskBarLocation::TOP" newName="A" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.Models.TaskBarFinder/TaskBarLocation TSP_Installer.Models.TaskBarFinder/TaskBarLocation::BOTTOM" newName="a" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.Models.TaskBarFinder/TaskBarLocation TSP_Installer.Models.TaskBarFinder/TaskBarLocation::LEFT" newName="B" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.Models.TaskBarFinder/TaskBarLocation TSP_Installer.Models.TaskBarFinder/TaskBarLocation::RIGHT" newName="b" />
+<skippedField name="[The Skypark Installer]System.Int32 TSP_Installer.Models.TaskBarFinder/TaskBarLocation::value__" reason="special name" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass25_0" newName="[The Skypark Installer]A.f/A"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass25_0::&lt;SetDownloadDir&gt;b__2[1]([mscorlib]System.IO.DriveInfo)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass25_0::&lt;SetDownloadDir&gt;b__3[1]([mscorlib]System.IO.DriveInfo)" newName="a" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass25_0::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass25_0::SysPath" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.IO.DriveInfo TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass25_0::SysDrive" newName="A" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.Models.Updater TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass25_0::&lt;&gt;4__this" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Func`2&lt;System.IO.DriveInfo,System.Boolean&gt; TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass25_0::&lt;&gt;9__3" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c" newName="[The Skypark Installer]A.f/a"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c::&lt;SetDownloadDir&gt;b__25_4[1]([mscorlib]System.IO.DriveInfo)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c::&lt;Download&gt;b__26_3[1]([System.IO.Compression]System.IO.Compression.ZipArchiveEntry)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c::&lt;Download&gt;b__26_5[1]([mscorlib]System.Int32)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c::&lt;Download&gt;b__26_6[1]([mscorlib]System.Int32)" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c::&lt;Download&gt;b__26_4[1]([mscorlib]System.Int32)" newName="B" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c::&lt;Download&gt;b__26_7[1]([mscorlib]System.Int32)" newName="b" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c::&lt;Install&gt;b__27_1[1]([mscorlib]System.String)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c::&lt;Install&gt;b__27_2[1]([System.IO.Compression]System.IO.Compression.ZipArchiveEntry)" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c::&lt;Exit&gt;b__29_0[0]()" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c::&lt;SetInstall&gt;b__32_0[1]([mscorlib]System.Int32)" newName="C" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c::.cctor[0]()" reason="special name" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c TSP_Installer.Models.Updater/&lt;&gt;c::&lt;&gt;9" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Func`2&lt;System.IO.DriveInfo,System.Int64&gt; TSP_Installer.Models.Updater/&lt;&gt;c::&lt;&gt;9__25_4" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Predicate`1&lt;System.IO.Compression.ZipArchiveEntry&gt; TSP_Installer.Models.Updater/&lt;&gt;c::&lt;&gt;9__26_3" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Predicate`1&lt;System.Int32&gt; TSP_Installer.Models.Updater/&lt;&gt;c::&lt;&gt;9__26_5" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Predicate`1&lt;System.Int32&gt; TSP_Installer.Models.Updater/&lt;&gt;c::&lt;&gt;9__26_6" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.Predicate`1&lt;System.Int32&gt; TSP_Installer.Models.Updater/&lt;&gt;c::&lt;&gt;9__26_4" newName="B" />
+<renamedField oldName="[The Skypark Installer]System.Predicate`1&lt;System.Int32&gt; TSP_Installer.Models.Updater/&lt;&gt;c::&lt;&gt;9__26_7" newName="b" />
+<renamedField oldName="[The Skypark Installer]System.Func`2&lt;System.String,System.String&gt; TSP_Installer.Models.Updater/&lt;&gt;c::&lt;&gt;9__27_1" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Predicate`1&lt;System.IO.Compression.ZipArchiveEntry&gt; TSP_Installer.Models.Updater/&lt;&gt;c::&lt;&gt;9__27_2" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.Action TSP_Installer.Models.Updater/&lt;&gt;c::&lt;&gt;9__29_0" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Predicate`1&lt;System.Int32&gt; TSP_Installer.Models.Updater/&lt;&gt;c::&lt;&gt;9__32_0" newName="C" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass26_0" newName="[The Skypark Installer]A.f/B"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass26_0::&lt;Download&gt;b__1[2]([mscorlib]System.Object,[System]System.ComponentModel.AsyncCompletedEventArgs)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass26_0::&lt;Download&gt;b__2[0]()" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass26_0::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass26_0::DownloadPath" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass26_0::TempDir" newName="a" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.Models.Updater TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass26_0::&lt;&gt;4__this" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Threading.ThreadStart TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass26_0::&lt;&gt;9__2" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass27_0" newName="[The Skypark Installer]A.f/b"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass27_0::&lt;Install&gt;b__0[0]()" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass27_0::.ctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.Models.Updater TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass27_0::&lt;&gt;4__this" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass27_0::TempDl" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass27_0::TempDir" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.Models.Updater/&lt;&gt;c__DisplayClass27_0::FileHashName" newName="B" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.LicensingManager/&lt;&gt;c__DisplayClass4_0/&lt;&lt;Refresh&gt;b__0&gt;d" newName="[The Skypark Installer]A.a/b/A"><skippedMethod name="[The Skypark Installer]TSP_Installer.LicensingManager/&lt;&gt;c__DisplayClass4_0/&lt;&lt;Refresh&gt;b__0&gt;d::MoveNext[0]()" reason="external base class or interface" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.LicensingManager/&lt;&gt;c__DisplayClass4_0/&lt;&lt;Refresh&gt;b__0&gt;d::SetStateMachine[1]([mscorlib]System.Runtime.CompilerServices.IAsyncStateMachine)" reason="external base class or interface" />
+<renamedField oldName="[The Skypark Installer]System.Int32 TSP_Installer.LicensingManager/&lt;&gt;c__DisplayClass4_0/&lt;&lt;Refresh&gt;b__0&gt;d::&lt;&gt;1__state" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Runtime.CompilerServices.AsyncTaskMethodBuilder TSP_Installer.LicensingManager/&lt;&gt;c__DisplayClass4_0/&lt;&lt;Refresh&gt;b__0&gt;d::&lt;&gt;t__builder" newName="A" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.LicensingManager/&lt;&gt;c__DisplayClass4_0 TSP_Installer.LicensingManager/&lt;&gt;c__DisplayClass4_0/&lt;&lt;Refresh&gt;b__0&gt;d::&lt;&gt;4__this" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Runtime.CompilerServices.TaskAwaiter TSP_Installer.LicensingManager/&lt;&gt;c__DisplayClass4_0/&lt;&lt;Refresh&gt;b__0&gt;d::&lt;&gt;u__1" newName="A" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.LicensingManager" newName="[The Skypark Installer]A.a"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingManager::GetApps[0]()" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingManager::GetValidApps[0]()" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.LicensingManager::Refresh[0]()" newName="B" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.LicensingManager::.ctor[0]()" reason="special name" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.ShellLink" newName="[The Skypark Installer]A.B"><skippedMethod name="[The Skypark Installer]TSP_Installer.ShellLink::.ctor[0]()" reason="runtime method" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.IShellLink" newName="[The Skypark Installer]A.b"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::GetPath[4]([mscorlib]System.Text.StringBuilder,[mscorlib]System.Int32,[mscorlib]System.IntPtr&amp;,[mscorlib]System.Int32)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::GetIDList[1]([mscorlib]System.IntPtr&amp;)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::SetIDList[1]([mscorlib]System.IntPtr)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::GetDescription[2]([mscorlib]System.Text.StringBuilder,[mscorlib]System.Int32)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::SetDescription[1]([mscorlib]System.String)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::GetWorkingDirectory[2]([mscorlib]System.Text.StringBuilder,[mscorlib]System.Int32)" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::SetWorkingDirectory[1]([mscorlib]System.String)" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::GetArguments[2]([mscorlib]System.Text.StringBuilder,[mscorlib]System.Int32)" newName="B" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::SetArguments[1]([mscorlib]System.String)" newName="B" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::GetHotkey[1]([mscorlib]System.Int16&amp;)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::SetHotkey[1]([mscorlib]System.Int16)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::GetShowCmd[1]([mscorlib]System.Int32&amp;)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::SetShowCmd[1]([mscorlib]System.Int32)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::GetIconLocation[3]([mscorlib]System.Text.StringBuilder,[mscorlib]System.Int32,[mscorlib]System.Int32&amp;)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::SetIconLocation[2]([mscorlib]System.String,[mscorlib]System.Int32)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::SetRelativePath[2]([mscorlib]System.String,[mscorlib]System.Int32)" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::Resolve[2]([mscorlib]System.IntPtr,[mscorlib]System.Int32)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.IShellLink::SetPath[1]([mscorlib]System.String)" newName="b" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]TSP_Installer.Models.TaskBarFinder" newName="[The Skypark Installer]A.F"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.Models.TaskBarFinder::GetTaskBarLocation[0]()" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.Models.TaskBarFinder::.ctor[0]()" reason="special name" />
+</renamedClass>
+<renamedClass oldName="[The Skypark Installer]&lt;PrivateImplementationDetails&gt;/__StaticArrayInitTypeSize=16" newName="[The Skypark Installer]A.G/A" />
+<renamedClass oldName="[The Skypark Installer]&lt;PrivateImplementationDetails&gt;/__StaticArrayInitTypeSize=174" newName="[The Skypark Installer]A.G/a" />
+</renamedTypes>
+<skippedTypes><skippedClass name="[The Skypark Installer]TSP_Installer.App" reason="filtered by BAML"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::App_Startup[2]([mscorlib]System.Object,[PresentationFramework]System.Windows.StartupEventArgs)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::RegisterProgram[1]([mscorlib]System.String)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::UnregisterProgram[1]([mscorlib]System.String)" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::CreateShortcuts[1]([mscorlib]System.String)" newName="B" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::RemoveShortcuts[1]([mscorlib]System.String)" newName="b" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::Uninstall[0]()" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::SaveConfig[0]()" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::CreateAppdataFolder[0]()" newName="B" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::ExcessCleanup[0]()" newName="b" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::CurrentDomain_AssemblyResolve[2]([mscorlib]System.Object,[mscorlib]System.ResolveEventArgs)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::get_AssemblyDirectory[0]()" newName="C" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::Close[0]()" newName="c" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::Application_DispatcherUnhandledException[2]([mscorlib]System.Object,[WindowsBase]System.Windows.Threading.DispatcherUnhandledExceptionEventArgs)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::AppDomain_UnhandledException[2]([mscorlib]System.Object,[mscorlib]System.UnhandledExceptionEventArgs)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::GenerateLogFile[2]([mscorlib]System.String,[mscorlib]System.Exception)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::CheckFor45DotVersion[1]([mscorlib]System.Int32)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::InitializeComponent[0]()" newName="D" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::Main[0]()" newName="d" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.App::&lt;App_Startup&gt;b__24_1[0]()" newName="E" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.App::.ctor[0]()" reason="special name" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.App::.cctor[0]()" reason="special name" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.MainWindow TSP_Installer.App::MW" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Collections.Generic.List`1&lt;System.String&gt; TSP_Installer.App::ArgsList" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.DateTime TSP_Installer.App::DT" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.App::CacheTime" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Reflection.Assembly TSP_Installer.App::ThisApp" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Collections.Generic.List`1&lt;TSP_Installer.Models.Updater&gt; TSP_Installer.App::Updaters" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Random TSP_Installer.App::Rnd" newName="A" />
+<renamedField oldName="[The Skypark Installer]TSP_Installer.App/ControlWriter TSP_Installer.App::ConsoleContent" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Web.Script.Serialization.JavaScriptSerializer TSP_Installer.App::JSSerializer" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.App::ConfigPath" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.App::AppDataDirectory" newName="B" />
+<renamedField oldName="[The Skypark Installer]System.Collections.Generic.Dictionary`2&lt;System.String,System.String&gt; TSP_Installer.App::Config" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.App::DefaultInstallDir" newName="b" />
+<renamedField oldName="[The Skypark Installer]System.Guid TSP_Installer.App::UninstallGuid" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.App::InstallDir" newName="C" />
+<renamedField oldName="[The Skypark Installer]System.Boolean TSP_Installer.App::IsInitialInstall" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Boolean TSP_Installer.App::IsInstalled" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.App::Channel" newName="c" />
+<renamedField oldName="[The Skypark Installer]System.Boolean TSP_Installer.App::IsDev" newName="B" />
+<renamedField oldName="[The Skypark Installer]System.Boolean TSP_Installer.App::LocationSet" newName="b" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.App::VersionChannel" newName="D" />
+<renamedField oldName="[The Skypark Installer]System.String TSP_Installer.App::VersionDownload" newName="d" />
+<renamedField oldName="[The Skypark Installer]System.Collections.Generic.List`1&lt;TSP_Installer.Models.UpdateInfo&gt; TSP_Installer.App::Products" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Collections.Generic.Dictionary`2&lt;System.String,System.Collections.Generic.List`1&lt;System.String&gt;&gt; TSP_Installer.App::ExcessCleanupIndex" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Boolean TSP_Installer.App::_contentLoaded" newName="C" />
+<renamedProperty oldName="[The Skypark Installer]System.String TSP_Installer.App::AssemblyDirectory" newName="dropped" />
+</skippedClass>
+<skippedClass name="[The Skypark Installer]TSP_Installer.MainWindow" reason="filtered by BAML"><renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow::SetWindowCompositionAttribute[2]([mscorlib]System.IntPtr,[The Skypark Installer]TSP_Installer.MainWindow/WindowCompositionAttributeData&amp;)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow::EnableBlur[0]()" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow::StepGoTo[2]([PresentationFramework]System.Windows.Controls.Grid,[mscorlib]System.Int16)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow::UpdateStatus[1]([mscorlib]System.String)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow::UpdateDownloadUI[3]([The Skypark Installer]TSP_Installer.Models.Updater,[mscorlib]System.Single,[The Skypark Installer]TSP_Installer.MainWindow/DownloadStages)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow::Exit[1]([mscorlib]System.Int32)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow::Window_Drag[2]([mscorlib]System.Object,[PresentationCore]System.Windows.Input.MouseButtonEventArgs)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow::Button_Click[2]([mscorlib]System.Object,[PresentationCore]System.Windows.RoutedEventArgs)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow::Window_Closing[2]([mscorlib]System.Object,[System]System.ComponentModel.CancelEventArgs)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow::TextBox_LostKeyboardFocus[2]([mscorlib]System.Object,[PresentationCore]System.Windows.Input.KeyboardFocusChangedEventArgs)" newName="A" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow::StepClick[2]([mscorlib]System.Object,[PresentationCore]System.Windows.RoutedEventArgs)" newName="a" />
+<renamedMethod oldName="[The Skypark Installer]TSP_Installer.MainWindow::System.Windows.Markup.IComponentConnector.Connect[2]([mscorlib]System.Int32,[mscorlib]System.Object)" newName="A" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.MainWindow::.ctor[1]([mscorlib]System.Collections.Generic.List`1&lt;[mscorlib]System.String&gt;)" reason="special name" />
+<skippedMethod name="[The Skypark Installer]TSP_Installer.MainWindow::InitializeComponent[0]()" reason="external base class or interface" />
+<renamedField oldName="[The Skypark Installer]System.Collections.Generic.List`1&lt;System.String&gt; TSP_Installer.MainWindow::ArgsList" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Nullable`1&lt;System.Int32&gt; TSP_Installer.MainWindow::ExpitCode" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Boolean TSP_Installer.MainWindow::ExitReady" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Boolean TSP_Installer.MainWindow::OnBoardReady" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Grid TSP_Installer.MainWindow::CurrentPanel" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Int16 TSP_Installer.MainWindow::Step" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Grid TSP_Installer.MainWindow::background_container" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Canvas TSP_Installer.MainWindow::background_content" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Media.MatrixTransform TSP_Installer.MainWindow::ButtonMatrixTransform" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Button TSP_Installer.MainWindow::minimizeBtn" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Button TSP_Installer.MainWindow::closeBtn" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Grid TSP_Installer.MainWindow::steps_panel" newName="B" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Grid TSP_Installer.MainWindow::steps_panel_onboard" newName="b" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.TextBox TSP_Installer.MainWindow::InstallLocationField" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Button TSP_Installer.MainWindow::InstallLocationBtn" newName="B" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.TextBlock TSP_Installer.MainWindow::StatusText" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.StackPanel TSP_Installer.MainWindow::ProgressStack" newName="A" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Button TSP_Installer.MainWindow::last_card_close_btn" newName="b" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Button TSP_Installer.MainWindow::last_card_support_btn" newName="C" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Grid TSP_Installer.MainWindow::steps_panel_uninstall" newName="C" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.TextBlock TSP_Installer.MainWindow::uninstall_title_txtb" newName="a" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.TextBlock TSP_Installer.MainWindow::uninstall_state_txtb" newName="B" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Button TSP_Installer.MainWindow::uninstall_close_btn" newName="c" />
+<renamedField oldName="[The Skypark Installer]System.Windows.Controls.Grid TSP_Installer.MainWindow::steps_panel_failed" newName="c" />
+<renamedField oldName="[The Skypark Installer]System.Boolean TSP_Installer.MainWindow::_contentLoaded" newName="B" />
+</skippedClass>
+</skippedTypes>
+<renamedResources><renamedResource oldName="TSP_Installer.Properties.Resources.resources" newName="A.C.resources" /></renamedResources>
+<skippedResources><skippedResource name="The Skypark Installer.g.resources" reason="no clear new name" /><skippedResource name="TSP_Installer.Assembly.BouncyCastle.Crypto.dll" reason="no clear new name" /><skippedResource name="TSP_Installer.Assembly.Newtonsoft.Json.dll" reason="no clear new name" /><skippedResource name="TSP_Installer.Assembly.Microsoft.WindowsAPICodePack.dll" reason="no clear new name" /><skippedResource name="TSP_Installer.Assembly.Microsoft.WindowsAPICodePack.Shell.dll" reason="no clear new name" /></skippedResources>
+</mapping>

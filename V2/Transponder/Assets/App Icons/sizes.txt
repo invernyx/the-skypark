@@ -1,0 +1,9 @@
+16 x
+32 x
+48 x
+96 x
+128 x
+256 x
+512 x
+
+https://stackoverflow.com/questions/3236115/which-icon-sizes-should-my-windows-applications-icon-include

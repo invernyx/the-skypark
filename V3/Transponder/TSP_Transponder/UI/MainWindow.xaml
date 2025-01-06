@@ -1,0 +1,516 @@
+﻿<Window x:Class="TSP_Transponder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Transponder v3" 
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        ShowActivated="False" 
+        WindowStartupLocation="CenterOwner" 
+        Background="Transparent"
+        AllowsTransparency="True"
+        SizeToContent="WidthAndHeight">
+    <Grid>
+        <Grid Background="{x:Static SystemParameters.WindowGlassBrush}" Opacity="0.2"></Grid>
+        <Grid Background="#FFFFFF" Opacity="0.9"></Grid>
+        <StackPanel>
+            <Grid VerticalAlignment="Top" Background="#22000000" MouseLeftButtonDown="Window_Drag">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                    <Grid MinWidth="30" Background="#11000000">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+                            <StackPanel Name="clients_indicators_sim" Orientation="Horizontal" VerticalAlignment="Center"/>
+                            <StackPanel Name="clients_indicators_remote" Orientation="Horizontal" VerticalAlignment="Center"/>
+                            <StackPanel Name="clients_indicators_wifi" Orientation="Horizontal" VerticalAlignment="Center"/>
+                            <StackPanel Name="clients_indicators_lte" Orientation="Horizontal" VerticalAlignment="Center"/>
+                            <Border Name="speech_active" Visibility="Hidden" CornerRadius="5" Padding="10,0,10,0" Margin="10,0,0,0" VerticalAlignment="Center" BorderBrush="#6666FF" BorderThickness="1">
+                                <Border.Background>
+                                    <SolidColorBrush x:Name="MyAnimatedBrush" Color="#6666FF" />
+                                </Border.Background>
+                                <Border.Style>
+                                    <Style>
+                                        <Style.Triggers>
+                                            <EventTrigger RoutedEvent="Border.Loaded">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation AutoReverse="True" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#886666FF" RepeatBehavior="Forever" Duration="0:0:1">
+                                                            <ColorAnimation.EasingFunction>
+                                                                <SineEase EasingMode="EaseInOut"/>
+                                                            </ColorAnimation.EasingFunction>
+                                                        </ColorAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <StackPanel Orientation="Horizontal">
+                                    <Canvas Name="pulseBox" Width="12.000" Height="10.962" Margin="0,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent">
+                                        <Path Fill="#FFFFFF" Data="F1 M 0.893,8.466 L 3.234,8.466 C 3.243,8.466 3.251,8.462 3.260,8.461 L 6.231,10.698 C 6.931,11.225 7.505,10.938 7.505,10.061 L 7.505,0.903 C 7.505,0.025 6.931,-0.264 6.230,0.264 L 3.215,2.532 L 0.893,2.532 C 0.399,2.536 -0.001,2.938 0.000,3.433 L 0.000,7.565 C 0.000,8.058 0.400,8.466 0.893,8.466 Z"/>
+                                        <Path Fill="#FFFFFF" Data="F1 M 9.322,3.140 C 9.761,2.894 10.197,2.641 10.630,2.385 C 10.984,2.173 11.100,1.715 10.888,1.361 C 10.683,1.017 10.243,0.896 9.891,1.087 C 9.446,1.337 9.003,1.593 8.563,1.854 C 8.327,1.995 8.213,2.212 8.206,2.412 C 8.199,3.063 8.812,3.423 9.322,3.140 Z"/>
+                                        <Path Fill="#FFFFFF" Data="F1 M 8.568,9.136 C 9.008,9.395 9.450,9.653 9.896,9.902 C 10.249,10.096 10.693,9.974 10.896,9.626 C 11.100,9.278 11.003,8.829 10.655,8.618 C 10.204,8.344 9.749,8.079 9.285,7.829 C 8.793,7.566 8.207,7.936 8.207,8.493 C 8.205,8.763 8.329,8.995 8.568,9.136 Z"/>
+                                        <Path Fill="#FFFFFF" Data="F1 M 9.754,6.232 C 10.257,6.240 10.761,6.240 11.264,6.236 C 11.676,6.230 12.006,5.891 12.000,5.479 C 11.994,5.080 11.676,4.756 11.277,4.743 C 10.766,4.735 10.255,4.735 9.744,4.739 C 9.469,4.741 9.261,4.873 9.155,5.042 C 8.822,5.601 9.170,6.222 9.754,6.232 Z"/>
+                                    </Canvas>
+                                    <TextBlock Name="speech_active_name" Text="BRIGIT" Margin="0,-1,0,0" Foreground="#FFFFFF" FontSize="14"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                    <Grid MinWidth="80">
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
+                                <GradientStop Color="#11000000" Offset="0"/>
+                                <GradientStop Color="#00000000" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                    </Grid>
+                </StackPanel>        
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,0,0">
+                    <!--<Button x:Name="minimizeBtn" Style="{StaticResource minimizeBtnStyle}" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Right" Click="Button_Click" Uid="WindowMinimize" ToolTip="Minimize" />-->
+                    <TextBlock Name="appVersion" Text="000000" Foreground="#88000000" VerticalAlignment="Center" Margin="0,0,10,0" FontSize="12" PreviewMouseLeftButtonDown="AppVersion_MouseLeftButtonUp"/>
+                    <Button x:Name="closeBtn" Style="{StaticResource closeBtnStyle}" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Right" Click="Button_Click" Uid="WindowClose" ToolTip="Close" />
+                </StackPanel>
+            </Grid>
+            <Grid Name="pages_collection" MinWidth="500">
+                <Grid Name="page_loading" Visibility="Visible">
+                    <StackPanel Margin="30,30,30,40" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Margin="0,0,0,0" VerticalAlignment="Center">
+                            <TextBlock Text="Loading..." FontSize="28" TextWrapping="Wrap" Opacity="0.5" Foreground="#777777"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <Grid Name="page_error" Visibility="Collapsed">
+                    <StackPanel Margin="30,30,30,40" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Margin="0,0,0,0" VerticalAlignment="Center" Width="350">
+                            <Grid Margin="0,0,0,15" Height="130" HorizontalAlignment="Stretch">
+                                <Canvas Width="85.000" Height="40.000" Margin="-150,0,0,0" HorizontalAlignment="Left">
+                                    <Canvas.RenderTransform>
+                                        <ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+                                    </Canvas.RenderTransform>
+                                    <Canvas.Style>
+                                        <Style>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=page_error,Path=Visibility}" Value="Visible">
+                                                    <DataTrigger.EnterActions>
+                                                        <BeginStoryboard x:Name="move">
+                                                            <Storyboard>
+                                                                <ThicknessAnimationUsingKeyFrames RepeatBehavior="Forever" Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+                                                                    <SplineThicknessKeyFrame KeyTime="00:00:00" Value="400,-30,0,0" />
+                                                                    <SplineThicknessKeyFrame KeyTime="00:00:04.03457" Value="-140,-30,0,0" />
+                                                                </ThicknessAnimationUsingKeyFrames>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.EnterActions>
+                                                    <DataTrigger.ExitActions>
+                                                        <StopStoryboard BeginStoryboardName="move"/>
+                                                    </DataTrigger.ExitActions>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Canvas.Style>
+                                    <Path Data=" M 80.000,15.000 L 80.000,10.000 L 75.000,10.000 L 75.000,5.000 L 70.000,5.000 L 65.000,5.000 L 65.000,0.000 L 60.000,0.000 L 55.000,0.000 L 50.000,0.000 L 45.000,0.000 L 45.000,5.000 L 40.000,5.000 L 40.000,10.000 L 35.000,10.000 L 30.000,10.000 L 30.000,5.000 L 25.000,5.000 L 20.000,5.000 L 20.000,10.000 L 15.000,10.000 L 10.000,10.000 L 10.000,15.000 L 5.000,15.000 L 5.000,20.000 L 0.000,20.000 L 0.000,25.000 L 5.000,25.000 L 5.000,30.000 L 10.000,30.000 L 10.000,35.000 L 15.000,35.000 L 20.000,35.000 L 20.000,40.000 L 25.000,40.000 L 30.000,40.000 L 35.000,40.000 L 40.000,40.000 L 45.000,40.000 L 50.000,40.000 L 55.000,40.000 L 60.000,40.000 L 65.000,40.000 L 70.000,40.000 L 70.000,35.000 L 75.000,35.000 L 80.000,35.000 L 80.000,30.000 L 85.000,30.000 L 85.000,25.000 L 85.000,20.000 L 85.000,15.000 L 80.000,15.000 Z">
+                                        <Path.Fill>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#11000000" Offset="0"/>
+                                                <GradientStop Color="#22000000" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Path.Fill>
+                                    </Path>
+                                </Canvas>
+                                <Canvas Width="85.000" Height="40.000" Margin="-150,0,0,0" HorizontalAlignment="Left">
+                                    <Canvas.Style>
+                                        <Style>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=page_error,Path=Visibility}" Value="Visible">
+                                                    <DataTrigger.EnterActions>
+                                                        <BeginStoryboard x:Name="move">
+                                                            <Storyboard>
+                                                                <ThicknessAnimationUsingKeyFrames RepeatBehavior="Forever" Storyboard.TargetProperty="Margin" BeginTime="00:00:02">
+                                                                    <SplineThicknessKeyFrame KeyTime="00:00:00" Value="400,70,0,0" />
+                                                                    <SplineThicknessKeyFrame KeyTime="00:00:03.15282" Value="-140,70,0,0" />
+                                                                </ThicknessAnimationUsingKeyFrames>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.EnterActions>
+                                                    <DataTrigger.ExitActions>
+                                                        <StopStoryboard BeginStoryboardName="move"/>
+                                                    </DataTrigger.ExitActions>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Canvas.Style>
+                                    <Path Data=" M 80.000,15.000 L 80.000,10.000 L 75.000,10.000 L 75.000,5.000 L 70.000,5.000 L 65.000,5.000 L 65.000,0.000 L 60.000,0.000 L 55.000,0.000 L 50.000,0.000 L 45.000,0.000 L 45.000,5.000 L 40.000,5.000 L 40.000,10.000 L 35.000,10.000 L 30.000,10.000 L 30.000,5.000 L 25.000,5.000 L 20.000,5.000 L 20.000,10.000 L 15.000,10.000 L 10.000,10.000 L 10.000,15.000 L 5.000,15.000 L 5.000,20.000 L 0.000,20.000 L 0.000,25.000 L 5.000,25.000 L 5.000,30.000 L 10.000,30.000 L 10.000,35.000 L 15.000,35.000 L 20.000,35.000 L 20.000,40.000 L 25.000,40.000 L 30.000,40.000 L 35.000,40.000 L 40.000,40.000 L 45.000,40.000 L 50.000,40.000 L 55.000,40.000 L 60.000,40.000 L 65.000,40.000 L 70.000,40.000 L 70.000,35.000 L 75.000,35.000 L 80.000,35.000 L 80.000,30.000 L 85.000,30.000 L 85.000,25.000 L 85.000,20.000 L 85.000,15.000 L 80.000,15.000 Z">
+                                        <Path.Fill>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#11000000" Offset="0"/>
+                                                <GradientStop Color="#22000000" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Path.Fill>
+                                    </Path>
+                                </Canvas>
+                                <Canvas Width="115.000" Height="110.000" Margin="130,0,0,0" HorizontalAlignment="Left">
+                                    <Canvas.Style>
+                                        <Style>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=page_error,Path=Visibility}" Value="Visible">
+                                                    <DataTrigger.EnterActions>
+                                                        <BeginStoryboard x:Name="move">
+                                                            <Storyboard>
+                                                                <ThicknessAnimationUsingKeyFrames RepeatBehavior="Forever" Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+                                                                    <EasingThicknessKeyFrame KeyTime="00:00:00" Value="100,20,0,0">
+                                                                        <EasingThicknessKeyFrame.EasingFunction>
+                                                                            <SineEase EasingMode="EaseInOut"/>
+                                                                        </EasingThicknessKeyFrame.EasingFunction>
+                                                                    </EasingThicknessKeyFrame>
+                                                                    <EasingThicknessKeyFrame KeyTime="00:00:03" Value="130,13,0,0">
+                                                                        <EasingThicknessKeyFrame.EasingFunction>
+                                                                            <SineEase EasingMode="EaseInOut"/>
+                                                                        </EasingThicknessKeyFrame.EasingFunction>
+                                                                    </EasingThicknessKeyFrame>
+                                                                    <EasingThicknessKeyFrame KeyTime="00:00:05" Value="110,9,0,0">
+                                                                        <EasingThicknessKeyFrame.EasingFunction>
+                                                                            <SineEase EasingMode="EaseInOut"/>
+                                                                        </EasingThicknessKeyFrame.EasingFunction>
+                                                                    </EasingThicknessKeyFrame>
+                                                                    <EasingThicknessKeyFrame KeyTime="00:00:08" Value="120,8,0,0">
+                                                                        <EasingThicknessKeyFrame.EasingFunction>
+                                                                            <SineEase EasingMode="EaseInOut"/>
+                                                                        </EasingThicknessKeyFrame.EasingFunction>
+                                                                    </EasingThicknessKeyFrame>
+                                                                    <EasingThicknessKeyFrame KeyTime="00:00:010" Value="100,20,0,0">
+                                                                        <EasingThicknessKeyFrame.EasingFunction>
+                                                                            <SineEase EasingMode="EaseInOut"/>
+                                                                        </EasingThicknessKeyFrame.EasingFunction>
+                                                                    </EasingThicknessKeyFrame>
+                                                                </ThicknessAnimationUsingKeyFrames>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.EnterActions>
+                                                    <DataTrigger.ExitActions>
+                                                        <StopStoryboard BeginStoryboardName="move"/>
+                                                    </DataTrigger.ExitActions>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Canvas.Style>
+                                    <Path Fill="#ff000000" Data="F1 M 80.000,35.000 L 80.000,30.000 L 85.000,30.000 L 85.000,35.000 L 80.000,35.000 Z M 110.000,44.753 L 110.000,40.000 L 105.000,40.000 L 105.000,35.000 L 100.000,35.000 L 100.000,30.000 L 95.000,30.000 L 95.000,25.000 L 90.000,25.000 L 90.000,20.000 L 85.000,20.000 L 85.000,15.000 L 80.000,15.000 L 80.000,10.000 L 75.000,10.000 L 70.000,10.000 L 70.000,5.000 L 65.000,5.000 L 60.000,5.000 L 60.000,0.000 L 55.000,0.000 L 50.000,0.000 L 45.000,0.000 L 40.000,0.000 L 40.000,5.000 L 45.000,5.000 L 50.000,5.000 L 50.000,10.000 L 55.000,10.000 L 60.000,10.000 L 60.000,15.000 L 65.000,15.000 L 65.000,20.000 L 70.000,20.000 L 70.000,25.000 L 70.000,30.000 L 65.000,30.000 L 65.000,35.000 L 60.000,35.000 L 55.000,35.000 L 50.000,35.000 L 45.000,35.000 L 40.000,35.000 L 35.000,35.000 L 30.000,35.000 L 25.000,35.000 L 20.000,35.000 L 15.000,35.000 L 10.000,35.000 L 5.000,35.000 L 5.000,40.000 L 10.000,40.000 L 15.000,40.000 L 15.000,45.000 L 10.000,45.000 L 5.000,45.000 L 0.000,45.000 L 0.000,50.000 L 5.000,50.000 L 10.000,50.000 L 15.000,50.000 L 15.000,55.000 L 20.000,55.000 L 20.000,60.000 L 20.000,65.000 L 20.000,70.000 L 15.000,70.000 L 15.000,75.000 L 10.000,75.000 L 10.000,80.000 L 15.000,80.000 L 20.000,80.000 L 20.000,85.000 L 20.000,90.000 L 15.000,90.000 L 15.000,95.000 L 10.000,95.000 L 10.000,100.000 L 5.000,100.000 L 5.000,105.000 L 0.000,105.000 L 0.000,110.000 L 5.000,110.000 L 10.000,110.000 L 15.000,110.000 L 15.000,105.000 L 20.000,105.000 L 25.000,105.000 L 25.000,100.000 L 30.000,100.000 L 35.000,100.000 L 35.000,95.000 L 40.000,95.000 L 40.000,90.000 L 45.000,90.000 L 45.000,85.000 L 50.000,85.000 L 50.000,80.000 L 50.000,75.000 L 50.000,70.000 L 50.000,65.000 L 50.000,60.000 L 55.000,60.000 L 55.000,55.000 L 55.000,50.000 L 60.000,50.000 L 60.000,45.000 L 65.000,45.000 L 70.000,45.000 L 70.000,40.000 L 75.000,40.000 L 80.000,40.000 L 85.000,40.000 L 90.000,40.000 L 95.000,40.000 L 95.000,45.000 L 100.000,45.000 L 105.000,45.000 L 110.000,45.000 L 110.000,49.753 L 115.000,49.753 L 115.000,44.753 L 110.000,44.753 Z"/>
+                                </Canvas>
+                            </Grid>
+                            <TextBlock Text="Well, that's not fun... :/" FontSize="28" TextWrapping="Wrap" Margin="0,0,0,10" TextAlignment="Center"/>
+                            <TextBlock Text="There was an issue connecting the Transponder to The Skypark infrastructure." FontSize="16" TextWrapping="Wrap" Margin="0,0,0,10"/>
+                            <TextBlock Name="page_error_code" FontSize="16" TextWrapping="Wrap" Text="Error Code: " Foreground="#777777"/>
+
+                            <Grid Margin="0,15,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Margin="0,0,5,0" Name="page_error_try_btn" Content="Try Again" Style="{StaticResource buttons}" HorizontalAlignment="Stretch" Click="Button_Click" Uid="Reconnect"></Button>
+                                <Button Grid.Column="1" Margin="5,0,0,0" Content="Close" Style="{StaticResource buttons}" HorizontalAlignment="Stretch" Click="Button_Click" Uid="WindowClose"></Button>
+                            </Grid>
+
+                            <Button Content="Contact Support" Margin="0,10,0,0" Style="{StaticResource buttons}" HorizontalAlignment="Stretch" Background="#B44646" Foreground="#FFFFFF" Click="Button_Click" Uid="Support"></Button>
+
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <Grid Name="page_unloading" Visibility="Collapsed">
+                    <StackPanel Margin="30,30,30,40" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Margin="0,0,0,0" VerticalAlignment="Center">
+                            <TextBlock Text="Pending deletion..." FontSize="28" TextWrapping="Wrap"/>
+                            <TextBlock Text="We're sad to see you go!" FontSize="16" TextWrapping="Wrap"/>
+                            <Button Grid.Column="0" Content="Cancel Uninstall" Margin="0,15,0,0" Style="{StaticResource buttons}" HorizontalAlignment="Stretch" Background="#B44646" Foreground="#FFFFFF" Click="Button_Click" Uid="CancelUninstall"></Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <Grid Name="page_login" Visibility="Collapsed">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,150,0,50">
+                        <Grid>
+                            <Border Name="page_login_email_highlight" Background="#77FF0000" CornerRadius="3" Margin="0,0,0,5" Opacity="0"/>
+                            <TextBlock Name="page_login_email_placeholder" Focusable="False" Text="Email" Style="{StaticResource textBoxPlaceholder}" Opacity="0.5"/>
+                            <TextBox Name="page_login_email_field" Width="350" Style="{StaticResource textBox}" Text="" KeyDown="TextBox_KeyDown" TextChanged="TextBox_TextChanged" Uid="placeholder_email"></TextBox>
+                        </Grid>
+                        <Grid>
+                            <Border Name="page_login_password_highlight" Background="#77FF0000" CornerRadius="3" Margin="0,0,0,5" Opacity="0"/>
+                            <TextBlock Name="page_login_password_placeholder" Focusable="False" Text="Password" Style="{StaticResource textBoxPlaceholder}" Opacity="0.5"/>
+                            <PasswordBox Name="page_login_password_field" Width="350" Password="" Style="{StaticResource passwordBox}" KeyDown="PasswordBox_KeyDown" PasswordChanged="PasswordBox_PasswordChanged" Uid="placeholder_password"></PasswordBox>
+                        </Grid>
+                        <Grid Margin="0,10,0,0">
+                            <Button Name="page_login_submit_btn" Content="Connect" Margin="0" HorizontalAlignment="Right" Style="{StaticResource buttons}" Click="Button_Click" Uid="Login_Submit"></Button>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Name="page_onboard" Visibility="Collapsed" Width="500">
+
+                    <Grid Visibility="Hidden">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" VerticalAlignment="Center">
+                            <Border HorizontalAlignment="Center" Margin="10">
+                                <Border HorizontalAlignment="Center" Margin="0">
+                                    <StackPanel Margin="10">
+
+                                        <!-- https://thenounproject.com/search/?q=audio&i=3076812 -->
+                                        <Canvas Width="128.349" Height="136.269" Margin="0,0,0,20">
+                                            <Path Fill="#ffb91100" Data=" M 25.799,69.872 L 27.519,81.696 L 49.878,91.371 L 54.393,104.915 L 59.982,91.801 L 60.412,67.507 L 29.884,67.507 L 25.799,69.872 Z"/>
+                                            <Path Fill="#ffb91100" Data=" M 103.196,69.872 L 101.476,81.696 L 79.117,91.371 L 74.817,104.915 L 69.227,91.801 L 68.582,67.507 L 99.111,67.507 L 103.196,69.872 Z"/>
+                                            <Path Fill="#ff333333" Data=" M 51.598,72.237 C 51.598,72.237 56.543,79.762 51.598,79.332 C 51.598,79.332 52.673,79.332 52.673,77.827 C 52.673,77.827 50.308,81.911 43.213,73.097 C 43.213,73.097 44.288,75.462 46.223,77.182 C 46.223,77.182 43.213,75.677 40.633,70.947 C 38.053,66.217 30.529,68.797 28.164,72.667 C 28.164,72.667 31.604,69.657 33.754,69.657 C 33.754,69.657 27.089,71.162 28.809,78.257 C 28.809,78.257 29.239,72.667 34.398,71.807 C 34.398,71.807 31.389,72.452 31.174,75.892 C 31.174,75.892 31.819,73.742 33.754,72.882 C 33.754,72.882 32.034,83.201 43.213,86.641 C 43.213,86.641 37.623,84.276 35.688,79.977 C 35.688,79.977 40.203,88.576 51.598,85.996 C 51.598,85.996 54.608,91.586 53.963,102.121 C 53.963,102.121 55.683,95.456 54.823,90.511 C 54.823,90.511 55.683,93.951 55.468,97.176 C 55.468,97.176 56.973,91.156 54.608,84.706 C 54.608,84.706 58.477,81.481 57.188,77.612 C 57.188,77.612 57.188,79.976 56.328,81.051 C 56.113,74.817 51.598,72.237 51.598,72.237 L 51.598,72.237 Z M 76.967,72.237 C 76.967,72.237 72.022,79.762 76.967,79.332 C 76.967,79.332 75.892,79.332 75.892,77.827 C 75.892,77.827 78.257,81.911 85.351,73.097 C 85.351,73.097 84.276,75.462 82.341,77.182 C 82.341,77.182 85.351,75.677 87.931,70.947 C 90.511,66.217 98.036,68.797 100.401,72.667 C 100.401,72.667 96.961,69.657 94.811,69.657 C 94.811,69.657 101.476,71.162 99.756,78.257 C 99.756,78.257 99.326,72.667 94.166,71.807 C 94.166,71.807 97.176,72.452 97.391,75.892 C 97.391,75.892 96.746,73.742 94.811,72.882 C 94.811,72.882 96.531,83.201 85.351,86.641 C 85.351,86.641 90.941,84.276 92.876,79.977 C 92.876,79.977 88.361,88.576 76.967,85.996 C 76.967,85.996 73.957,91.586 74.602,102.121 C 74.602,102.121 72.882,95.456 73.742,90.511 C 73.742,90.511 72.882,93.951 73.097,97.176 C 73.097,97.176 71.592,91.156 73.957,84.706 C 73.957,84.706 70.087,81.481 71.377,77.612 C 71.377,77.612 71.377,79.976 72.237,81.051 C 72.667,74.817 76.967,72.237 76.967,72.237 L 76.967,72.237 Z M 64.282,123.620 C 64.282,123.620 58.907,124.265 56.758,121.255 L 57.832,99.111 L 55.253,120.610 C 55.253,120.610 54.608,127.704 57.832,130.714 C 57.832,130.714 56.113,128.349 56.113,125.770 C 56.113,125.770 56.973,132.434 63.637,132.434 C 63.637,132.434 61.917,136.519 57.617,135.444 C 57.617,135.444 59.122,135.444 60.197,134.799 C 60.197,134.799 56.328,136.519 53.103,130.714 C 53.103,130.714 54.608,132.434 56.328,133.079 C 56.328,133.079 49.878,129.639 50.738,117.815 C 50.738,117.815 49.878,121.900 50.738,125.340 C 50.738,125.340 48.588,122.115 50.738,112.655 C 52.888,103.195 46.653,94.596 46.653,94.596 C 46.653,94.596 49.663,99.541 49.878,104.915 C 49.878,104.915 47.728,89.866 34.613,86.641 C 34.613,86.641 47.298,91.156 48.158,107.495 C 48.158,107.495 47.083,100.401 44.288,97.176 C 44.288,97.176 48.373,104.270 48.158,120.825 C 48.158,120.825 44.933,109.645 33.969,103.625 C 33.969,103.625 38.483,106.205 40.633,111.580 C 40.633,111.580 34.613,101.046 12.254,95.886 C 12.254,95.886 14.834,93.306 17.629,93.521 C 17.629,93.521 15.264,93.951 14.404,95.241 C 14.404,95.241 18.489,91.371 29.024,96.316 C 29.024,96.316 24.939,89.651 13.329,87.501 C 13.329,87.501 19.564,89.006 22.144,91.586 C 22.144,91.586 15.694,87.716 0.000,85.351 C 0.000,85.351 1.720,80.836 9.030,77.182 C 9.030,77.182 5.590,78.902 3.010,82.556 C 3.010,82.556 7.955,76.537 14.619,76.537 C 14.619,76.537 11.395,76.967 8.600,79.117 C 8.600,79.117 12.684,75.892 23.649,75.892 C 23.649,75.892 18.704,73.312 12.469,72.882 C 12.469,72.882 15.049,73.312 18.489,74.602 C 18.489,74.602 13.544,73.097 6.880,73.742 C 6.880,73.742 10.750,69.227 15.479,67.077 C 15.479,67.077 13.114,68.152 9.890,72.022 C 9.890,72.022 14.404,67.507 20.854,65.787 C 20.854,65.787 23.004,56.328 32.034,47.083 C 32.034,47.083 29.024,46.223 26.444,47.513 C 26.444,47.513 28.809,42.998 35.043,42.783 C 35.043,42.783 31.174,42.138 28.379,43.428 C 28.379,43.428 35.903,38.483 43.428,39.988 C 43.428,39.988 39.558,38.483 33.109,37.623 C 33.109,37.623 37.623,36.978 40.633,37.623 C 40.633,37.623 37.623,29.024 29.024,22.574 C 29.024,22.574 32.894,26.014 34.613,29.669 C 34.613,29.669 28.164,21.069 17.844,15.049 C 17.844,15.049 16.339,25.584 20.209,36.333 C 20.209,36.333 17.199,30.314 16.339,23.219 C 16.339,23.219 15.909,38.268 25.369,49.878 C 25.369,49.878 21.284,55.898 19.779,61.487 C 19.779,61.487 20.639,55.468 22.789,52.888 C 22.789,52.888 19.349,56.328 18.274,61.702 C 18.274,61.702 9.675,52.673 7.955,35.903 C 7.955,35.903 9.460,47.513 14.189,51.598 C 14.189,51.598 10.320,47.083 9.675,39.558 C 9.675,39.558 11.824,43.428 14.189,44.288 C 14.189,44.288 5.590,33.969 9.460,0.000 C 9.460,0.000 8.815,6.665 10.105,13.544 C 10.105,13.544 9.460,6.020 11.180,0.860 C 11.180,0.860 22.789,5.375 29.884,15.049 C 29.884,15.049 26.014,8.815 20.424,3.870 C 20.424,3.870 48.158,11.395 54.823,32.679 C 54.823,32.679 54.823,28.164 53.103,25.154 C 53.103,25.154 55.468,28.164 56.113,31.604 C 56.113,31.604 57.617,24.939 52.243,18.489 C 57.188,20.854 57.832,26.444 64.282,27.089 C 70.732,26.444 71.377,20.854 76.322,18.489 C 70.732,24.724 72.022,31.604 72.022,31.604 C 72.452,28.164 75.032,25.154 75.032,25.154 C 73.312,28.379 73.312,32.679 73.312,32.679 C 79.977,11.179 107.710,3.870 107.710,3.870 C 102.121,9.245 98.251,15.479 98.251,15.479 C 105.345,5.805 116.955,1.290 116.955,1.290 C 118.890,6.880 118.030,13.974 118.030,13.974 C 119.105,7.525 118.460,0.860 118.460,0.860 C 122.760,34.398 113.945,45.148 113.945,45.148 C 116.310,44.073 118.460,40.418 118.460,40.418 C 117.815,47.943 113.945,52.458 113.945,52.458 C 118.675,48.588 120.180,36.978 120.180,36.978 C 118.460,53.533 109.860,62.777 109.860,62.777 C 109.000,57.402 105.345,53.963 105.345,53.963 C 107.495,56.758 108.355,62.562 108.355,62.562 C 106.850,57.187 102.766,50.953 102.766,50.953 C 112.225,39.343 111.795,24.294 111.795,24.294 C 110.935,31.389 107.925,37.408 107.925,37.408 C 112.655,26.229 111.150,15.694 111.150,15.694 C 100.831,21.284 94.381,29.884 94.381,29.884 C 96.101,26.014 99.971,22.359 99.971,22.359 C 91.156,28.809 88.361,37.408 88.361,37.408 C 91.371,36.763 95.886,37.408 95.886,37.408 C 89.006,38.483 85.566,39.988 85.566,39.988 C 93.091,38.483 100.616,43.428 100.616,43.428 C 98.036,42.353 93.951,42.783 93.951,42.783 C 100.186,43.213 102.551,47.513 102.551,47.513 C 100.186,46.438 96.961,47.083 96.961,47.083 C 105.990,56.543 108.140,65.787 108.140,65.787 C 114.590,67.507 119.105,72.022 119.105,72.022 C 115.880,68.582 113.515,67.077 113.515,67.077 C 118.460,69.442 122.115,73.742 122.115,73.742 C 115.665,73.097 110.505,74.602 110.505,74.602 C 113.730,73.527 116.525,72.882 116.525,72.882 C 110.290,73.312 105.345,75.892 105.345,75.892 C 116.310,75.892 120.395,79.117 120.395,79.117 C 117.385,76.967 113.730,76.752 113.730,76.752 C 120.395,77.182 125.340,82.771 125.340,82.771 C 122.760,79.332 119.320,77.397 119.320,77.397 C 126.844,81.481 128.349,85.566 128.349,85.566 C 112.870,87.931 106.420,91.801 106.420,91.801 C 109.000,89.221 115.235,87.716 115.235,87.716 C 104.055,89.866 99.541,96.531 99.541,96.531 C 109.645,91.586 114.160,95.456 114.160,95.456 C 113.300,93.951 110.935,93.736 110.935,93.736 C 113.515,93.306 116.310,96.101 116.310,96.101 C 94.166,102.121 88.361,112.225 88.361,112.225 C 90.726,106.850 95.026,104.270 95.026,104.270 C 84.061,109.860 80.836,121.470 80.836,121.470 C 80.406,104.915 84.706,97.821 84.706,97.821 C 82.126,101.046 80.836,108.140 80.836,108.140 C 81.481,91.371 94.381,87.286 94.381,87.286 C 81.266,90.726 79.117,105.560 79.117,105.560 C 79.547,99.971 82.341,95.241 82.341,95.241 C 82.341,95.241 76.107,103.410 78.257,113.300 C 80.406,122.760 78.257,125.984 78.257,125.984 C 79.117,122.545 78.257,118.460 78.257,118.460 C 79.117,130.069 72.667,133.724 72.667,133.724 C 74.817,133.079 75.892,131.359 75.892,131.359 C 72.237,136.949 68.582,135.444 68.582,135.444 C 69.657,136.089 71.162,136.089 71.162,136.089 C 67.077,137.164 65.142,133.079 65.142,133.079 C 71.592,133.079 72.667,126.414 72.667,126.414 C 72.667,128.779 70.947,131.359 70.947,131.359 C 74.387,128.349 73.527,121.255 73.527,121.255 L 70.947,99.756 L 72.022,121.900 C 69.657,124.265 64.282,123.620 64.282,123.620 L 64.282,123.620 Z"/>
+                                        </Canvas>
+                                        <TextBlock TextWrapping="Wrap" FontSize="16" LineHeight="19" FontWeight="SemiBold" TextAlignment="Center" LineStackingStrategy="BlockLineHeight" Text="The Skypark may contain scenarios depicting illicit activities." Margin="10,5,10,0"/>
+
+                                        <TextBlock TextWrapping="Wrap" FontSize="16" LineHeight="19" FontWeight="SemiBold" TextAlignment="Center" LineStackingStrategy="BlockLineHeight" Text="Do you want to be presented with this content?" Margin="10,5,10,10"/>
+
+                                        <TextBlock TextWrapping="Wrap" Opacity="0.5" TextAlignment="Center" Text="You can change this preference at any time through the Transponder's Preferences." Margin="10,0,10,0"/>
+
+                                    </StackPanel>
+                                </Border>
+                            </Border>
+                        </StackPanel>
+                        <Grid Grid.Row="1" Margin="20,0,20,20">
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                <Button Style="{StaticResource buttons}" FontSize="16" Margin="0,0,10,0" Click="StepClick" Uid="+_Illicit_0">NO</Button>
+                                <Button Style="{StaticResource buttons}" FontSize="16" Margin="0" Click="StepClick" Uid="+_Illicit_1">YES</Button>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Visibility="Hidden" Name="page_onboard_unboxing">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Button Grid.RowSpan="2" Style="{StaticResource buttons_blank}" HorizontalAlignment="Stretch" Padding="0" Margin="0" ClipToBounds="True" BorderThickness="0" Background="Transparent" Click="StepClick" Uid="+_LastOnBoard">
+                            <Image Margin="0" Name="page_onboard_unboxing_img" Source="/TSP_Transponder;component/Resources/Unboxing/0000.jpg"></Image>
+                        </Button>
+                        <StackPanel Name="page_onboard_unboxing_titles" Visibility="Collapsed" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0">
+                            <TextBlock Margin="0,30,0,5" Foreground="#FFFFFF" VerticalAlignment="Top" FontSize="28" Text="Your Skypad is Ready!" FontWeight="Light" HorizontalAlignment="Center"/>
+                            <TextBlock Margin="10,5,10,20" Foreground="#FFFFFF" VerticalAlignment="Bottom" TextWrapping="Wrap" FontSize="16" LineHeight="19" FontWeight="SemiBold" TextAlignment="Center" LineStackingStrategy="BlockLineHeight" Text="It's finally time, unbox your new device..."/>
+                        </StackPanel>
+                        <Grid Name="page_onboard_unboxing_buttons" Visibility="Collapsed" Grid.Row="1" Margin="20,0,20,20">
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                <Button Style="{StaticResource buttons}" BorderBrush="#44FFFFFF" Background="Transparent" Foreground="white" FontSize="16" Margin="0" Click="StepClick" Uid="+_LastOnBoard">UNBOX ❯</Button>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                    
+                </Grid>
+                
+                <Grid Name="page_settings" Visibility="Collapsed">
+                    <ScrollViewer Margin="0,0,0,40">
+                        <StackPanel Margin="30,-10,20,50">
+
+                            <!--
+                            <TextBlock Text="Controls" Style="{StaticResource title}"/>
+                            <Grid Margin="0,0,0,10">
+                                <TextBlock Text="Toggle Skypad (In-sim)" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                <Button Name="page_settings__controls_skypad__btn" Content="No Assignment" Padding="10, 2" Margin="0,0,0,0" Style="{StaticResource buttons}" HorizontalAlignment="Right" Click="Button_Click" LostKeyboardFocus="Button_LostKeyboardFocus" Uid="Settings;Controls_Assign;controls_skypad" Tag="0"></Button>
+                            </Grid>
+                            -->
+                            
+                            <!--
+                            <Grid Margin="0,0,0,10">
+                                <TextBlock Text="Capture Screenshot for Skyblog" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                <Button Name="page_settings__controls_capture__btn" Content="No Assignment" Padding="10, 2" Margin="0,0,0,0" Style="{StaticResource buttons}" HorizontalAlignment="Right" Click="Button_Click" LostKeyboardFocus="Button_LostKeyboardFocus" Uid="Settings;Controls_Assign;controls_capture" Tag="0"></Button>
+                            </Grid>
+                            -->
+
+                            <TextBlock Text="Audio" Style="{StaticResource title}"/>
+                            <Grid Margin="0,0,0,10">
+                                <TextBlock Text="Audio output device" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+                                <ComboBox Name="page_settings__audio_devices__list" Uid="Settings;Audio_Output" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="170,0,0,0" SelectionChanged="ComboBox_Selected">
+                                </ComboBox>
+                            </Grid>
+
+                            <!--
+                            <CheckBox Margin="0,0,0,10" Name="page_settings__launch_skypad__chk" FontSize="16" Style="{StaticResource checkBox}" HorizontalAlignment="Stretch" Content="Launch Skypad with the sim" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" Uid="Settings;Launch;launch_skypad"/>
+                            -->
+                            
+                            <!--
+                            <TextBlock Text="Privacy" Style="{StaticResource title}"/>
+                            <TextBlock TextWrapping="Wrap" Margin="0,0,0,15" Text="Privacy is important to us and we want to make sure you understand what your data is being used for."/>
+                            <Border Background="#11000000" Margin="0,0,0,15" CornerRadius="10">
+                                <StackPanel>
+                                    <Border Background="#22000000" Padding="20, 10" CornerRadius="10">
+                                        <CheckBox Name="page_settings__privacy_airport_data_chk" FontSize="16" Style="{StaticResource checkBox}" Content="Curated Content" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" Uid="privacy_airport_data"/>
+                                    </Border>
+                                    <Border Padding="20,0,20,20">
+                                        <StackPanel Margin="0,0,0,0">
+                                            <TextBlock TextWrapping="Wrap" Margin="0,15,0,0" FontSize="16" Text="We scan your sim for referenced custom scenery locations to provide you with curated adventures."/>
+                                            <TextBlock TextWrapping="Wrap" Margin="0,15,0,0" FontSize="16" Text="This is sent privately to our servers and is not shared with third-parties."/>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+                            <Border Background="#11000000" Margin="0,0,0,15" CornerRadius="10">
+                                <StackPanel>
+                                    <Border Background="#22000000" Padding="20, 10" CornerRadius="10">
+                                        <CheckBox Name="page_settings__privacy_remote_access_chk" FontSize="16" Style="{StaticResource checkBox}" Content="Skypad Anywhere" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" Uid="privacy_remote_access"/>
+                                    </Border>
+                                    <Border Padding="20,0,20,20">
+                                        <StackPanel Margin="0,0,0,0">
+                                            <TextBlock TextWrapping="Wrap" Margin="0,15,0,0" FontSize="16" Text="This option enables the Transponder to reach remote Skypads, giving you access to your custom sceneries and flight plans from anywhere in the world."/>
+                                            <TextBlock TextWrapping="Wrap" Margin="0,15,0,0" FontSize="16" Text="Access it at skypad.theskypark.com"/>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+                            -->
+
+                            <!--
+                            <TextBlock Text="Support" Style="{StaticResource title}"/>
+                            <Grid Margin="0,0,0,10">
+                                <TextBlock Text="Full Self Test" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+                                <StackPanel HorizontalAlignment="Right">
+                                    <Button Content="Run with Audio" HorizontalAlignment="Right" Margin="0,0,0,5" Style="{StaticResource buttons}" Padding="10, 2" Click="Button_Click" Uid="SelfTestAudio"></Button>
+                                    <Button Content="Run without Audio" HorizontalAlignment="Right" Margin="0,0,0,0" Style="{StaticResource buttons}" Padding="10, 2" Click="Button_Click" Uid="SelfTest"></Button>
+                                </StackPanel>
+                            </Grid>
+                            -->
+
+                            <StackPanel Name="page_settings__extras" Visibility="Collapsed">
+                                <TextBlock Text="Extra" Style="{StaticResource title}"/>
+                                <CheckBox Margin="0,0,0,10" FontSize="16" Style="{StaticResource checkBox}" HorizontalAlignment="Stretch" Content="Extra 1" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" Uid="Settings;Extra;1"/>
+
+                            </StackPanel>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                    <Grid Margin="25" VerticalAlignment="Bottom">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Content="Done" Margin="0,0,0,0" Style="{StaticResource buttons}" Background="#46B446" Foreground="#FFFFFF" HorizontalAlignment="Stretch" Click="Button_Click" Uid="PrivacySave"></Button>
+                    </Grid>
+                </Grid>
+                <Grid Name="page_scenery" Visibility="Collapsed">
+                    <StackPanel Margin="30,-10,30,30">
+
+                        <TextBlock Text="Sceneries" Style="{StaticResource title}"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,15" Text="The Transponder scans your airport collection to tailor jobs and missions that match your library."/>
+
+                        <StackPanel Name="page_scenery_list" Margin="0,0,0,15">
+                            <StackPanel>
+
+                            </StackPanel>
+                        </StackPanel>
+
+                        <Grid Margin="0,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Button Content="Done" Margin="0,0,0,0" Style="{StaticResource buttons}" Background="#46B446" Foreground="#FFFFFF" HorizontalAlignment="Stretch" Click="Button_Click" Uid="ScenerySave"></Button>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+                <Grid Name="page_launcher" Visibility="Collapsed">
+                    <StackPanel>
+
+                        <Grid Background="#11000000">
+                            <Grid Margin="30,10,30,10">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Height="32" Width="32" VerticalAlignment="Center" Margin="0,0,10,0" Source="/TSP_Transponder;component/Resources/app_icons.png"/>
+                                    <TextBlock Text="Transponder v3" FontSize="21" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                                    <TextBlock FontSize="12" FontWeight="SemiBold" Margin="0,0,0,5" Name="page_launcher_connected" Text="No Simulator" HorizontalAlignment="Center"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button FontSize="12" Margin="0,0,5,0" HorizontalAlignment="Stretch" Style="{StaticResource buttons}" Content="Preferences" Click="Button_Click" Uid="Privacy"></Button>
+                                        <Button Name="page_launcher_checkupdate_button" FontSize="12" Margin="0" HorizontalAlignment="Stretch" Style="{StaticResource buttons}" Content="Check for Updates" Click="Button_Click" Uid="CheckUpdate"></Button>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+
+                        <Grid Margin="30,0,20,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="1*"/>
+                                <!--<ColumnDefinition Width="1*"/> -->
+                            </Grid.ColumnDefinitions>
+                            
+                            <Button Grid.Column="0" Style="{StaticResource buttons}" HorizontalAlignment="Center" BorderThickness="0" Padding="5" Margin="0,30,0,30" Click="Button_Click" Uid="OpenSkypad">
+                                <StackPanel>
+                                    <Border CornerRadius="13" Width="178" Height="234">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="/TSP_Transponder;component/Resources/skypad.png" Stretch="UniformToFill" />
+                                        </Border.Background>
+                                    </Border>
+                                    <TextBlock Text="Launch Skypad" HorizontalAlignment="Center" Margin="0,10,0,10"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Grid Grid.Column="1" Margin="30,0,0,0">
+                                <StackPanel Name="page_launcher_notifNone" Width="350" VerticalAlignment="Center">
+                                    <TextBlock Text="NOTIFICATIONS" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,5" TextAlignment="Center"/>
+                                    <TextBlock Text="In case you miss a notification on screen or on your Skypad, they will be shown here." FontSize="16" TextWrapping="Wrap" Margin="0,0,0,5" TextAlignment="Center"/>
+                                </StackPanel>
+                                <Grid Name="page_launcher_notifHas" Visibility="Collapsed">
+                                    <ScrollViewer Margin="0" MaxHeight="340" VerticalAlignment="Center" SnapsToDevicePixels="True" Padding="0,45,0,28">
+                                        <StackPanel Margin="0,15,0,25">
+                                            <TextBlock Text="NOTIFICATIONS" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8" TextAlignment="Center"/>
+                                            <StackPanel Width="340" Name="page_launcher_notifList">
+
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Grid>
+                            
+                        </Grid>
+
+                        <Grid Margin="0,10,0,0" Visibility="Collapsed">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="120"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Margin="0,0,5,0" HorizontalAlignment="Stretch" Style="{StaticResource buttons}" Click="Button_Click" Uid="Tutorial">
+                                <StackPanel Orientation="Horizontal">
+                                    <Canvas Width="20.000" Height="14.098">
+                                        <Path Fill="#ffff0000" Data="F1 M 19.582,2.201 C 19.352,1.335 18.674,0.652 17.814,0.421 C 16.254,0.000 10.000,0.000 10.000,0.000 C 10.000,0.000 3.746,0.000 2.186,0.421 C 1.326,0.652 0.648,1.335 0.418,2.201 C 0.000,3.772 0.000,7.049 0.000,7.049 C 0.000,7.049 0.000,10.326 0.418,11.897 C 0.648,12.763 1.326,13.446 2.186,13.678 C 3.746,14.098 10.000,14.098 10.000,14.098 C 10.000,14.098 16.254,14.098 17.814,13.678 C 18.674,13.446 19.352,12.763 19.582,11.897 C 20.000,10.326 20.000,7.049 20.000,7.049 C 20.000,7.049 20.000,3.772 19.582,2.201 Z"/>
+                                        <Path Fill="#ffffffff" Data="F1 M 8.000,10.070 L 13.196,7.049 L 8.000,4.028 L 8.000,10.070 Z"/>
+                                    </Canvas>
+                                    <TextBlock Text="Watch the Tutorial" Margin="10,0,15,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Stretch" Style="{StaticResource buttons}" Content="Need Help?" Background="#B44646" Foreground="#FFFFFF" Click="Button_Click" Uid="Support" VerticalAlignment="Stretch"></Button>
+                        </Grid>
+
+                    </StackPanel>
+                </Grid>
+                <Grid Name="page_install" Visibility="Collapsed">
+                    <StackPanel Margin="30,-10,30,30">
+                        
+                        <TextBlock Text="Installation" Style="{StaticResource title}"/>
+                        <TextBox Name="page_location_field" IsEnabled="False" Style="{StaticResource textBox}" Text="" Margin="0,0,0,10"></TextBox>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Button Name="install_update_btn" Grid.Column="0" Margin="0,0,5,0" HorizontalAlignment="Stretch" Style="{StaticResource buttons}" Content="Check for Updates" Click="Button_Click" Uid="CheckUpdate"></Button>
+                            <CheckBox Grid.Column="1" Margin="15,0,0,0" Name="install_beta_chk" Style="{StaticResource checkBox}" Content="Staging Versions" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" Uid="install_Beta"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Button Name="install_uninstall_btn" Grid.Column="0" Content="Uninstall" Margin="0,0,5,0" Style="{StaticResource buttons}" HorizontalAlignment="Stretch" Background="#B44646" Foreground="#FFFFFF" Click="Button_Click" Uid="Uninstall"></Button>
+                            <Button Grid.Column="1" Content="Save" Margin="5,0,0,0" Style="{StaticResource buttons}" Background="#46B446" Foreground="#FFFFFF" HorizontalAlignment="Stretch" Click="Button_Click" Uid="InstallSave"></Button>
+                        </Grid>
+                        
+                    </StackPanel>
+                </Grid>
+                
+            </Grid>
+        </StackPanel>
+
+        <Border x:Name="windowOutline" Margin="0" Padding="0" BorderThickness="1" BorderBrush="#44999999" d:IsLocked="True"/>
+    </Grid>
+</Window>

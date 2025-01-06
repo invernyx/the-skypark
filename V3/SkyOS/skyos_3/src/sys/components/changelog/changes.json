@@ -1,0 +1,2165 @@
+{
+    "notes": [],
+    "entries": [
+        {
+            "date": "Tue, 20 Sep 2022 18:12:34 GMT",
+            "build": "2022.39.2.18",
+            "changes": {}
+        },
+        {
+            "date": "Fri, 04 Feb 2022 20:48:49 GMT",
+            "build": "2022.6.5.21",
+            "title": "Mars With Flowers",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/33NcRAP.jpg",
+            "notes": [
+                "Autumn's out until the 5th so, here I am! We're happy to announce that Skypark Travel will be working with Trent Palmer to bring FreedomFox pilots some of his newest back-country adventures. We're kicking off with an opportunity to experience the Trent Palmer video titled \"I landed my plane on a 11,000ft mountain\" I've included this video in the contract.",
+                "For this experience, you'll head South of Reno to scout for potentially cool camping spots for spring.",
+                "We've marked an area on your map in yoFlight that looks fairly landable. When you get there, please take a photo of the trail sign if you happen to find it and share it in the company Discord; it seems nobody knows what it says!",
+                "If you follow one of the paths down, you'll find a cabin; it's first-come, first-serve, so feel free to camp out there for the evening if bad weather moves in, but please don't leave any food behind!",
+                "Anyways, see you back at headquarters."
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "title": "Mars With Flowers",
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/RMtqhF4.jpg",
+                        "label": [
+                            "New Skypark Travel content available. Check the Skypark Discord server for details and to join in on the company/pilot roleplay!",
+                            "In Contrax, enter \"#FREEDOMFOX\" in the smart search field!"
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Updated 3000 airports to match sim data."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Fri, 28 Jan 2022 05:34:34 GMT",
+            "build": "2022.5.5.5",
+            "title": "Minor update",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/G41rB6M.jpg",
+            "changes": {
+                "fixed": [
+                    {
+                        "label": [
+                            "Minor fix for an issue where artefacts would appear in Contrax for some users."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Fri, 21 Jan 2022 17:07:01 GMT",
+            "build": "2022.4.5.17",
+            "title": "Touring the Oz",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/fSzBjjl.jpg",
+            "notes": [
+                "Hey Clearsky Pilots,",
+                "The holidays messed up our scheduling; it seems like everyone is on an extended vacation these days... I'm looking at you //42 Team! Anyways, I apologize for the delay; Skypark Travel just sent over a mini-tour to hold you over into early February; you're off to The Ozarks!",
+                "The Ozarks or \"The Oz\" was made famous recently by \"Ozark,\" a fictional Netflix series based on the Byrde family's experiences in the Missouri Ozarks. It's also where Jeff \"The Maestro\" (your trainer), has a lakefront hideout! I've reached out to him to guide you while you're in the area.",
+                "The Ozarks, which cover portions of three states (Arkansas, Missouri, and Oklahoma), truly have it all, including great fly-in options! Expect rugged beauty and stunning vistas on approach to small airstrips surrounded by trees on this mini-tour. As you fly over The Lake of the Ozarks, let this sink in...this massive lake has more than 1,100 miles of coastline. That's more coastline than the entire state of California!",
+                "Ideal for pilots with average to above-average skills, this is proper bush flying in the backcountry, so choose an appropriate aircraft!",
+                "- Autumn"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "title": "Touring the Oz",
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/INDNfLv.jpg",
+                        "label": [
+                            "New Skypark Travel content available. Check the Skypark Discord server for details and to join in on the company/pilot roleplay!",
+                            "In Contrax, enter \"#THEOZ\" in the smart search field!"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 12 Jan 2022 19:21:43 GMT",
+            "build": "2022.3.3.19",
+            "title": "Kitfox Supply Runs",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/VNaEhRX.jpg",
+            "notes": [
+                "Hey Clearsky Pilots,",
+                "I hope everyone had a wonderful holiday break. Corporate asked that we not put up any new contracts until the new year since 2021 closed on an excellent note. But now it's time to get back to business!",
+                "It seems the pack of foxes in the sky has grown exponentially in the past few weeks! I wonder why!? Anyways, noticing this increase in available pilots, Trent Palmer has reached out to ClearSky for help running camping supplies to adventurers & pilots in need around the region.",
+                "We're only clear up to 2500ft AGL, so you'll need to fly low. Also, the strips you'll be stopping at can be pretty short and rough, so there is a requirement to fly Fox2 unless, of course, you're cool enough for Trent to loan you #FreedomFox!",
+                "Some of these contracts are upwards of 400 miles and have multiple stops, so don't forget to land off-strip to rest and enjoy the sights. We made sure you'll end up at an airport with plenty of amenities and likely additional work.",
+                "- Brigit",
+                "PS: Foxes often roam in packs; find a friend or group to fly with you! Some of these places can be pretty remote."
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "title": "Kitfox Supply Runs",
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/JlxE9CG.jpg",
+                        "label": [
+                            "New ClearSky content available. Check the Skypark Discord server for details and to join in on the company/pilot roleplay!",
+                            "In Contrax, enter \"#FOX2\" in the smart search field!"
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Updated 500 airports to match sim data."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Updated Start/End airport on Greek Tours 1&2 from LGAT to LGAV."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Fixed \"98/99% Generated\" issue with Transponder."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Mon, 06 Dec 2021 20:32:52 GMT",
+            "build": "2021.50.1.20",
+            "title": "Tour The Appalachian Trail",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/ut3v5VW.jpg",
+            "notes": [
+                "Hey Pilots",
+                "Part 2 of The Appalachian Trail tour just landed on my desk. I've loaded it into the system, and it should be available right away.",
+                "Just a recap, The Appalachian Trail is the world's longest \"hiking-only\" footpath. The official trail ends at Sugarloaf Mountain, but it has since been extended north past that further into Maine. Part 2 will take you over that original endpoint, then north to the newly observed end of the trail.",
+                "Remember to take a small aircraft because many of the strips are grass and may be hard to find. Upon completion, you'll have flown thru 14 different states along the east coast of the US.",
+                "So, have you thought up your \"Trail Name\" yet?",
+                "- Autumn"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "title": "Tour The Appalachian Trail: Part 2",
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/gpHKjO3.jpg",
+                        "label": [
+                            "New Skypark Travel content available. Check the Skypark Discord server for details and to join in on the company/pilot roleplay!",
+                            "In Contrax, enter \"#SUGARLOAF\" in the smart search field!"
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Updated 1,500 airports to match sim data."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 10 Nov 2021 16:47:18 GMT",
+            "build": "2021.46.3.16",
+            "title": "Experience Los Roques",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/w7Eu2un.jpg",
+            "notes": [
+                "Hola!",
+                "As we creep up on the end of the 4th quarter, we've started to review our records for an end-of-year report.  I was pleasantly surprised to find that some of you have already reached Level 45!  Let's stir up some competition with another booster flight. These are built to give you an experience boost by letting you experience unique and sometimes challenging airstrips.",
+                "For this one, we've arranged a trip to Los Roques. Los Roques is a small domestic airport on the El Gran Roque island in the Los Roques archipelago off the coast of mainland Venezuela, some 130 kilometers north of Caracas.",
+                "Enjoy the playlist we've bundled in the contract on the way out."
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "title": "Experience Los Roques",
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/J7nMMK1.jpg",
+                        "label": [
+                            "New Skypark Travel content available. Check the Skypark Discord server for details and to join in on the company/pilot roleplay!",
+                            "In Contrax, enter \"#ROQUES\" in the smart search field!"
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where some audio files would not download properly for some users."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 03 Nov 2021 18:50:41 GMT",
+            "build": "2021.45.3.18",
+            "title": "Tour The Appalachian Trail",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/mLYbLkd.jpg",
+            "notes": [
+                "Hey Pilots,",
+                "We just got some details on this month's new tour. Get your bush planes ready; you're off to fly The Appalachian Trail!",
+                "The Appalachian Trail is the longest \"hiking-only\" footpath in the world. I bet they didn't expect us to fly it! The official Trail ends at Sugarloaf Mountain, but it has since been extended north past that into Maine. You'll want a small aircraft because many of the strips are grass and may even be hard to find. Upon completion, you'll have flown thru 14 different states along the east coast of the US.",
+                "It's common for hikers of the Trail to use a nickname; what's yours?",
+                "- Autumn",
+                "PS: Edson sent over a playlist to include for your travels, it's in the contract."
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "title": "Tour The Appalachian Trail: Part 1",
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/8TuwfDg.jpg",
+                        "label": [
+                            "New Skypark Travel content available. Check the Skypark Discord server for details and to join in on the company/pilot roleplay!",
+                            "In Contrax, enter \"#SUGARLOAF\" in the smart search field!"
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where unsaving contracts would not work properly."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 27 Oct 2021 15:53:43 GMT",
+            "build": "2021.44.3.15",
+            "title": "Little Farm, Bigger World",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/jXGd0sM.jpg",
+            "notes": [
+                "Hey Pilots,",
+                "With the primary contract based in Portland, Oregon, this one is quite different and will take you worldwide. However, these aren't random; they are the 15 countries that spent the most on importing pumpkins this year, so don't mess this up!",
+                "A local farm needed our help to transport pumpkins, and we did so great moving them out of Portland to distribution airports that they booked us for more. Not happy with their current regional carrier, they want us to transport from international airports around the world to smaller strips for regional distribution.",
+                "- Autumn"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "title": "Little Farm, Bigger World",
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/WrOtosD.jpg",
+                        "label": [
+                            "New ClearSky content available. Check the Skypark Discord server for details and to join in on the company/pilot roleplay!",
+                            "In Contrax, enter \"#ROLOFF\" in the smart search field!"
+                        ]
+                    },
+                    {
+                        "title": "GhostShip Inc.",
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/kl9yaHQ.jpg",
+                        "label": [
+                            "New Coyote content available. Check the Skypark Discord server for details and to join in on the company/pilot roleplay!",
+                            "In Contrax, enter \"#GHOSTSHIP\" in the smart search field!",
+                            "* illicit content must be enabled in settings/gameplay"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Mon, 25 Oct 2021 15:36:48 GMT",
+            "build": "2021.44.1.15",
+            "title": "Just a little update",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/fA2iC1m.jpg",
+            "changes": {
+                "fixed": [
+                    {
+                        "label": [
+                            "Corrected spelling error & enabled seasonal pay increase on \"Little Farm, Big World\" (#ROLOFF)"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Thu, 21 Oct 2021 22:53:58 GMT",
+            "build": "2021.43.4.22",
+            "title": "Little Farm, Big World",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/f1y8525.jpg",
+            "notes": [
+                "Hey ClearSky pilots, I got a new seasonal contract locked in last week, and we're ready to begin moving cargo.",
+                "It's that time of the year again where I order only Pumpkin Spice Latte's; oh my goodness, it tastes like heaven! Speaking of Pumpkin, a local farm needs exporting help. The farm is just west of the airstrip, and they're moving a few thousand Pumpkins this season. We need you to get them to larger airports for export. That's not a lot compared to China, where they export 8.4 tons to other countries, but it's a small step for American Famers. ",
+                "Roll out now; you don't want to disappoint all the little kiddos that want to carve Pumpkins before Halloween!",
+                "In Contrax, enter \"#ROLOFF\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "title": "New content available",
+                        "label": [
+                            "Check the Skypark Discord server for details and to join in on the company/pilot roleplay!"
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Auto-updated to Addon of the Year Edition. 🏆"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Updated airport database from the latest MSFS update. 2,662 airports have been modified."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Improved categorization of recommended aircraft. This results in more jet and airliner flights."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "File structure reorganization."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 13 Oct 2021 15:42:57 GMT",
+            "build": "2021.42.3.15",
+            "title": "Tour The Amazon: Part 2",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/gGdD5El.jpg",
+            "notes": [
+                "Hello Pilots!",
+                "Excellent work getting to the halfway point. Can you believe some pilots got stuck without fuel!? Haha (let's not talk about that one). Skypark Travel just sent over details for Part 2. It looks like you'll continue from where you left off, towards the Eastern side of South America near the South Atlantic Ocean.",
+                "Please be sure to manage your fuel correctly; I don't want the piranhas to eat you. Good luck and have fun!",
+                "In Contrax, enter \"#RIVERSEA\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New content available. Check the Skypark Discord server for details about this new content."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Updated titles on some tours, this will not affect currently active tour contracts."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Updated screenshot for #RIVERSEA Part 1"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Additional POI for #RIVERSEA Part 1"
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Corrected XP gain on #FETA Part 2"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 06 Oct 2021 20:59:18 GMT",
+            "build": "2021.41.3.20",
+            "title": "The Topaz Connection",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/wBqanvc.jpg",
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New Coyote content available. Check the Skypark Discord server for details about this new content."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Fixed issue with altitude monitoring on Carribean Kingpins #SNORKEL contracts."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Mon, 20 Sep 2021 17:47:13 GMT",
+            "build": "2021.39.1.17",
+            "title": "Introducing Loadmaster Staffing Fees",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/OLRxZjy.jpg",
+            "notes": [
+                "All pilots at Level 5 or above will now absorb the cost of having a Loadmaster on board. When you begin a Cargo job, \"Bobs Aero Service\" will withdraw $250/day* from your Stranded Holdings account. This charge only applies to actual gameplay days, not calendar days, and only if you start a cargo contract within that period.",
+                "The Loadmaster will take 21 seconds to load in your cargo; this will be a real-time delay in Skypad before you can depart. For safety reasons, if the aircraft moves, loading will stop. We're also working with Bob to provide staffing options that may be faster or have lower pay rates in the future via a new app. This app is not yet available on Skypad.",
+                "* Occasional union strikes may cause staffing prices to skyrocket as we fill positions with temp / non-union loadmasters. More details available in the Roleplay Discord."
+            ],
+            "changes": {
+                "improved": [
+                    {
+                        "label": [
+                            "Split Greek Tour (#FETA) into 2 parts."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Updated route for Greek Tour Pt. II to follow WU6 Updates"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Added new POI to Greek Tours."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Update to Amazon Tour Pt. I (#RIVERSEA) to include shutdown label."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Identified an issue with accounting, incorrect maths, now corrected."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 15 Sep 2021 16:42:09 GMT",
+            "build": "2021.38.3.16",
+            "title": "Experience Heligoland",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/gRwxJtp.jpg?1=1",
+            "notes": [
+                "Pilots of The Skypark, you're invited to Heligoland! We were contacted by a company with a base of operations there named Gaya Simulations, and they offered to cover your Oceanic Air travel costs. Grab a windbreaker!",
+                "In Contrax, enter \"#HELIGOLAND\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New content available. Check the Skypark Discord server for details about this new content."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Mon, 13 Sep 2021 18:05:18 GMT",
+            "build": "2021.38.1.18",
+            "title": "Tour The Amazon: Part 1",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/4laHVYW.jpg",
+            "notes": [
+                "Hey Skypark Travel Pilots!",
+                "I just got a call about this month's tour; it's a bit late but better late than never, right? David (I didn't get his last name) had a really kind voice, making for a pleasant Monday morning. Please say hi from me when he makes contact on the ground.",
+                "You're headed someplace warmer than Norway this time. The southern hemisphere is calling, and this is your invitation to Tour The Amazon! Once again, Oceanic Air has stepped up to cover the travel costs of all pilots who complete the entire tour.",
+                "Have fun, and take a raincoat!",
+                "In Contrax, enter \"#RIVERSEA\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New content available. Check the Skypark Discord server for details about this new content."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Added Loadmaster Daily Pay. Intro pay of $250/work day."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Added sharecode #MULTI for daily duty multi-hop contracts."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Titled daily duty Multi-Hop contracts."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Readjusted Karma Shift for Multi-Hop contracts."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Extended times for 4+ hop Multi's."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Removed some of the routes that had water runways."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Fixed an issue where cargo would be unloadable when at the right airport."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Sun, 29 Aug 2021 17:25:49 GMT",
+            "build": "2021.35.0.17",
+            "title": "Kerala Gold Run",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/pRH6R0h.jpg",
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New Coyote content available. Check the Skypark Discord server for details about this new content."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 04 Aug 2021 18:30:46 GMT",
+            "build": "2021.32.3.18",
+            "title": "Experience Norway: Part II",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/DlmVm8d.jpg",
+            "notes": [
+                "Hey, it's Autumn! Skypark Travel just faxed over the new tour details for this month. You'll continue down into the south of Norway.",
+                "There are many points of interest, and I've plotted them all for you in yoFlight! Also, don't forget, thru a partnership with Oceanic Air, we will refund your travel costs upon completion.",
+                "In Contrax, enter \"#FJORDS\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New content available. Check the Skypark Discord server for details about this new content."
+                        ]
+                    },
+                    {
+                        "title": "Relocation Costs Update",
+                        "label": [
+                            "An update to gameplay to increase realism and logic.",
+                            "Localized Holiday Surge Pricing",
+                            "Global Seasonal Surge Pricing (summer/winter breaks)",
+                            "Travel Reimbursements upon completion of Experiences/Tours"
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Updated airport database from the latest MSFS update."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 07 Jul 2021 15:20:20 GMT",
+            "build": "2021.28.3.15",
+            "title": "Experience Norway: Part I",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/3ttSvZ3.jpg",
+            "notes": [
+                "Hows it goin? It's Autumn over at ClearSky again.",
+                "OK pilots, Skypark Travel just sent over the new tour details for this month.",
+                "Grab a coat; you're invited to Norway to enjoy the fjords on part 1 of a 2 part tour. Also, thru a partnership with Oceanic Air, we will refund your travel costs upon completion, so no excuses! We would much prefer you gain some experience on a leisurely trip, then burn out running cargo.",
+                "In Contrax, enter \"#FJORDS\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New content available. Check the Skypark Discord server for details about this new content."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 30 Jun 2021 16:38:19 GMT",
+            "build": "2021.27.3.16",
+            "title": "Mid-Atlantic Cargo",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/FD4HMBK.jpg",
+            "notes": [
+                "Hi there pilots, this is Autumn again at ClearSky.",
+                "We've been contacted by a company based in Washington D.C. to help with some routes in the Mid-Atlantic region. They are multi-leg, but the airports have all the fancy tech, so it'll be that much easier... right?",
+                "Have a safe flight, and we'll talk soon.",
+                "In Contrax, enter \"#MAC\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New content available. Check the Skypark Discord server for details about this new content."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Fri, 25 Jun 2021 16:18:25 GMT",
+            "build": "2021.26.5.16",
+            "title": "The Highlands of Iceland",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/332z7Cy.jpg",
+            "notes": [
+                "Hey, it's Autumn at ClearSky! We just got a new contract for help out in The Highlands of Iceland. You'll see volcanoes, glaciers, and grasslands; it's like another planet! Prepare for hard-to-find airstrips and unpredictable weather.",
+                "In Contrax, enter \"#HIGHLANDS\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "\"Experience\" Contracts now have refundable travel fees upon completion of the flight, these include Tours. Some will think timeshare scams; some will think...portals."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Reintroduction of the Arrivals/Departures buttons in the contextual menus in Contrax. Click on an airport, see helpful stuff!"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Added the ability to reset your Life on The Skypark from your Skypad's settings app. Choosing to do this will WIPE 100% of your existence on The Skypark.",
+                            "Note: The Skypark is built in a way that allows you to move between karma and reliability extremes easily. You don't have to reset to overwrite \"bad\" decisions."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Updated airport database from the latest MSFS update."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where custom contracts would turn back to blue when returning from the Conduit app"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Fri, 18 Jun 2021 20:50:00 GMT",
+            "build": "2021.25.5.20",
+            "title": "A Trip to Hangar 7",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/Iz7gUBV.jpg",
+            "notes": [
+                "What a day, pilots! It's Autumn again with ClearSky.",
+                "We just received a new experience from Skypark Travel to visit Hangar 7 in Austria, home of a fully restored DC-6 belonging to The Flying Bulls. The timing could not be more perfect, as I see from the logs that some of you have acquired your own DC-6 recently. These experiences don't pay, but they do boost your XP!",
+                "Enjoy those skies!",
+                "In Contrax, enter \"#HANGAR7\" in the smart search field!"
+            ],
+            "changes": {
+                "improved": [
+                    {
+                        "label": [
+                            "Updated airport database from the latest MSFS update."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where contracts would show as 'Completed in 51 years'. Some say everything started in 1970!"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 16 Jun 2021 21:18:56 GMT",
+            "build": "2021.25.3.21",
+            "title": "Alaskan Bush Adventure",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/m4YE95H.jpg",
+            "notes": [
+                "Hey pilots, it's Autumn. Where are my bush pilots? We've been contracted to deliver goods to some remote locations in Alaska. You'll want a jacket and gloves.",
+                "In Contrax, enter \"#KLONDIKE\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "title": "Custom Content Filter!",
+                        "label": [
+                            "We've added a toggle in the filters to enable you to filter custom content exclusively. Keep in mind; this won't show contracts you don't qualify for."
+                        ]
+                    },
+                    {
+                        "title": "Golden Routes",
+                        "label": [
+                            "We've also made custom content more obvious in Contrax with a different color set. For example, gold routes are custom contracts; blue are recurring ones."
+                        ]
+                    },
+                    {
+                        "title": "Browse by Recommended Aircraft",
+                        "label": [
+                            "We've added recommended aircraft icons to the contract cards in Contrax. Shoutout to woodstock327 on Discord for recommending the idea the day after we decided to implement it. Glad to see we're on the same wavelength as our pilots!"
+                        ]
+                    },
+                    {
+                        "title": "Report Wonky Airports",
+                        "label": [
+                            "We've added a way for you to report airports that have glitches and issues. You will see a red 'Report' button in the To-Dos after your visit. These will go to our team for further review."
+                        ]
+                    },
+                    {
+                        "title": "Contract Workflow Update",
+                        "label": [
+                            "Removed SAVE button to ensure pilots don't miss essential contract details."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Various fixes and improvements to the UI/UX."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 09 Jun 2021 21:29:43 GMT",
+            "build": "2021.24.3.21",
+            "title": "Kazakhstan. Very Nice!",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/BzULsWF.jpg",
+            "notes": [
+                "We received a call for help from quite the interesting gentleman this weekend; he wouldn't shut up about some space program or something. Anyways, we're not sending you to space, buuuut we've got to provide some backfill for cargo pilots in his country of Kazakhstan.",
+                "Kazakhstan is a Central Asian country and former Soviet republic which extends from the Caspian Sea in the west to the Altai Mountains at its eastern border with China and Russia. Expect the unexpected.",
+                "If you see our contact, please remind him we only accept USD for payment, fly safe!",
+                "- Brigit",
+                "In Contrax, enter \"#VERYNICE\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "We've got to provide some backfill for cargo pilots in Kazakhstan. Check the Skypark Discord server for details about this new content."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "New Coyote content. Check the Skypark Discord server for details about this new content."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "title": "Contract Time Extension / Bonus",
+                        "label": [
+                            "New contracts now enter the system with 10 days to completion vs. 3. This allows more time to reserve one and work your way to the departure point. The tighter the time window to completion gets, you may also see a bonus on the contract, as we would rather see it completed than overlooked."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Various fixes and improvements to the UI/UX."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 02 Jun 2021 21:17:11 GMT",
+            "build": "2021.23.3.21",
+            "title": "Rum Tasting Tour: Part II",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/92tmVEA.jpg",
+            "notes": [
+                "Hola!",
+                "Rum is a liquor made by fermenting then distilling sugarcane molasses or sugarcane juice. The distillate, a clear liquid, is usually aged in oak barrels. Most rums are produced in the Caribbean and American countries.",
+                "Some of the world's top rums come from Central America and Cuba. Those rum regions are what we'll continue to explore on this tour.",
+                "- Maria",
+                "In Contrax, enter \"#RUMTOUR\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "title": "New Tab: Memos",
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/VB0dgmm.jpg",
+                        "label": [
+                            "The Memos tab contains transcripts of every voice memo for that particular contract. Read a transcript, or replay audio clips in a beautiful new interface addition!"
+                        ]
+                    },
+                    {
+                        "title": "More Character Audio",
+                        "label": [
+                            "Voice clips are now live for the majority of custom contracts. Moving forward, expect more characters &  memos during active contracts."
+                        ]
+                    },
+                    {
+                        "title": "Satellite Map View in Contrax",
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/1EtisR3.jpg",
+                        "label": [
+                            "Toggle Satellite imagery on/off in Contrax. No tinkering required; we pay in full for commercial use. yoFlight's implementation will come at a later date after a bit of testing in Contrax."
+                        ]
+                    },
+                    {
+                        "title": "Expiration Bonuses",
+                        "label": [
+                            "Contracts expiring soon get a bump in pay. Brigit would rather pay pilots more than watch these contracts expire. Test your time management with these gems."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Continue exploring the land of rum, then return to Fort Lauderdale! Check the Skypark Discord server for details about this new content."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/vZDlRmX.jpg",
+                        "label": [
+                            "The way we display deadlines has been rethought to be more helpful. It now includes new date formats and color coding."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Various fixes and improvements to the UI/UX."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where the same routes would show up multiple times in the search results."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Issue where if you cancelled an initial training flight with Jeff, you would have to pay relocation fees to start a new one."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 26 May 2021 14:27:34 GMT",
+            "build": "2021.22.3.14",
+            "title": "More airports, better airports",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/eRBULxq.jpg",
+            "changes": {
+                "improved": [
+                    {
+                        "label": [
+                            "Updated airport database from the latest MSFS update."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Mon, 24 May 2021 18:48:45 GMT",
+            "build": "2021.22.1.18",
+            "title": "Sanjay National Park Runs",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/Gwi4d8f.jpg",
+            "notes": [
+                "We need pilots to deliver supplies near Sanjay National Park. Located in the Narmada Valley, Sanjay National Park covers almost 500 kilometers and is a part of the Sanjay-Dubri Tiger Reserve. There are safari companies and resorts inside the reserve, and they count on supply runs from local airports to stay in operation. Your contact will be Meera at the local ClearSky office.",
+                "- Brigit",
+                "In Contrax, enter \"#SANJAY\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "Head out to India and deliver supplies near Sanjay National Park. Check the Skypark Discord server for details about this new content."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Tue, 11 May 2021 16:48:35 GMT",
+            "build": "2021.20.2.16",
+            "title": "Basecamp Supply Run",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/aMa2Jdl.jpg",
+            "notes": [
+                "Crystal Lakes Airport is a privately owned airstrip in Colorado surrounded by the Roosevelt National Forest's natural beauty. Nearby is Crystal Lakes, a charming and relaxed mountain village and recreational community.",
+                "The centerpiece of Crystal Lakes is a 6,900 square foot community center known as Basecamp. Weekly supply runs are needed to keep Basecamp and other small shops stocked up in town.",
+                "I've included a playlist for your flights; enjoy some tunes on the way in.",
+                "- Brigit",
+                "In Contrax, enter \"#BASECAMP\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "We need you in Crystal Lakes for supply runs into Basecamp! Check the Skypark Discord server for details about this new content."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Discord rich presence is now more dynamic and shows more useful information."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where 'The Caribbean Kingpins' contract couldn't be completed (you might have to cancel it and re-do it)."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 05 May 2021 20:44:28 GMT",
+            "build": "2021.19.3.20",
+            "title": "Rum Tasting Tour: Part I",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/sdDYDHa.jpg",
+            "notes": [
+                "Sorry for the delay, it's been hectic here at HQ, but a new month means a new tour! Skypark Travel just sent over details of this month's offering, and I've got it loaded into Skypad for you. Keep in mind that traveling to these vacations is on your own time and dime; you're in it for the experience!",
+                "You're headed out to explore the land of Rum. Rum is a liquor made by fermenting then distilling sugarcane molasses or sugarcane juice. The distillate, a clear liquid, is usually aged in oak barrels. Most rums are produced in the Caribbean and American countries.",
+                "While not an iron-clad guarantee of specific flavors and production methods, where Rum comes from has, historically, dictated production options, ingredients, and the individual styles produced. Those rum regions are what we'll explore on this tour.",
+                "- Brigit",
+                "PS: Bring Edson back a bottle of his favorite...Kraken!",
+                "In Contrax, enter \"#RUMTOUR\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New Skypark Travel Experience! You're headed out to explore the land of Rum! Check the Skypark Discord server for details about this new content."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Removed seconds from the lock and sleep screens (shout-out to Biokerozen on Discord ❤️)."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Various fixes and improvements to the UI/UX."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Tue, 04 May 2021 18:00:29 GMT",
+            "build": "2021.19.2.18",
+            "title": "Expenses are a part of life...",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/XbGlGTK.jpg",
+            "changes": {
+                "new": [
+                    {
+                        "title": "Introducing Oceanic Air",
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/PiuOeXS.jpg",
+                        "label": [
+                            "A new partnership with Oceanic will begin by providing relocation flights for pilots of The Skypark. We hope this partnership expands with additional benefits and the potential for passenger contracts in the future. Oceanic Air - What goes up must come down."
+                        ]
+                    },
+                    {
+                        "title": "Relocation Costs!",
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/tn4egSA.jpg",
+                        "label": [
+                            "ClearSky has been covering all relocation costs regardless of pilot levels for the platform's initial launch. Today ClearSky begins a partnership with Oceanic Air to provide transport for pilots worldwide to new contract locations. New pilots at level 5 or below will receive a 90% discount on all travel."
+                        ]
+                    },
+                    {
+                        "title": "Relocation Rings",
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/M3v2O5J.jpg",
+                        "label": [
+                            "Contrax has been updated to display an overlay of rings which will provide you with a visual approximation of relocation costs. This new tech will allow pilots on Endeavour Mode to make educated decisions when accepting new contracts."
+                        ]
+                    },
+                    {
+                        "title": "Tabs",
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/RwS6G8P.jpg",
+                        "label": [
+                            "With the introduction of pilot costs, each contract now needs to display more information on the job both before you accept it and when you're ready to begin. You'll find a new tabbed layout on each contract that brings content first, followed by your To-Do's, and last but not least important, a Fees tab that will house all the costs associated with the selected contract."
+                        ]
+                    },
+                    {
+                        "title": "Estimates & Invoices",
+                        "label": [
+                            "When browsing contracts, you'll see an overview of fees; these are ESTIMATES. Saved estimates are subject to change based on travel distance from your last known contract completion to the starting position of a new one. Work your way closer to the departure airport, and travel costs decrease. Connect the dots and avoid them altogether!",
+                            "Estimates become INVOICES for your final approval when you commit to begin a new contract. Relocation Travel fees are finalized at this time, allowing you to see a more accurate prediction of potential Profit upon successful completion."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "title": "Are you feeling lucky?",
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/pcLpi8n.jpg",
+                        "label": [
+                            "The random contract dice feature has stepped onto center stage in Contrax. You can now roll the dice from the main interface, and you'll now be provided with five contracts to choose from. Don't worry; we still provide travel estimates for you to consider!"
+                        ]
+                    },
+                    {
+                        "title": "Park to Unload",
+                        "label": [
+                            "We have updated the requirements to unload cargo on all contracts. You will now only be required to park your aircraft to unload. Brigit received quite a few pilot complaints about inefficiency due to asking pilots to do a complete shutdown."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Various fixes and improvements to the UI/UX."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where some active contracts would fail to load if Asobo/Microsoft modified/removed an airport in the simulator."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Issue where it would be possible to get an unlimited amount of contracts with the same route."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Issue where the 'Always on top' setting would not save on restart."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Thu, 15 Apr 2021 14:47:40 GMT",
+            "build": "2021.16.4.14",
+            "title": "Experience Friday Harbor",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/zAIp83A.jpg",
+            "notes": [
+                "I just got sent a flyer by Skypark Travel for a fantastic experience out on the US's west coast! Y'all have been working hard, so I figure you might want to go on a little trip to stay sharp and boost your XP. Grab a jacket; you're headed to the northwest!",
+                "The premier aviation destination in the San Juan Islands, Friday Harbor Airport is a public use airport located just southwest of Friday Harbor's town center. Friday Harbor is also the default airport of Microsoft Flight Simulator X, although Aircraft spawn in the air above the airport and must land there first.",
+                "The Port of Friday Harbor Airport serves the commercial, general aviation, and corporate air transportation needs of the islands with over 50,800 annual operations.",
+                "Have fun!",
+                "- Brigit",
+                "In Contrax, enter \"#ITSFRIDAY\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New Skypark Travel Experience! Grab a jacket; you're headed to the northwest. Check the Skypark Discord server for details about this new content."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where multi-leg cargo in multi-hop contracts would need to be delivered twice in some situations."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Mon, 12 Apr 2021 19:07:56 GMT",
+            "build": "2021.16.1.19",
+            "title": "Stow it!",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/adventures/6SzmyRe.jpg",
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New Coyote content available. Check the Skypark Discord server for details about this new content."
+                        ]
+                    },
+                    {
+                        "title": "Stow!",
+                        "label": [
+                            "You can now double-click the left or right bezel of the Skypad to send it to the opposite edge of your display. Stow is an excellent feature for single monitor users and content creators to provide info at-a-glance for viewers. Check the Settings App for additional options."
+                        ]
+                    },
+                    {
+                        "title": "Unloading Requirements",
+                        "label": [
+                            "We have begun to introduce basic processes into pilot workflows. Today we add the requirement to Park & Shutdown aircraft at final destinations before unloading cargo items."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Minor fixes to the UI/UX"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 07 Apr 2021 18:44:18 GMT",
+            "build": "2021.15.3.18",
+            "title": "Okavango Delta Runs",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/uU6PeR3.jpg",
+            "notes": [
+                "We need you in the Okavango Delta. Located in Botswana, these jobs are in a swampy inland delta formed where the Okavango River reaches a tectonic trough at an altitude of 1,000m in the central part of the endorheic basin of the Kalahari. All the water reaching the Delta is ultimately evaporated and transpired and does not flow into any sea or ocean. When it rains, it pours and gets absorbed by runways.",
+                "A company out there does daily three-stop supply runs; they are short on pilots and have reached out to us for backup. ",
+                "We fly by local rules, so stay below 1000ft AGL. You're not on vacation, but I figured if I add all the safari lodges as POI, you'd have a chance of spotting some of the wildlife in the area. Enjoy, and please be safe!",
+                "🐘",
+                "- Brigit",
+                "In Contrax, enter \"#THEDELTA\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "Pilots of The Skypark are being called to the Okavango Delta! Check the Skypark Discord server for details about this new content."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Added over 700 new cargo items."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Improved search in Contrax, getting you closer to the best contracts and experiences available."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Fixed an issue where the Skypad would not restore to the exact location it was last time it was closed if it was on a HiDPI display."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Corrected some POI locations on the Greece Tour."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Thu, 01 Apr 2021 23:43:20 GMT",
+            "build": "2021.14.4.23",
+            "title": "It's All Greek To Me!",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/Mf4AsQA.jpg",
+            "notes": [
+                "It's the 1st of the month, and you know what that means, yep, Skypark Travel just sent over this month's tour details!",
+                "\"It's All Greek To Me!\" No, not your pilot jargon silly, that's the name of this month's tour; you're going to Greece! Start in Attica and explore the northern region thru Macedonia up to Thrace. Work your way down to Crete, then loop back and prepare a smaller plane for some shorter island-hops before you return home. Expect to see the Acropolis of Athens, beautiful beaches, the black sands of Santorini, and even the party resorts of Mykonos. This tour also includes a waypoint flyover, the windiest point in Greece. Will you try landing there?",
+                "Have fun and be safe; remember, don't land downhill !!!",
+                "- Brigit",
+                "In Contrax, enter \"FETA\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "This month's tour brings us to Greece! Check the Skypark Discord server for details about this new content"
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Fixed an issue introduced in the previous update where pilots flying the UK Tour wouldn't be able to progress through the tour"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 31 Mar 2021 19:07:59 GMT",
+            "build": "2021.14.3.19",
+            "title": "Papua New Guinea Village Resupply Multi-Hops",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/nwbAu6D.jpg",
+            "notes": [
+                "Remember that show Worst Place To Be a Pilot? Well, you're about to live it!",
+                "We were hesitant to accept this contract due to pilot safety concerns, but we've got to keep the lights on, so here we are. These supply runs are vital to Papua New Guinea's remote villages; you are essentially their lifeline to the outside world. Don't be weirded out by some of the cargo you'll be hauling; it may feel random, but if it's needed, then it's our job to get it there, well, your job.",
+                "Have fun and be safe; remember, don't land downhill !!!",
+                "- Brigit",
+                "In Contrax, enter \"PNG\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "Explore Papua New Guinea with new multi-hop contracts. Check the Skypark Discord server for details about this new content"
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Minor fixes to the UI/UX"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Mon, 29 Mar 2021 19:42:28 GMT",
+            "build": "2021.14.1.19",
+            "title": "Game Modes!",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/ZwoPtJt.jpg",
+            "changes": {
+                "new": [
+                    {
+                        "title": "Added Game Modes",
+                        "label": [
+                            "In the Settings App under Gameplay, you can now choose from 2 game modes, Discovery & Endeavour. Think of it like parallel lives, you can switch between them at any time, and The Skypark will save your progression data independently."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Contrax will now tell you the requirements for contracts you don't have access to when you search for them specifically"
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Minor fixes to the UI/UX"
+                        ]
+                    }
+                ],
+                "removed": [
+                    {
+                        "label": [
+                            "Removed the Feedback app from the Home screen. Feedback should now be provided via our Discord server accessible from the Home screen or at the bottom left of the Settings app."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Thu, 25 Mar 2021 02:25:01 GMT",
+            "build": "2021.13.4.2",
+            "title": "PA-28R Arrow III Ferry",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/intIOf5.jpg",
+            "notes": [
+                "I've got a fresh set of ferry contracts today for the endurance junkies! Ferry flights will have you logging some serious hours in specific aircraft, and they are VERY challenging. There are some required check-in points outlined in the contract, but if you need to refuel or rest mid-way, please don't hesitate to do so. Safety first, just don't be late!",
+                "The pre-owned PA-28R Arrow III market is hot right now...I wonder why?",
+                "The PA-28R Arrow III is a four-seater, piston-engine aircraft equipped with a retractable tricycle landing gear and a constant-speed propeller.",
+                "Pack a getaway bag; ferry flights will typically have you away from home for a few days.",
+                "BTW, I've added some additional resources below that might be helpful on the delivery!",
+                "- Brigit",
+                "In Contrax, enter \"ARROWIII\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "Ferry used PA-28R Arrow III around the world with these new contracts. Check the Skypark Discord server for details about this new content"
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Minor fixes to the UI/UX"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Backend housekeeping"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Standardized displayed times to 24h"
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Fixed infinite money cheat 👀"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Fixed an issue where contracts generation would get stuck on generating for some users"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Mon, 15 Mar 2021 16:17:20 GMT",
+            "build": "2021.12.1.16",
+            "changes": {
+                "improved": [
+                    {
+                        "label": [
+                            "Major changes in the way progress is stored. If you notice any issues, please let us know via Discord or the ticket system."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Fixed an issue where sounds wouldn't play for users with low Internet bandwidth"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Fixed an issue where all contracts with unlimited time would show up as taken after a while"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Fixed various minor issues with the notification system"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Fri, 05 Mar 2021 15:08:54 GMT",
+            "build": "2021.10.5.15",
+            "changes": {
+                "fixed": [
+                    {
+                        "label": [
+                            "Minor fix in UK Tour: Part II to specify engine shutdown at the top of Ben Nevis"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Fix for custom flight plans not showing up properly in yoFlight"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 03 Mar 2021 16:55:23 GMT",
+            "build": "2021.10.3.16",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/Cux87gh.jpg",
+            "notes": [
+                "Awright, Skypark Travel just sent over this month's tour details! Yes, I know this one comes about two weeks after the first, but we signed up for their services mid-month.",
+                "Get your bush planes ready! Part II of the #UKTOUR will explore the Scottish Highlands, Islands & Northern Ireland. Expect to fly over scenic points of interest such as the National Wallace Monument, Blair Castle, the Glenfinnan Viaduct, Broch of Mousa, and a landing at Barra. This tour also includes two off-strip landings and a waypoint flyover.",
+                "Dinnae forget to pack an umbrella!",
+                "- Brigit",
+                "In Contrax, enter \"UKTOUR\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New content available. Check the Skypark Discord server for details about this new content."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Potential fix for an issue where cargo items could not be loaded at the departure airport. If this issue still occurs, please get in touch with us via Discord."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Sat, 27 Feb 2021 03:23:30 GMT",
+            "build": "2021.9.6.3",
+            "changes": {
+                "new": [
+                    {
+                        "title": "Agency filter",
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/a2eyVJH.jpg",
+                        "label": [
+                            "You can now filter contracts by agency!"
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Potential fix for an issue where cargo items could not be loaded at the departure airport. If this issue still occurs, please get in touch with us via Discord."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Thu, 25 Feb 2021 21:26:40 GMT",
+            "build": "2021.9.4.21",
+            "changes": {
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where some contracts would fail before the expiration time"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Issue where some active contracts would not show in Conduit"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Issue where some contracts could not be searched for in Conduit"
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Larger hitbox for the resize buttons on the left of Skypad"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 24 Feb 2021 17:05:00 GMT",
+            "build": "2021.9.3.17",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/REdO3qL.jpg",
+            "notes": [
+                "Hello Pilots!!",
+                "We have a new customer in The Caribbean specializing in distributing cargo throughout the islands, so prep your smaller planes for these short hops. The Caribbean is a region of the Americas that consists of the Caribbean Sea, its islands, and the surrounding coasts. The area is southeast of the Gulf of Mexico and the North American mainland, east of Central America, and north of South America.",
+                "Flying here is incredibly scenic; feel free to bring a camera on this journey, but don't forget to load the cargo! Oh, and before I forget, I also linked a playlist with some region-appropriate jams.",
+                "Bring back some sunshine,",
+                "- Brigit",
+                "In Contrax, enter \"SNORKEL\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New content available. Check the Skypark Discord server for details."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Much improved waypoint prioritization in yoFlight (specially when leaving an airport in the middle of a multi-leg contract)"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Updated the airports library to reflect the latest MSFS update"
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where erasing a contract in Conduit wouldn't remove it from the list."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Thu, 18 Feb 2021 22:36:56 GMT",
+            "build": "2021.8.4.22",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/9cob2Ho.jpg",
+            "notes": [
+                "A new Skypark Travel experience in Scotland just came thru the wire. The Out Skerries are an archipelago of islets in Shetland, Scotland, and are the easternmost group of Shetland's islands. Locally, they are usually called Da Skerries or just Skerries.",
+                "The Outer Skerries population is so tiny (less than 70) that the airfield fire brigade doubles as the airport handler. You know what else is tiny? The airstrip!",
+                "Don't get skerr'd,",
+                "- Brigit",
+                "In Contrax, enter \"SKERRIES\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New content available. Check the Skypark Discord server for details."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Added a link to our Discord server on the home screen."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where the Skypark installer would fail when there is not enough space on the system hard drive."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Tue, 16 Feb 2021 23:26:23 GMT",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/n3rF77X.jpg",
+            "build": "2021.8.2.23",
+            "notes": [
+                "New Pilot Benefits, Tours & Experiences!",
+                "A travel agency by the name of Skypark Travel recently approached ClearSky with an opportunity to offer pilot vacation benefits. Upon looking at our logs and seeing just under 11.5 MILLION nautical miles logged by you, we figured it was time for some fun. Expect monthly Tours and memorable Experiences when available. Anytime I get notice, you'll hear about it from me, pack your bags!",
+                "- Brigit"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "title": "UK Tour Part I is LIVE",
+                        "label": [
+                            "The first of the monthly tours by Skypark Travel is here. Part I will guide you thru England, Wales & Southern Scotland. Expect beautiful airstrips and a cool new yoFlight feature exclusive to Tours that will allow you to highlight Points of Interest (POI). I hear Part II will follow next month.",
+                            "Then in Contrax, enter \"UKTOUR\" in the smart search field!"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "You can now easily identify on the map what the next waypoint of your flightplan is in yoFlight"
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where auto-generated flight plans would be reversed on multi-leg contracts in yoFlight."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Thu, 11 Feb 2021 22:36:28 GMT",
+            "build": "2021.7.4.22",
+            "changes": {
+                "new": [
+                    {
+                        "title": "Introducing Skypark Travel!",
+                        "label": [
+                            "A new agency arrives on the platform. Every pilot is unique, and your vacations should be as well. Explore the world in your off time with Skypark Travel, where you'll \"Tropic like it's hot!\""
+                        ]
+                    },
+                    {
+                        "title": "Tours are ready!",
+                        "label": [
+                            "You thought multi-legs were cool? Skypark Travel will provide pilots with a monthly tour starting with the United Kingdom. Part I of the UK Tour will be available in a few days, with Part II to follow next month!"
+                        ]
+                    },
+                    {
+                        "title": "UK Tour Part I",
+                        "label": [
+                            "The first tour by Skypark Travel will coincide with the public release of World Update 3. Part I will guide you thru England, Wales & Southern Scotland. Expect beautiful airstrips, and a cool new yoFlight feature exclusive to Tours that will allow you to highlight Points of Interest (POI)."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Improved compatibility with VR and window capture utilities by allowing you to run your Skypad in a framed window.",
+                            "Check Settings > Displays to enable this feature."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Your Skypad now remembers where you last left it and restarts at the same location on your display(s)."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Multi-leg contracts now include direct flight plans for each individual leg in yoFlight"
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where the XP reward would be less than what was promised before completion."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Issue where some contracts would fail before the expiration date while launching the Transponder."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "We changed a thing in the changelog, you may notice a change, or not, but we're keeping the change!"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Improved the XP calculation on contracts."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Minor general improvements/fixes to the UI."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Minor improvements to the updater."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Thu, 04 Feb 2021 01:12:35 GMT",
+            "build": "2021.6.4.1",
+            "hotfix": true,
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/TWtmDHu.jpg",
+            "notes": [
+                "\"We are the world\" was a beautiful song with a strong message:",
+                "\"There comes a time when we heed a certain call, when the world must come together as one.\"",
+                "ClearSky received that call today, and we are hopeful that ALL pilots on The Skypark will help us distribute COVID-19 Vaccines worldwide. These contracts will have you visiting some of the most popular international airports in the world, as well as smaller airstrips nearby.",
+                "Let's rack up those miles, and thank you for taking part in our efforts!",
+                "In Contrax, enter \"VACCINE\" in the smart search field!",
+                "- Brigit"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New content available. Check the Skypark Discord server for details."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "[HOTFIX] Fixed an issue where specifying multiple ICAOs in the Contrax filters would not return a matching contract."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Contrax will now allow hops as short as 60nm for multi-leg contracts."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Tue, 02 Feb 2021 03:09:42 GMT",
+            "build": "2021.6.2.3",
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "Activated Multi-Leg Contracts. Browse for them in Contrax or use Advanced filters to filter by number of legs."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Added Spotify playlist on Coyote contracts in South America and Central America."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where transitioning from Contrax to Conduit would not bring you to the right contract"
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Vastly improved routes algorithm. It should be much easier to find contracts leaving your arrival airports."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "More redundancy in the way we save your progress data."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Minor UI improvements."
+                        ]
+                    }
+                ],
+                "removed": [
+                    {
+                        "label": [
+                            "Removed weather radar from Contrax. Coverage issues, performance and confusion between simulator and real-time weather led to this decision."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Tue, 26 Jan 2021 16:03:18 GMT",
+            "build": "2021.5.2.16",
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "Easily toggle between 2 sizes using the buttons on the left of the Skypad.",
+                            "To assign a size to each, first, click the button, then go in the Settings app and set your desired size from the Display section."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where some of the new \"Importes Soriano\" contracts would not show up correctly in the search results."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Issue where Brigit would blame you for not loading cargo at the destination of multi-leg contracts."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Issue where some contracts would exceed the requirements of the aircraft type filter in Contrax."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Tue, 26 Jan 2021 00:57:24 GMT",
+            "build": "2021.5.2.0",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/jD958rw.jpg",
+            "notes": [
+                "Edson went on vacation to visit his family in Cochabamba, Bolivia, and it appears he's set up a little side hustle there.",
+                "He's reached out for help moving a wide variety of products into Bolivia, then out to remote areas. I've added two types of contracts: international flights into the country and another for Bolivian distribution.",
+                "These contracts are available to pilots meeting specific criteria (Level 3+ and 50+ Reliability). Be sure to read the notes in each contract for tips on the import process and selecting the appropriate equipment!",
+                "Bring me back a llama! 🦙",
+                "In Contrax, enter \"SORIANO\" in the smart search field!",
+                "- Brigit"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New content available. Check the Skypark Discord server for details."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "The status bar clock is now in sync with the simulator when connected. If not, it will show the local computer time."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Added option to find contracts with airports that include ILS runways in Contrax."
+                        ]
+                    },
+                    {
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/ZSwzLaf.jpg",
+                        "label": [
+                            "You can now see what runways are lit or has an ILS in the contract's details."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Removed the Passengers and Tours buttons in Contrax's filters for now. We will reintroduce those when we have content featuring passengers and tours."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Moved most of the preferences from the Transponder into SkyOS's Settings app."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where some airports would be titled as \"Unknown Airport\"."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Issue where the aircraft would show up in the Atlantic Ocean while in the simulator menus."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Mon, 18 Jan 2021 00:37:29 GMT",
+            "build": "2021.4.1.0",
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "You will now be notified in Contrax when new contracts are introduced into the system."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where The Skypark would fail to launch for some users"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Mon, 11 Jan 2021 17:42:38 GMT",
+            "build": "2021.3.1.17",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/ifPdSHG.jpg",
+            "notes": [
+                "Based on activity in the company Discord, you've all been working hard, so it's time to take a break. Experience Moriya, Japan!",
+                "There is a gorgeous little airstrip located in southwestern Ibaraki Prefecture. Located approximately 35 kilometers from central Tokyo, Moriya is surrounded by three rivers: the Kinugawa, Kokaigawa, and the Tone River, one of Japan's longest rivers.",
+                "Enjoy the XP boost!",
+                "In Contrax, enter \"MORIYA\" in the smart search field!"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New content available. Check the Skypark Discord server for details."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Added option to find contracts with airports that include runway lights in Contrax."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Updated airport database to match the latest version of MSFS."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Added a button to close the flight after completion in yoFlight"
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "You can now see the flight direction on contracts displayed in Contrax"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Completed items in the To-Do list are now dimmed in yoFlight, Conduit and other areas showing the To-Do list"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Improved search results"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Reorganized the order of some filters in Contrax"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Minor improvements to the behavior of flight tracking in yoFlight"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Tue, 05 Jan 2021 16:57:19 GMT",
+            "build": "2021.2.2.16",
+            "notes": [
+                "We move Financial Documents off-site to our document depot daily. Help me deliver these, and I'll boost your Reliability Score to 60%",
+                "In Contrax, enter \"brigit\" in the smart search field!",
+                "- Brigit"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "Added a contract to Boost Reliability Score to 60% by delivering company documents for Brigit. Smart Search: brigit"
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/eu2OkDn.jpg",
+                        "label": [
+                            "Changed the color of the aircraft arrow in yoFlight"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "New pilots (Level 3 or below) will no longer see a negative impact on their Reliability Scores, n00bs!"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Mon, 04 Jan 2021 03:17:01 GMT",
+            "build": "2021.2.1.3",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/ts9KBMV.jpg",
+            "notes": [],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New Coyote content available. Check the Skypark Discord server for details."
+                        ]
+                    },
+                    {
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/TMpnjVn.jpg",
+                        "label": [
+                            "Say hello to notifications!"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Added the ability to check for update manually from the Transponder"
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Minor UI improvements."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where the runway surface filters would not be respected in Contrax."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Issue where the Transponder would crash if a specific format of PLN file is loaded in."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 30 Dec 2020 23:25:18 GMT",
+            "build": "2020.53.3.23",
+            "notes": [],
+            "changes": {
+                "new": [
+                    {
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/7Q0upCU.jpg",
+                        "label": [
+                            "You can now make your Skypad smaller or larger (Settings > Display)."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "New content available. Check the Skypark Discord server for details."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Minor improvements to the Settings app UI."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Tue, 22 Dec 2020 18:33:26 GMT",
+            "notes": [
+                "Yep, It's that time of year again!",
+                "As usual, transport services are overloaded, and they have called on us to step in. We've got heavy routes from major hubs heading north and short routes to smaller towns.",
+                "You are likely to experience snow out that way; make sure to take some photos!",
+                "To find them, first, restart your Transponders for the update. Then in Contrax, enter \"holidays\" in the smart search field!",
+                "- Brigit"
+            ],
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/LXonUBy.jpg",
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New Holiday contracts. Search 'holidays'."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Tue, 22 Dec 2020 03:11:34 GMT",
+            "notes": [],
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/o0EWCdq.jpg",
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "City lights in yoFlight makes you find your way at night!."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "New option (Settings > Display) to switch theme automatically based on the time of day (in sim)."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where the map would turn blue for some users."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Issue where the Transponder would crash when loading a flight plan for some users."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Better behavior separation between auto-zoom and manual zoom in yoFlight."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Minor update to the style of the map controls in yoFlight."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Mon, 21 Dec 2020 02:07:42 GMT",
+            "notes": [],
+            "changes": {
+                "new": [
+                    {
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/kyQij5e.jpg",
+                        "label": [
+                            "You can now toggle between themes through the app switcher!"
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "👉 Vastly improved performance 👈 of the Transponder."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Updated map framework (slight performance improvements)."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Fri, 18 Dec 2020 23:55:55 GMT",
+            "notes": [],
+            "changes": {
+                "improved": [
+                    {
+                        "label": [
+                            "👉 Vastly improved performance 👈 when tracking yo flight in yoFlight."
+                        ]
+                    },
+                    {
+                        "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/pvEEHyb.jpg",
+                        "label": [
+                            "Unified and improved the style of map controls in yoFlight."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where imported flight plans would show up twice in yoFlight."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Fri, 18 Dec 2020 06:17:49 GMT",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/CaJ98mH.jpg",
+            "notes": [
+                "I see lots of clean planes in the photos area; let's change that.",
+                "When we started ClearSky, we began with small grass strips. These strips are quite popular with experimental aircraft; I believe they call it Bush Flying?",
+                "Anyways, today, we're going to spin up some of these old routes; these are special, but they are also dangerous.",
+                "To find it in Contrax, enter \"grasshopper\" in the smart search field!",
+                "-Brigit"
+            ],
+            "changes": {
+                "fixed": [
+                    {
+                        "label": [
+                            "Issue where contracts wouldn't allow to load cargo at some airports."
+                        ]
+                    }
+                ],
+                "new": [
+                    {
+                        "label": [
+                            "New contracts for your enjoyment."
+                        ]
+                    }
+                ],
+                "improved": [
+                    {
+                        "label": [
+                            "Improved visibility of the 'Search this region' button."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Minor UI improvements."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Filtered out some closed airports."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Wed, 16 Dec 2020 04:20:23 GMT",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/zLljECj.jpg",
+            "notes": [
+                "OK, I just got off the phone with a new company out east in Maryland. They need our services to run supplies in for the tail end of the Blue Crab season.",
+                "There are two options for you, shorter flights bringing in supplies for the boats, another is longer hauls outbound flying fresh Maryland crab worldwide.",
+                "These are good money and will only valid thru the end of the month.",
+                "To find it in Contrax, enter \"bluecrab\" in the smart search field!",
+                "- Brigit"
+            ],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "New contracts for your enjoyment."
+                        ]
+                    }
+                ],
+                "fixed": [
+                    {
+                        "label": [
+                            "Fixed an issue where the Transponder would crash at launch for some users."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Fixed an issue where the Transponder would crash when .pln files are updated in flight sim's 8wekyb3d8bbwe\\LocalState directory."
+                        ]
+                    },
+                    {
+                        "label": [
+                            "Fixed an issue where some flight plans would be offset to the north in yoFlight."
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "date": "Mon, 14 Dec 2020 22:04:01 GMT",
+            "image": "https://storage.googleapis.com/gilfoyle/the-skypark/v1/common/images/changelog/1LlJz3r.jpg",
+            "notes": [],
+            "changes": {
+                "new": [
+                    {
+                        "label": [
+                            "Built from the ground up, SkyOS running on Skypad is at the heart of your assigned virtual equipment on The Skypark. ",
+                            "Keep an eye here as we update SkyOS with new features!"
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}

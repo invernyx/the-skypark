@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Mapbox GL JS Color Picker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet" />
+    <style>
+        body {
+			margin: 0;
+			padding: 0;
+		}
+        #map {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 200px;
+			height: 200px;
+		}
+    </style>
+</head>
+<body>
+    <div id="map" style="opacity:0.5;"></div>
+    <script>
+
+        mapboxgl.accessToken = "pk.eyJ1IjoiYmlhcnplZCIsImEiOiJja3M0dnBhcnkwcmVyMnNyem9oczlldDhsIn0.umFSL6RazMkBy81adF90eg";
+        const map = new mapboxgl.Map({
+            container: "map",
+            style: "mapbox://styles/biarzed/clfa1kov6002k01o8ob4v6h6q",
+            center: [0, 0],
+            zoom: 19,
+			preserveDrawingBuffer : true,
+        });
+
+		map.on("load", () => {
+
+            let socket = null;
+			let pingInterval = null;
+			const connect = () => {
+
+				socket = new WebSocket('ws://localhost:8898/JobServer');
+				socket.onopen = (event) => {
+					console.log('Connected to server');
+					document.getElementById('map').style.opacity = 1;
+
+					pingInterval = setInterval(() => {
+						socket.send(JSON.stringify({ type: 'ping' }));
+					}, 1000);
+				};
+
+				socket.onmessage = (event) => {
+					const message = JSON.parse(event.data);
+					console.log('Received:', message);
+
+					map.jumpTo({ center: [ message.longitude, message.latitude ] });
+
+					map.once("idle", () => {
+						const mapCanvas = map.getCanvas();
+						const width = mapCanvas.width;
+						const height = mapCanvas.height;
+						const centerX = width / 2;
+						const centerY = height / 2;
+						const image = mapCanvas.toDataURL("image/png");
+
+						socket.send(JSON.stringify({
+							type: 'completed',
+							id: message.id,
+							result: image
+						}));
+						console.log('Job completed: ' + message.id + '');
+					});
+
+				};
+
+
+				socket.onclose = (event) => {
+					clearInterval(pingInterval);
+					document.getElementById('map').style.opacity = 0.5;
+					setTimeout(function () {
+						console.log('Reconnecting...');
+						connect();
+					}, 1000);
+				};
+
+				socket.onerror = (event) => {
+					console.log('Error: ' + JSON.stringify(event) + '');
+
+				};
+			}
+			connect();
+
+		});
+
+    </script>
+</body>
+</html>

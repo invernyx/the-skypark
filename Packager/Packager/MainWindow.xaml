@@ -1,0 +1,76 @@
+﻿<Window x:Name="window" x:Class="Packager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Packager"
+        mc:Ignorable="d"
+        Title="TSP Packager" 
+        Background="#111122"
+        WindowStartupLocation="CenterScreen"
+        Height="800" 
+        Width="1500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+            <Button Content="Transponder" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="compile_tsp-transponder" />
+            <Button Content="SkyOS" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="compile_tsp-skyos"/>
+            <Button Content="Skypad" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="compile_tsp-skypad-electron"/>
+            <Button Content="Content" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="compile_tsp-content"/>
+            <Button Content="Topo" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="compile_tsp-topo" />
+            <Button Content="Adventures" Padding="12,5" Margin="0,0,15,0" Click="Button_Click" Uid="compile_tsp-adventures" />
+            <Button Content="Airports" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="compile_tsp-airports" />
+            <Button Content="Images" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="compile_tsp-images" />
+            <Button Content="Sounds" Padding="12,5" Margin="0,0,15,0" Click="Button_Click" Uid="compile_tsp-sounds" />
+            <ComboBox Name="option_version" VerticalAlignment="Center" Padding="12,5" Margin="0,0,15,0" SelectionChanged="ComboBox_SelectionChanged" Uid="option_version">
+                <ComboBoxItem Tag="2">Version 2</ComboBoxItem>
+                <ComboBoxItem Tag="3">Version 3</ComboBoxItem>
+            </ComboBox>
+            <CheckBox Name="option_newVersion" IsChecked="false" VerticalAlignment="Center" Content="New version" Foreground="#FFFFFF" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" Uid="option_newVersion"/>
+        </StackPanel>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Right" Orientation="Horizontal" Margin="10">
+            <Button Content="Download Holidays" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="download_holidays" />
+            <Button Name="settings_btn" Content="Edit Settings" Padding="12,5" Margin="0,0,0,0" Click="Button_Click" Uid="settings_edit"/>
+        </StackPanel>
+        <Grid Grid.Row="1" Name="ConsoleBox" Margin="5,0"></Grid>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Left" Orientation="Horizontal" Margin="10">
+            <!--<Button Content="Open Output" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="settings_output"/>-->
+            <Button Content="Reset" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="clear"/>
+        </StackPanel>
+        <TabControl Grid.Row="2" Margin="10" HorizontalAlignment="Right" Background="#111122" BorderThickness="0">
+            <TabItem Header="App" Style="{StaticResource att}">
+                <Border Margin="-4, 0, -5, -5">
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="2.5">
+                        <Button Name="pack_app_btn" Content="Pack" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="pack_app" Background="#00FF00"/>
+                        <StackPanel Name="ActionAppButtons" Orientation="Horizontal">
+                            <Button Content="DEV" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="pub_app_dev"/>
+                            <Button Content="BETA" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="pub_app_beta"/>
+                            <Button Content="TEST" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="pub_app_test"/>
+                            <Button Content="RC" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="pub_app_rc" Background="#FFFF00"/>
+                            <Button Content="RC > PROD" Padding="12,5" Margin="0,0,0,0" Click="Button_Click" Uid="pub_app_prod" Background="#FF0000"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </TabItem>
+            <TabItem Header="Adventures" Style="{StaticResource att}">
+                <Border Margin="-4, 0, -5, -5">
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="2.5">
+                        <Button Name="pack_adv_btn" Content="Pack" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="pack_adv" Background="#00FF00"/>
+                        <StackPanel Name="ActionAdvButtons" Orientation="Horizontal">
+                            <Button Content="DEV" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="pub_adv_dev"/>
+                            <Button Content="BETA" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="pub_adv_beta"/>
+                            <Button Content="TEST" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="pub_adv_test"/>
+                            <Button Content="RC" Padding="12,5" Margin="0,0,5,0" Click="Button_Click" Uid="pub_adv_rc" Background="#FFFF00"/>
+                            <Button Content="RC > PROD" Padding="12,5" Margin="0,0,0,0" Click="Button_Click" Uid="pub_adv_prod" Background="#FF0000"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </TabItem>
+        </TabControl>
+        
+    </Grid>
+</Window>

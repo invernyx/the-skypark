@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+<Obfuscator>
+	<AssemblySearchPath path=".\TSP_Transponder\Assembly" />
+	<Var name="InPath" value=".\BOSS\Obfuscator_Input" />
+	<Var name="OutPath" value=".\BOSS\Obfuscator_Output" />
+	<Var name="XmlMapping" value="true" />
+
+
+	<Var name="KeepPublicApi" value="false" />
+	<Var name="HidePrivateApi" value="true" />
+
+	<Var name="RenameEvents" value="true" />
+	<Var name="RenameProperties" value="true" />
+	<Var name="RenameFields" value="true" />
+	<Var name="OptimizeMethods" value="true" />
+	<!--<Var name="ReuseNames" value="false" />-->
+	<!--<Var name="UseUnicodeNames" value="true" />-->
+	<!--<Var name="UseKoreanNames" value="true" />-->
+	<Var name="HideStrings" value="true" />
+
+
+  	<!-- Transponder -->
+	<Module file="$(InPath)\TSP_Transponder.exe" >
+		<SkipNamespace name="TSP_Transponder.Models.Topography.Utils*" />
+		<SkipNamespace name="TSP_Transponder.Models.GoogleAnalyticscs*" />
+		<SkipNamespace name="IPC*" />
+	</Module>
+
+</Obfuscator>
+
+<!-- 2a0053002a0054005400540054005400550055005500550055005500550055005500540054005400540054002a0045002a -->

@@ -1,0 +1,109 @@
+{
+	"Version": 3,
+	"State": "Listed",
+	"Name": "",
+	"Type": "Job",
+	"Dates": ["2019-10-19T04:00:00.000Z", "2031-12-31T05:00:00.000Z"],
+	"ImageURL": "",
+	"Description": "Very very long flights",
+	"MediaLink": "",
+	"RewardPerItem": 1,
+	"RewardBase": 300,
+	"RewardPerNM": 1.5,
+	"XPBase": 0,
+	"XPMin": 0,
+	"XPMax": 999999,
+	"MoralCompassGain": 0.1,
+	"MoralCompassMin": -1,
+	"MoralCompassMax": 1,
+	"RatingMin": 0,
+	"RatingMax": 10,
+	"MaxPerDay": 1000,
+	"CruiseKTS": 500,
+	"ExpireMin": 2,
+	"ExpireMax": 12,
+	"CountdownOnRequest": true,
+	"StrictOrder": true,
+	"Actions": [{
+		"UID": 48672861,
+		"Action": "audio_speech_play",
+		"Params": {
+			"Delay": 0,
+			"Character": "IVANA",
+			"Message": "GOOD_LUCK",
+			"File": "Any"
+		}
+	}, {
+		"UID": 89731430,
+		"Action": "cargo_pickup",
+		"Params": {
+			"Model": "any",
+			"Transport": "Skypark Truck Flatbed",
+			"LoadedActions": [71891831],
+			"ForgotActions": [],
+			"EndActions": []
+		}
+	}, {
+		"UID": 49031086,
+		"Action": "cargo_dropoff",
+		"Params": {
+			"Link": 89731430,
+			"Transport": "Skypark Truck Flatbed",
+			"UnloadedActions": [],
+			"ForgotActions": [],
+			"EndActions": []
+		}
+	}, {
+		"UID": 71891831,
+		"Action": "audio_speech_play",
+		"Params": {
+			"Delay": 0,
+			"Character": "LARRY",
+			"Message": "LOADED",
+			"File": "Any"
+		}
+	}, {
+		"UID": 5725126,
+		"Action": "audio_effect_play",
+		"Params": {
+			"Delay": 0,
+			"File": "KACHING.mp3"
+		}
+	}],
+	"Situations": [{
+		"UID": 22543862,
+		"SituationType": "Any",
+		"Actions": [89731430],
+		"TriggerRange": 1,
+		"Height": 300,
+		"Visible": true
+	}, {
+		"UID": 91157935,
+		"SituationType": "Any",
+		"Actions": [49031086],
+		"TriggerRange": 1,
+		"Height": 300,
+		"Visible": true
+	}],
+	"StartedActions": [48672861],
+	"SuccessActions": [5725126],
+	"FailedActions": [],
+	"Contracts": [
+		{
+			"Distance": 0,
+			"Reward": 0,
+			"ExpireAt": "2019-10-19T04:00:00.000Z",
+			"CreatedAt": "2019-10-19T04:00:00.000Z",
+			"Situations": [
+				{
+					"UID": 22543862,
+					"ICAO": "KBDL"
+				},
+				{
+					"UID": 91157935,
+					"ICAO": "CYUL"
+				}
+			]
+		}
+	]
+}

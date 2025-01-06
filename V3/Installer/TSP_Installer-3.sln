@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.852
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The Skypark Installer", "The Skypark Installer.csproj", "{3057D8F8-1B7B-45A5-82E7-E2C562DE9D7E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3057D8F8-1B7B-45A5-82E7-E2C562DE9D7E}.Debug|x64.ActiveCfg = Debug|x64
+		{3057D8F8-1B7B-45A5-82E7-E2C562DE9D7E}.Debug|x64.Build.0 = Debug|x64
+		{3057D8F8-1B7B-45A5-82E7-E2C562DE9D7E}.Release|x64.ActiveCfg = Release|x64
+		{3057D8F8-1B7B-45A5-82E7-E2C562DE9D7E}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {22571E2B-7744-447B-9A6A-6108D1166246}
+	EndGlobalSection
+EndGlobal

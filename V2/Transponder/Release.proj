@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project DefaultTargets="BuildAll" 
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<!--
+		Release.proj:
+			Builds and obfuscates a release.
+
+		You can make msbuild build the release by running the following command:
+
+			msbuild Release.proj
+	-->
+
+	<!-- default to release build -->
+	<PropertyGroup Condition="!Exists('$(Configuration)')">
+		<Configuration>Release</Configuration>
+	</PropertyGroup>
+
+	<!-- paths for finding bits -->
+	<PropertyGroup>
+		<BasePath>$(MSBuildProjectDirectory)</BasePath>
+		<TransponderExePath>$(BasePath)\TSP_Transponder\bin\x64\$(Configuration)</TransponderExePath>
+	</PropertyGroup>
+
+	<!-- obfuscator bits -->
+	<PropertyGroup>
+		<ObfuscatorExe>$(BasePath)\packages\Obfuscar.2.2.28\tools\obfuscar.Console.exe</ObfuscatorExe>
+		<ObfuscatorProject>$(BasePath)\obfuscar.xml</ObfuscatorProject>
+		<ObfuscatorInput>$(BasePath)\BOSS\Obfuscator_Input</ObfuscatorInput>
+		<ObfuscatorOutput>$(BasePath)\BOSS\Obfuscator_Output</ObfuscatorOutput>
+		<ObfuscatorFinal>$(BasePath)\BOSS\Final</ObfuscatorFinal>
+	</PropertyGroup>
+	<ItemGroup>
+		<!-- main exes -->
+		<ObfuscatedFile Include="$(TransponderExePath)\TSP_Transponder.exe" />
+	</ItemGroup>
+	<ItemGroup>
+		<!-- excluded exes/dlls -->
+		<ExcludedFile Include="$(BasePath)\bin\x64\Release\VersionNumber.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<CompileSolution Include="$(BasePath)\TSP_Transponder-2.sln" />
+	</ItemGroup>
+
+	<!-- clean, compile and package! -->
+	<Target Name="BuildAll" DependsOnTargets="Prepare;Clean;Compile;Obfuscate" />
+
+	<!-- clean outputs and temp obfuscation files -->
+	<Target Name="Clean">
+		<MSBuild Projects="@(CompileProject);@(CompileSolution)" Properties="Configuration=$(Configuration);Platform=x64" Targets="Clean" />
+		<RemoveDir Directories="$(ObfuscatorFinal)" />
+		<RemoveDir Directories="$(ObfuscatorInput)" />
+		<RemoveDir Directories="$(ObfuscatorOutput)" />
+	</Target>
+
+	<!-- prepare -->
+	<Target Name="Prepare">
+		<MSBuild Projects="@(CompileObfuscar)" Properties="Configuration=$(Configuration);BuildType=$(BuildType);Platform=x64" />
+	</Target>
+	
+	<!-- compile -->
+	<Target Name="Compile">
+		<MSBuild Projects="@(CompileSolution)" Properties="Configuration=$(Configuration);BuildType=$(BuildType);Platform=x64" />
+	</Target>
+
+	<!-- copies files that are to be obfuscated -->
+	<Target Name="CopyObfuscatedFiles"
+		DependsOnTargets="Compile">
+		<MakeDir Directories="$(ObfuscatorInput)" />
+
+		<!-- copy files that will be obfuscated to obfuscator input -->
+		<Copy SourceFiles="@(ObfuscatedFile)"
+			DestinationFolder="$(ObfuscatorInput)" />
+	</Target>
+
+	<!-- obfuscate -->
+	<Target Name="Obfuscate"
+		DependsOnTargets="CopyObfuscatedFiles">
+		<MakeDir Directories="$(ObfuscatorOutput)" />
+		<Exec Command='"$(ObfuscatorExe)" "$(ObfuscatorProject)"' />
+		<Copy SourceFiles="@(ObfuscatedFile->'$(ObfuscatorOutput)\%(filename)%(extension)')"
+			DestinationFolder="$(ObfuscatorFinal)" />
+		<Copy SourceFiles="$(ObfuscatorOutput)\Mapping.xml"
+			DestinationFolder="$(ObfuscatorFinal)" />
+	</Target>
+</Project>

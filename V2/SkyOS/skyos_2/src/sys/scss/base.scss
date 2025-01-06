@@ -1,0 +1,735 @@
+// https://thenounproject.com/sophiabai/collection/essential-icon-set/
+
+@import "mixins.scss";
+@import "sizes.scss";
+@import "colors.scss";
+@import "fonts.scss";
+
+body, html {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	user-select: none;
+	font-smooth: always;
+}
+
+body {
+	overflow: hidden;
+}
+
+* {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#app {
+	width: 100%;
+	height: 100%;
+	.theme--bright &,
+	&.theme--bright {
+		color: $ui_colors_bright_shade_5;
+	}
+	.theme--dark &,
+	&.theme--dark {
+		color: $ui_colors_dark_shade_5;
+	}
+}
+
+.os-notifications {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.theme--bright & {
+		&.is-bright {
+			color: $ui_colors_bright_shade_0;
+			.os-notifications-tray {
+				background-color: rgba(0,0,0,0.2);
+				border: 1px solid transparent;
+				border-top: none;
+			}
+		}
+		&.is-dark {
+			color: $ui_colors_dark_shade_0;
+			.os-notifications-tray {
+				background-color: rgba(0,0,0,0.2);
+				border: 1px solid transparent;
+				border-top: none;
+			}
+		}
+	}
+	.theme--dark & {
+		&.is-bright {
+			color: $ui_colors_bright_shade_0;
+			.os-notifications-tray {
+				background-color: rgba(0,0,0,0.6);
+				border: 1px solid $ui_colors_dark_shade_2;
+				border-top: none;
+			}
+		}
+		&.is-dark {
+			color: $ui_colors_dark_shade_0;
+			.os-notifications-tray {
+				background-color: rgba(0,0,0,0.2);
+				border: 1px solid transparent;
+				border-top: none;
+			}
+		}
+	}
+
+	&-live {
+		position: absolute;
+		top: 0;
+		padding-top: $status-size;
+		width: 540px;
+		max-width: 100%;
+		transform: translateY(-100%);
+		will-change: transform;
+		transition: transform 0.3s cubic-bezier(.5,0,.5,1);
+		pointer-events: none;
+		z-index: 2;
+		&.expanded {
+			pointer-events: all;
+			transform: translateY(0);
+			transition: transform 0.3s cubic-bezier(.5,0,.5,1);
+		}
+	}
+
+	&-tray {
+		position: absolute;
+		top: 0;
+		width: 540px;
+		max-width: 100%;
+		margin-top: -25px;
+		padding-top: 25px;
+		z-index: 3;
+		backdrop-filter: blur(60px) saturate(80%);
+		box-shadow: 0 0px 0px rgba(0,0,0,0.2), 0 0px 0px rgba(0,0,0,0.5);
+		border-bottom-left-radius: 24px;
+		border-bottom-right-radius: 24px;
+		transform: translateY(-100%);
+		will-change: transform;
+		transition: transform 0.3s cubic-bezier(.5,0,.5,1), box-shadow 0.3s ease-out;
+		pointer-events: none;
+		&-open {
+			pointer-events: all;
+			box-shadow: 0 6px 30px rgba(0,0,0,0.2), 0 3px 8px rgba(0,0,0,0.5);
+			transform: translateY(0);
+			transition: transform 0.3s cubic-bezier(.5,0,.5,1), box-shadow 0.3s ease-out;
+		}
+		&-list {
+			padding-top: $status-size;
+			padding-left: 16px;
+			padding-right: 16px;
+			padding-bottom: 10px;
+		}
+		&-label {
+			font-family: "SkyOS-SemiBold";
+		}
+		&-controls {
+			display: flex;
+			margin-bottom: 8px;
+			& > div {
+				display: flex;
+				align-items: center;
+				flex-grow: 1;
+				&:last-child {
+					justify-content: flex-end;
+				}
+				.button_action {
+					padding: 0.2em 0.5em;
+					margin-left: 4px;
+				}
+			}
+		}
+
+		& > div {
+			//position: absolute;
+			//top: 0;
+			//left: 0;
+			//right: 0;
+			//bottom: 0;
+			mask-image: linear-gradient(
+				to bottom,
+				rgba(0, 0, 0, 0.1) $status-size - 15,
+				rgba(0, 0, 0, 1) $status-size,
+				rgba(0, 0, 0, 1) calc(100% - 20px),
+				rgba(0, 0, 0, 0) 100%
+			);
+		}
+
+		.scroll_view {
+			max-height: 300px;
+		}
+
+	}
+}
+
+.os-modals {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
+	pointer-events: none;
+	& > div {
+		pointer-events: all;
+	}
+}
+
+.os-status {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 3;
+	transform: rotate3d(0, 1, 0, 0deg);
+	&.is-invisible {
+		margin-top: -100px;
+	}
+	&.is-dark {
+		&.is-shaded {
+			.os-status_background_bright {
+				opacity: 1;
+			}
+		}
+		.os-status_signal {
+			&_wifi {
+				&_1 {
+				  background-image: url(../assets/framework/dark/signal_indicators/wifi_1.svg);
+				}
+				&_2 {
+				  background-image: url(../assets/framework/dark/signal_indicators/wifi_2.svg);
+				}
+				&_3 {
+				  background-image: url(../assets/framework/dark/signal_indicators/wifi_3.svg);
+				}
+			}
+			&_lte {
+				&_1 {
+				  background-image: url(../assets/framework/dark/signal_indicators/lte_1.svg);
+				}
+				&_2 {
+				  background-image: url(../assets/framework/dark/signal_indicators/lte_2.svg);
+				}
+				&_3 {
+				  background-image: url(../assets/framework/dark/signal_indicators/lte_3.svg);
+				}
+				&_4 {
+				  background-image: url(../assets/framework/dark/signal_indicators/lte_4.svg);
+				}
+				&_5 {
+				  background-image: url(../assets/framework/dark/signal_indicators/lte_5.svg);
+				}
+			}
+		}
+		.os-status_notification {
+			&_bell {
+				background-image: url(../assets/icons/notification-empty_dark.svg);
+				&.is-full {
+					background-image: url(../assets/icons/notification-full_dark.svg);
+				}
+			}
+			& span {
+				color: $ui_colors_dark_shade_1;
+			}
+			&.active {
+				background-color: lighten($ui_colors_bright_button_cancel, 10%);
+				&:hover {
+					background-color: lighten($ui_colors_bright_button_cancel, 20%);
+				}
+			}
+		}
+		.os-status_user {
+			& span {
+				color: $ui_colors_dark_shade_1;
+			}
+		}
+		.os-status_notice {
+			color: $ui_colors_dark_shade_1;
+		}
+	}
+	&.is-bright {
+		&.is-shaded {
+			.os-status_background_dark {
+				opacity: 1;
+			}
+		}
+		.os-status_signal {
+			&_wifi {
+				&_1 {
+				  background-image: url(../assets/framework/bright/signal_indicators/wifi_1.svg);
+				}
+				&_2 {
+				  background-image: url(../assets/framework/bright/signal_indicators/wifi_2.svg);
+				}
+				&_3 {
+				  background-image: url(../assets/framework/bright/signal_indicators/wifi_3.svg);
+				}
+			}
+			&_lte {
+				&_1 {
+				  background-image: url(../assets/framework/bright/signal_indicators/lte_1.svg);
+				}
+				&_2 {
+				  background-image: url(../assets/framework/bright/signal_indicators/lte_2.svg);
+				}
+				&_3 {
+				  background-image: url(../assets/framework/bright/signal_indicators/lte_3.svg);
+				}
+				&_4 {
+				  background-image: url(../assets/framework/bright/signal_indicators/lte_4.svg);
+				}
+				&_5 {
+				  background-image: url(../assets/framework/bright/signal_indicators/lte_5.svg);
+				}
+			}
+		}
+		.os-status_notification {
+			&_bell {
+				background-image: url(../assets/icons/notification-empty_bright.svg);
+				&.is-full {
+					background-image: url(../assets/icons/notification-full_bright.svg);
+				}
+			}
+			& span {
+				color: $ui_colors_bright_shade_1;
+			}
+			&.active {
+				background-color: $ui_colors_dark_button_cancel;
+				&:hover {
+					background-color: $ui_colors_bright_button_cancel;
+				}
+			}
+		}
+		.os-status_user {
+			& span {
+				color: $ui_colors_bright_shade_1;
+			}
+		}
+		.os-status_notice {
+			color: $ui_colors_bright_shade_1;
+		}
+	}
+
+	.is-device .hw_frame & {
+		padding-right: 120px;
+	}
+
+	.os-status_stack {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0 14px;
+		height: 30px;
+		z-index: 2;
+		& > div {
+			display: flex;
+			margin: 0 7px;
+			& > div {
+				display: flex;
+				align-items: center;
+			}
+			&:first-child {
+				& > div {
+					margin-right: 10px;
+				}
+			}
+			&:last-child {
+				& > div {
+					margin-left: 10px;
+				}
+			}
+		}
+	}
+	.os-status_background {
+		z-index: 0;
+		& > div {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			opacity: 0;
+			transition: opacity 0.3s ease-out;
+		}
+		&_bright {
+			background: linear-gradient(to bottom, rgba($ui_colors_bright_shade_0, 0.6), cubic-bezier(.8,0,.6,1), rgba($ui_colors_bright_shade_0, 0));
+		}
+		&_dark {
+			background: linear-gradient(to bottom, rgba($ui_colors_dark_shade_0, 0.6), cubic-bezier(.8,0,.6,1), rgba($ui_colors_dark_shade_0, 0));
+		}
+	}
+
+	.os-status_signal {
+		flex-grow: 1;
+		display: flex;
+		justify-content: center;
+		width: 26px;
+		height: 16px;
+		&.is-remote {
+			.os-status_signal_wifi {
+				opacity: 0;
+			}
+			.os-status_signal_lte {
+				opacity: 1;
+			}
+		}
+		&_wifi {
+			&.searching {
+				@keyframes signal_pulse {
+					0% {
+						opacity: 0.3;
+					}
+					40% {
+						opacity: 0.3;
+					}
+					50% {
+						opacity: 1;
+					}
+					100% {
+						opacity: 0.3;
+					}
+				}
+				& .os-status_signal_wifi_1 {
+					animation: signal_pulse 3s linear 0s forwards infinite;
+				}
+				& .os-status_signal_wifi_2 {
+					animation: signal_pulse 3s linear 0.4s forwards infinite;
+				}
+				& .os-status_signal_wifi_3 {
+					animation: signal_pulse 3s linear 0.8s forwards infinite;
+				}
+			}
+			&.active {
+				& > div {
+					opacity: 1;
+				}
+			}
+			width: 21px;
+			height: 16px;
+			& > div {
+				position: absolute;
+				background-repeat: no-repeat;
+				background-size: 21px;
+				width: 21px;
+				height: 16px;
+				opacity: 0.3;
+				transition: opacity 0.3s 0.3s;
+			}
+		}
+		&_lte {
+			&.searching {
+				@keyframes signal_pulse {
+					0% {
+						opacity: 0.3;
+					}
+					40% {
+						opacity: 0.3;
+					}
+					50% {
+						opacity: 1;
+					}
+					100% {
+						opacity: 0.3;
+					}
+				}
+				& .os-status_signal_lte_1 {
+					animation: signal_pulse 3s linear 0s forwards infinite;
+				}
+				& .os-status_signal_lte_2 {
+					animation: signal_pulse 3s linear 0.2s forwards infinite;
+				}
+				& .os-status_signal_lte_3 {
+					animation: signal_pulse 3s linear 0.4s forwards infinite;
+				}
+				& .os-status_signal_lte_4 {
+					animation: signal_pulse 3s linear 0.6s forwards infinite;
+				}
+				& .os-status_signal_lte_5 {
+					animation: signal_pulse 3s linear 0.8s forwards infinite;
+				}
+			}
+			&.active {
+				& > div {
+					opacity: 1;
+				}
+			}
+			width: 26px;
+			height: 16px;
+			opacity: 0;
+			& > div {
+				position: absolute;
+				background-repeat: no-repeat;
+				background-size: 21px;
+				width: 26px;
+				height: 16px;
+				opacity: 0.3;
+				transition: opacity 0.3s 0.3s;
+			}
+		}
+		& > div {
+			position: absolute;
+		}
+		& span {
+			display: block;
+			margin-left: 0.5em;
+			font-family: "SkyOS-SemiBold";
+			transition: color 0.2s 0s ease-out;
+		}
+	}
+	.os-status_notification {
+		border-radius: 8px;
+		padding: 0.2em 0.4em;
+		margin: -0.2em -0.4em;
+		cursor: pointer;
+		&_bell {
+			width: 1.2em;
+			height: 1.2em;
+			background-repeat: no-repeat;
+			background-position: center;
+			transition: background 0.2s 0s ease-out;
+		}
+		& span {
+			display: block;
+			margin-left: 0.1em;
+			font-family: "SkyOS-SemiBold";
+			transition: color 0.2s 0s ease-out;
+		}
+	}
+	.os-status_user {
+		& span {
+			transition: color 0.2s 0.1s ease-out;
+		}
+	}
+	.os-status_notice {
+		font-family: "SkyOS-SemiBold";
+	}
+}
+
+.os-nav {
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	bottom: 8px;
+	left: 50%;
+	z-index: 3;
+	transform: translateX(-50%) rotate3d(0, 1, 0, 0deg);
+	transition: margin 1s cubic-bezier(0,1,.1,1);
+	& div {
+		height: 24px;
+		width: 24px;
+		margin: 10px 15px;
+		will-change: auto;
+		&:active,
+		&:hover {
+			transform: scale(1.2);
+			transition: transform 0.3s cubic-bezier(0,1,.1,1);
+		}
+	}
+	&.is-invisible {
+		margin-bottom: -100px;
+	}
+	&.is-dark {
+		.os-nav_back {
+			background-image: url(../assets/icons/back_dark.svg);
+			transition: transform 1s cubic-bezier(0,1,.1,1), background 0.2s 0.1s ease-out;
+		}
+		.os-nav_home {
+			background-image: url(../assets/icons/home_dark.svg);
+			transition: transform 1s cubic-bezier(0,1,.1,1), background 0.2s 0s ease-out;
+		}
+		.os-nav_task-switch {
+			background-image: url(../assets/icons/task-switch_dark.svg);
+			transition: transform 1s cubic-bezier(0,1,.1,1), background 0.2s 0.1s ease-out;
+		}
+	}
+	&.is-bright {
+		.os-nav_back {
+			background-image: url(../assets/icons/back_bright.svg);
+			transition: transform 1s cubic-bezier(0,1,.1,1), background 0.2s 0.1s ease-out;
+		}
+		.os-nav_home {
+			background-image: url(../assets/icons/home_bright.svg);
+			transition: transform 1s cubic-bezier(0,1,.1,1), background 0.2s 0s ease-out;
+		}
+		.os-nav_task-switch {
+			background-image: url(../assets/icons/task-switch_bright.svg);
+			transition: transform 1s cubic-bezier(0,1,.1,1), background 0.2s 0.1s ease-out;
+		}
+	}
+}
+
+.os-app {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	&.transition {
+		&-in {
+			&-fwd {
+				transition: transform 0.5s cubic-bezier(.37,.87,.5,1);
+				transform: translateX(0%);
+				&-pre {
+					transform: translateX(100%);
+				}
+			}
+			&-bwd {
+				transition: transform 0.5s ease-out;
+				transform: translateX(0%);
+			}
+			&-fade {
+				transition: opacity 0.5s cubic-bezier(.37,.87,.5,1);
+				opacity: 1;
+				&-pre {
+					opacity: 0;
+				}
+			}
+			&-zoom {
+				transition: transform 0.5s cubic-bezier(.21,0,0,1), opacity 0.5s cubic-bezier(.37,.87,.5,1);
+				transform: scale(1);
+				opacity: 1;
+				&-pre {
+					transform: scale(0.1);
+					opacity: 0;
+				}
+			}
+		}
+		&-out {
+			&-fwd {
+				transition: transform 0.5s cubic-bezier(.37,.87,.5,1);
+				transform: translateX(-100%);
+				pointer-events: none !important;
+				&-pre {
+					transform: translateX(0%);
+				}
+				* {
+					pointer-events: none !important;
+				}
+			}
+			&-bwd {
+				transition: transform 0.5s ease-out;
+				transform: translateX(100%);
+				pointer-events: none !important;
+				* {
+					pointer-events: none !important;
+				}
+			}
+			&-fade {
+				transition: opacity 0.5s cubic-bezier(.37,.87,.5,1);
+				opacity: 0;
+				pointer-events: none !important;
+				&-pre {
+					opacity: 1;
+				}
+				* {
+					pointer-events: none !important;
+				}
+			}
+			&-zoom {
+				transition: transform 0.5s cubic-bezier(.21,0,0,1), opacity 0.5s cubic-bezier(.37,.87,.5,1);
+				transform: scale(0.5);
+				opacity: 0;
+				pointer-events: none !important;
+				&-pre {
+					transform: scale(1);
+					opacity: 1;
+				}
+				* {
+					pointer-events: none !important;
+				}
+			}
+		}
+	}
+}
+
+.view-manager {
+	position: relative;
+	width: 100%;
+    height: 100%;
+}
+
+.view-transition {
+	&-enter {
+
+	}
+	&-leave-active {
+
+	}
+	&-enter-to {
+
+	}
+	&-leave {
+
+	}
+	&-leave-active {
+
+	}
+	&-to {
+
+	}
+}
+
+.app-frame {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	overflow: hidden;
+	transition: transform 0.8s cubic-bezier(.37,.87,.5,1);
+
+	.theme--bright & {
+		background-color: $ui_colors_bright_shade_1;
+	}
+	.theme--dark & {
+		background-color: $ui_colors_dark_shade_1;
+	}
+
+	&--clear-top {
+		top: $status-size;
+	}
+	&--clear-bottom {
+		bottom: $nav-size;
+	}
+	&.is-zoomed-in {
+		transform: scale(0.9);
+	}
+	&.is-zoomed-out {
+		transform: scale(0.9);
+		transition: transform 0.3s cubic-bezier(.37,.87,.5,1);
+	}
+	.is-device .hw_frame & {
+		clip-path: inset(0 0 0 0 round 25px);
+	}
+}
+
+.backsplash {
+	position: absolute;
+	display: flex;
+	justify-content: stretch;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	z-index: 0;
+	&-image {
+	  flex-grow: 1;
+	  background-size: cover;
+	  background-position: center;
+	  transform: scale(1.09);
+	  transition: background 0.5s ease-out, opacity 0.3s ease-out, filter 0.2s ease-out, transform 2s cubic-bezier(0, 1, 0.2, 1);
+	}
+}
+
+@import "elements.scss";
+@import "helpers.scss";

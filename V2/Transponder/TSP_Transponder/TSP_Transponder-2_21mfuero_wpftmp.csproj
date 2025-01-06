@@ -1,0 +1,549 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="..\packages\Obfuscar.2.2.28\build\obfuscar.props" Condition="Exists('..\packages\Obfuscar.2.2.28\build\obfuscar.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2418D61A-B99D-465B-84E6-CD894329FB0F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>TSP_Transponder</RootNamespace>
+    <AssemblyName>TSP_Transponder</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>output.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Adventures\Actions\flight_timer_end.cs" />
+    <Compile Include="Models\Adventures\Actions\flight_timer_start.cs" />
+    <Compile Include="Models\OrbxLic\LicensingInstance.cs" />
+    <Compile Include="Models\OrbxLic\LicensingManager.cs" />
+    <Compile Include="Models\OrbxLic\UUID.cs" />
+    <Compile Include="Models\SkyBlogs\Compute_Autopilot.cs" />
+    <Compile Include="Models\Topography\GdalConfiguration.cs" />
+    <Compile Include="Models\Adventures\Actions\action_base.cs" />
+    <Compile Include="Models\Adventures\Actions\adventure_fail.cs" />
+    <Compile Include="Models\Adventures\Actions\scene_unload.cs" />
+    <Compile Include="Models\Adventures\Actions\scene_load.cs" />
+    <Compile Include="Models\Adventures\Actions\trigger_ias_start.cs" />
+    <Compile Include="Models\Adventures\Actions\trigger_ias_end.cs" />
+    <Compile Include="Models\Adventures\Actions\trigger_alt_end.cs" />
+    <Compile Include="Models\Adventures\Actions\trigger_g_end.cs" />
+    <Compile Include="Models\Adventures\Actions\trigger_alt_start.cs" />
+    <Compile Include="Models\Adventures\Actions\trigger_g_start.cs" />
+    <Compile Include="Models\Adventures\Actions\adventure_milestone.cs" />
+    <Compile Include="Models\Adventures\Actions\audio_effect_play.cs" />
+    <Compile Include="Models\Adventures\Actions\audio_speech_play.cs" />
+    <Compile Include="Models\Adventures\Actions\cargo_dropoff.cs" />
+    <Compile Include="Models\Adventures\Actions\cargo_pickup.cs" />
+    <Compile Include="Models\Adventures\Adventure.cs" />
+    <Compile Include="Models\Adventures\CreationParams.cs" />
+    <Compile Include="Models\Adventures\AdventureTemplate.cs" />
+    <Compile Include="Models\Adventures\RouteGenerator\RouteGenerator.cs" />
+    <Compile Include="Models\Adventures\Adventures.cs" />
+    <Compile Include="Models\Adventures\Interaction.cs" />
+    <Compile Include="Models\Adventures\Situation.cs" />
+    <Compile Include="Models\Aircraft\AircraftLibrary.cs" />
+    <Compile Include="Models\Aircraft\AircraftMountingPoint.cs" />
+    <Compile Include="Models\Airports\AirportsScan.cs" />
+    <Compile Include="Models\Airports\Airports_ESP.cs" />
+    <Compile Include="Models\Airports\Developers.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Agn\AgnFile.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\AirportName.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\ApproachLights.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\Apron.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\ApronCollection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\ApronEdgeLights.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\Com.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\Helipad.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\OffsetThreshold.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\Runway.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\SkipSection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\Start.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\TaxiNameCollection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\TaxiParking.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\TaxiParkingCollection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\TaxiPath.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\TaxiPathCollection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\TaxiPoint.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\TaxiPointCollection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\TowerSceneryObject.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\Unknown.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\Vasi.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\BglFile.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\Header.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\Section.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\SectionFactory.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\Sections\AirportSection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\Sections\NameListSection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\SubRecord.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\SubSection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\SubSections\AirportRecord.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\SubSections\AirportSubsection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\SubSections\NameListRecord.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Common\FileFormatException.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Common\GeoLocation.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Common\IHasData.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Common\SimulatorFile.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\ApproachLightType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\CodedString.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\FrequencyType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\HelipadType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\ParkingName.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\ParkingType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\PushbackType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\Qmid.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\StartType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\Surface.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\TaxiwayEdgeMarking.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\TaxiwayPathType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\TaxiwayPointType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\VasiType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\GlobalSuppressions.cs" />
+    <Compile Include="Models\API\ClientCollection.cs" />
+    <Compile Include="Models\API\FileRequest.cs" />
+    <Compile Include="Models\API\FileUpload.cs" />
+    <Compile Include="Models\API\SocketClient.cs" />
+    <Compile Include="Models\API\WSLocal.cs" />
+    <Compile Include="Models\API\WSRemote.cs" />
+    <Compile Include="Models\Audio\Audio.cs" />
+    <Compile Include="Models\Audio\AudioLibrary.cs" />
+    <Compile Include="Models\Transactor\Account.cs" />
+    <Compile Include="Models\Bank\Bank.cs" />
+    <Compile Include="Models\Transactor\Transaction.cs" />
+    <Compile Include="Models\Connectors\ConnectorInstance_Base.cs" />
+    <Compile Include="Models\Connectors\ConnectorInstance_MSFS.cs" />
+    <Compile Include="Models\Connectors\Screen_Capture.cs" />
+    <Compile Include="Models\Connectors\Screen_Capture_P3D.cs" />
+    <Compile Include="Models\ControlAssignments\ControlAssignments.cs" />
+    <Compile Include="Models\CustomLog.cs" />
+    <Compile Include="Models\FlightPlans\FlightPlan.cs" />
+    <Compile Include="Models\FlightPlans\FlightPlansDirectory.cs" />
+    <Compile Include="Models\FlightPlans\Types\PlanTypeBase.cs" />
+    <Compile Include="Models\FlightPlans\Types\PlanTypePLN.cs" />
+    <Compile Include="Models\Navigraph\Authenticate.cs" />
+    <Compile Include="Models\Navigraph\NavData.cs" />
+    <Compile Include="Models\Passengers\Elements\ElementBase.cs" />
+    <Compile Include="Models\Passengers\Elements\Galley.cs" />
+    <Compile Include="Models\Passengers\Elements\Lavatories.cs" />
+    <Compile Include="Models\Passengers\Elements\Seat.cs" />
+    <Compile Include="Models\Passengers\Human.cs" />
+    <Compile Include="Models\Passengers\Layout.cs" />
+    <Compile Include="Models\Passengers\Core.cs" />
+    <Compile Include="Models\Passengers\Family.cs" />
+    <Compile Include="Models\PathFinding\PathFinding.cs" />
+    <Compile Include="Models\PathFinding\PathFindingSearchEngine.cs" />
+    <Compile Include="Models\PathFinding\VehMovements.cs" />
+    <Compile Include="Models\Progress\Ranking.cs" />
+    <Compile Include="Models\SkyBlogs\Compute_Base.cs" />
+    <Compile Include="Models\Topography\MapData.cs" />
+    <Compile Include="Models\Topography\Topography.cs" />
+    <Compile Include="Models\Topography\Utils\FlightPath.cs" />
+    <Compile Include="Models\Topography\Utils\PointElevation.cs" />
+    <Compile Include="Models\Topography\Utils\TileDataSet.cs" />
+    <Compile Include="Models\Topography\Utils\TileInfo.cs" />
+    <Compile Include="Models\Updater\Updater.cs" />
+    <Compile Include="Models\Weather\AviationWeather_gov.cs" />
+    <Compile Include="Models\WorldManager\Assets\Asset.cs" />
+    <Compile Include="Models\WorldManager\Assets\AssetsLibrary.cs" />
+    <Compile Include="Models\WorldManager\Events\DeliveryEvent.cs" />
+    <Compile Include="Models\WorldManager\WorldManager.cs" />
+    <Compile Include="Models\WorldManager\Scene.cs" />
+    <Compile Include="Models\SkyBlogs\Compute_Cruise.cs" />
+    <Compile Include="Models\SkyBlogs\Compute_Engines.cs" />
+    <Compile Include="Models\SkyBlogs\Compute_Aircraft.cs" />
+    <Compile Include="Models\SkyBlogs\Compute_AircraftCrash.cs" />
+    <Compile Include="Models\SkyBlogs\Compute_GForces.cs" />
+    <Compile Include="Models\SkyBlogs\Compute_Fuel.cs" />
+    <Compile Include="Models\SkyBlogs\Compute_ScreenCapture.cs" />
+    <Compile Include="Models\SkyBlogs\Compute_Taxi.cs" />
+    <Compile Include="Models\SkyBlogs\Compute_Weather.cs" />
+    <Compile Include="Models\SkyBlogs\Compute_Position.cs" />
+    <Compile Include="Models\SkyBlogs\Compute_Integrity.cs" />
+    <Compile Include="Models\SkyBlogs\Compute_Touchdown.cs" />
+    <Compile Include="Models\SkyBlogs\Messages.cs" />
+    <Compile Include="Models\Weather\HiFi_ActiveSky_16.cs" />
+    <Compile Include="Models\Weather\WeatherData.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RichPresence\RichPresence.cs" />
+    <Compile Include="UI\GameOverlay.xaml.cs">
+      <DependentUpon>GameOverlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CameraSequences\CameraSequences.cs" />
+    <Compile Include="Models\Connectors\Connector.cs" />
+    <Compile Include="Models\Aircraft\Aircraft.cs" />
+    <Compile Include="Models\API\API.cs" />
+    <Compile Include="Models\FlightPlans\FlightPlans.cs" />
+    <Compile Include="Models\SimLibrary.cs" />
+    <Compile Include="Models\SkyBlogs\SkyBlogs.cs" />
+    <Compile Include="Utilities\Animations.cs" />
+    <Compile Include="Utilities\ExifEditor.cs" />
+    <Compile Include="Utilities\ExtWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utilities\Oidc.WpfWebView.cs" />
+    <Compile Include="Utilities\P42StopWatch.cs" />
+    <Compile Include="Utilities\Utils.cs" />
+    <Compile Include="Utilities\EmbeddedAssembly.cs" />
+    <Compile Include="Utilities\NamedPipes.cs" />
+    <Compile Include="Utilities\WindowPosition.cs" />
+    <Compile Include="Models\Airports\AirportsLib.cs" />
+    <Compile Include="Models\Connectors\ConnectorInstance_P3D.cs" />
+    <Compile Include="Utilities\URIHandler.cs" />
+    <Compile Include="Models\UserData.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\WorldManager\Assets\tsp_assets.csv" />
+    <EmbeddedResource Include="Models\Airports\DefaultSet\apt_dump.csv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\Adv_100-300.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\Adv_1000-2500.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\Adv_150-800.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\Adv_20-150_AF.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\Adv_20-150_AS.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\Adv_20-150_EU.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\Adv_20-150_NA.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\Adv_20-150_OC.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\Adv_20-150_SA.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\Adv_200-1500.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\Adv_200-7000.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\Adv_2000-6000.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\AlaskanBushAdventure.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\BasecampSupplyRun.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\BenLomovPittsDelivery.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\BritishAntarcticSurvey.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\ChiefsWinGoHome.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\EdsonsNuggets.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\FlyTheCaribbeans.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\FuzzyAfricanDA62FerryFlight.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\GrassHopper.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\HollandLandingAirpark.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\MoriyaAirstripDeliveries.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\PapuaBushAdventures.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\PineAirportExperience.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\RumRunTour.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\Schulers100Burger.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\SparkysSmokeRun.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\StLawrenceExplorer.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\USForestService.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\VisitWycombeAirPark.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\BotswanaOkavangoDeltaRuns.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultAdventures\_default.p42adv" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\Adv_100-300.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\Adv_1000-2500.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\Adv_150-800.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\Adv_20-150_AF.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\Adv_20-150_AS.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\Adv_20-150_EU.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\Adv_20-150_NA.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\Adv_20-150_OC.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\Adv_20-150_SA.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\Adv_200-1500.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\Adv_200-7000.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\Adv_2000-6000.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\AlaskanBushAdventure.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\BasecampSupplyRun.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\BenLomovPittsDelivery.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\BotswanaOkavangoDeltaRuns.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\ChiefsWinGoHome.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\EdsonsNuggets.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\FlyTheCaribbeans.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\GrassHopper.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\HollandLandingAirpark.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\KazakhstanVeryNice.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\MoriyaAirstripDeliveries.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\PapuaBushAdventures.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\PineAirportExperience.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\Schulers100Burger.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\SparkysSmokeRun.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\StLawrenceExplorer.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\USForestService.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\VisitWycombeAirPark.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\Autocomplete.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\FuzzyAfricanDA62FerryFlight.rtl" />
+    <EmbeddedResource Include="Models\Adventures\DefaultRoutes\RumRunTour.rtl" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="airports.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\LockheedMartin.Prepar3D.SimConnect.dll" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\websocket-sharp.dll" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\output.ico" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libraries\RawInput\RawInput.csproj">
+      <Project>{4143d085-38cf-4640-bb05-2fdffaf94d76}</Project>
+      <Name>RawInput</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\NAudio.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\RawInput.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\DiscordRPC.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\Newtonsoft.Json.dll" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\Microsoft.FlightSimulator.SimConnect.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Models\Airports\DefaultSet\Lookup.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Models\FlightPlans\WriteTemplates\PLN.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\IdentityModel.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.Configuration.Abstractions.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.Configuration.Binder.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.Configuration.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.DependencyInjection.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.Logging.Abstractions.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.Logging.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.Options.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.Primitives.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.IdentityModel.JsonWebTokens.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.IdentityModel.Logging.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.IdentityModel.Tokens.dll" />
+    <EmbeddedResource Include="Assembly\System.Buffers.dll" />
+    <EmbeddedResource Include="Assembly\System.IdentityModel.Tokens.Jwt.dll" />
+    <EmbeddedResource Include="Assembly\System.Memory.dll" />
+    <EmbeddedResource Include="Assembly\System.Runtime.CompilerServices.Unsafe.dll" />
+    <EmbeddedResource Include="Assembly\System.Text.Encodings.Web.dll" />
+    <EmbeddedResource Include="Assembly\System.Threading.Tasks.Extensions.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\IdentityModel.OidcClient.dll" />
+    <EmbeddedResource Include="Assembly\System.ComponentModel.Annotations.dll" />
+    <EmbeddedResource Include="Assembly\System.Numerics.Vectors.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Models\Updater\The Skypark Updater.exe" />
+    <EmbeddedResource Include="Assembly\gdalconst_csharp.dll" />
+    <EmbeddedResource Include="Assembly\gdal_csharp.dll" />
+    <EmbeddedResource Include="Assembly\ogr_csharp.dll" />
+    <EmbeddedResource Include="Assembly\osr_csharp.dll" />
+    <EmbeddedResource Include="Assembly\Sandwych.GeographicLib.dll" />
+    <EmbeddedResource Include="Assembly\EntityFramework.dll" />
+    <EmbeddedResource Include="Assembly\EntityFramework.SqlServer.dll" />
+    <EmbeddedResource Include="Assembly\System.Data.SQLite.dll" />
+    <EmbeddedResource Include="Assembly\System.Data.SQLite.EF6.dll" />
+    <EmbeddedResource Include="Assembly\System.Data.SQLite.Linq.dll" />
+    <EmbeddedResource Include="Deploy\SimConnect.dll" />
+    <EmbeddedResource Include="Assembly\BouncyCastle.Crypto.dll" />
+    <EmbeddedResource Include="Assembly\System.Diagnostics.DiagnosticSource.dll" />
+    <EmbeddedResource Include="Assembly\System.ValueTuple.dll" />
+    <Content Include="Models\Topography\GdalConfiguration.vb" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>ECHO.
+ECHO ------------------ File Version ------------------
+for /f "tokens=2 delims==" %25%25a in ('wmic OS Get localdatetime /value') do set "dt=%25%25a"
+set "YY=%25dt:~2,2%25" &amp; set "YYYY=%25dt:~0,4%25" &amp; set "MM=%25dt:~4,2%25" &amp; set "DD=%25dt:~6,2%25"
+set "HH=%25dt:~8,2%25" &amp; set "Min=%25dt:~10,2%25" &amp; set "Sec=%25dt:~12,2%25"
+
+set "datestamp=%25YYYY%25%25MM%25%25DD%25" &amp; set "timestamp=%25HH%25%25Min%25%25Sec%25"
+set "fullstamp=%25YY%25%25MM%25%25DD%25%25HH%25%25Min%25"
+
+echo %25fullstamp%25 &gt; "$(ProjectDir)\Resources\BuildNumber.txt"
+echo %25YYYY%25-%25MM%25-%25DD%25 &gt; "$(ProjectDir)\Resources\BuildDate.txt"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Obfuscar.2.2.28\build\obfuscar.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Obfuscar.2.2.28\build\obfuscar.props'))" />
+    <Error Condition="!Exists('..\packages\GDAL.Native.2.4.4\build\net40\GDAL.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GDAL.Native.2.4.4\build\net40\GDAL.Native.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\GDAL.Native.2.4.4\build\net40\GDAL.Native.targets" Condition="Exists('..\packages\GDAL.Native.2.4.4\build\net40\GDAL.Native.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <ItemGroup>
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\DiscordRichPresence.1.0.166\lib\net35\DiscordRPC.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\GDAL.2.4.4\lib\net40\gdalconst_csharp.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\GDAL.2.4.4\lib\net40\gdal_csharp.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\IdentityModel.4.4.0\lib\net472\IdentityModel.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\IdentityModel.OidcClient.3.1.2\lib\net472\IdentityModel.OidcClient.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\TSP_Transponder\Assembly\LockheedMartin.Prepar3D.SimConnect.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Microsoft.CSharp.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\Microsoft.Extensions.Configuration.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.Configuration.Abstractions.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\Microsoft.Extensions.Configuration.Binder.5.0.0\lib\net461\Microsoft.Extensions.Configuration.Binder.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\Microsoft.Extensions.Configuration.5.0.0\lib\net461\Microsoft.Extensions.Configuration.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\Microsoft.Extensions.DependencyInjection.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\Microsoft.Extensions.DependencyInjection.5.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\Microsoft.Extensions.Logging.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.Logging.Abstractions.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\Microsoft.Extensions.Logging.5.0.0\lib\net461\Microsoft.Extensions.Logging.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\Microsoft.Extensions.Options.5.0.0\lib\net461\Microsoft.Extensions.Options.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\Microsoft.Extensions.Primitives.5.0.0\lib\net461\Microsoft.Extensions.Primitives.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\TSP_Transponder\Assembly\Microsoft.FlightSimulator.SimConnect.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\Microsoft.IdentityModel.JsonWebTokens.6.8.0\lib\net461\Microsoft.IdentityModel.JsonWebTokens.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\Microsoft.IdentityModel.Logging.6.8.0\lib\net461\Microsoft.IdentityModel.Logging.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\Microsoft.IdentityModel.Tokens.6.8.0\lib\net461\Microsoft.IdentityModel.Tokens.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\mscorlib.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\NAudio.1.10.0\lib\net35\NAudio.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\GDAL.2.4.4\lib\net40\ogr_csharp.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\GDAL.2.4.4\lib\net40\osr_csharp.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\PresentationCore.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\PresentationFramework.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\libraries\RawInput\bin\x64\Release\RawInput.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\Sandwych.GeographicLib.1.49.3\lib\net45\Sandwych.GeographicLib.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.ComponentModel.DataAnnotations.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Core.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Data.DataSetExtensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Data.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net46\System.Data.SQLite.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\System.Data.SQLite.EF6.1.0.113.0\lib\net46\System.Data.SQLite.EF6.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\System.Data.SQLite.Linq.1.0.113.0\lib\net46\System.Data.SQLite.Linq.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\System.Diagnostics.DiagnosticSource.5.0.0\lib\net46\System.Diagnostics.DiagnosticSource.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Drawing.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\System.IdentityModel.Tokens.Jwt.6.8.0\lib\net461\System.IdentityModel.Tokens.Jwt.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.IO.Compression.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.IO.Compression.FileSystem.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Management.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Net.Http.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Numerics.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Runtime.Remoting.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Runtime.Serialization.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\System.Text.Encodings.Web.5.0.0\lib\net461\System.Text.Encodings.Web.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Web.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Windows.Forms.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Xaml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Xml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Xml.Linq.dll" />
+    <ReferencePath Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\packages\WebSocketSharp.1.0.3-rc11\lib\websocket-sharp.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\WindowsBase.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\TSP_Transponder\obj\x64\Release\UI\GameOverlay.g.cs" />
+    <Compile Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\TSP_Transponder\obj\x64\Release\UI\MainWindow.g.cs" />
+    <Compile Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\TSP_Transponder\obj\x64\Release\App.g.cs" />
+    <Compile Include="F:\Documents\Clients\Parallel 42\The Skypark\Git\tsp-transponder-2\TSP_Transponder\obj\x64\Release\TSP_Transponder_Content.g.cs" />
+  </ItemGroup>
+</Project>

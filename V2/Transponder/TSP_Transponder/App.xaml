@@ -1,0 +1,1499 @@
+﻿<Application x:Class="TSP_Transponder.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:TSP_Transponder"
+             DispatcherUnhandledException="AppDispatcherUnhandledException"
+             Startup="App_Startup">
+    <Application.Resources>
+
+        <Style x:Key="title" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="Margin" Value="0,25,0,15"/>
+        </Style>
+
+        <Style x:Key="buttons" TargetType="Button">
+            <Setter Property="ToolTipService.InitialShowDelay" Value="1700"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Padding" Value="10,5,10,7"/>
+            <Setter Property="Margin" Value="0,0,2,0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#33000000"/>
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="rectangle" CornerRadius="10" Opacity="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <Border x:Name="hoverRecolor" CornerRadius="10" Background="#000000" Opacity="0"/>
+                                <Border x:Name="pulseBox" CornerRadius="10" Background="{TemplateBinding Background}" Opacity="0"/>
+                                <Border CornerRadius="10" Padding="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}}" Value="True"/>
+                                    <Condition Binding="{Binding Path=Opacity, RelativeSource={RelativeSource Self}}" Value="{x:Null}"/>
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="rectangle" To="1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.EnterActions>
+                                <MultiDataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="rectangle" To="0.3" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.ExitActions>
+                            </MultiDataTrigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="hoverRecolor" To="0.1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="hoverRecolor" To="0" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="hoverRecolor" To="0.2" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="hoverRecolor" To="0.1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="Tag" Value="pulse">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation RepeatBehavior="Forever" AutoReverse="True" Storyboard.TargetName="pulseBox" From="0" To="1" Duration="0:0:0.7" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseInOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="pulseBox" To="0" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="rectangle" To="1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="rectangle" To="0.5" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="buttons_unstyled" TargetType="Button">
+            <Setter Property="ToolTipService.InitialShowDelay" Value="1700"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Padding" Value="10,5,10,7"/>
+            <Setter Property="Margin" Value="0,0,2,0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="rectangle" CornerRadius="3" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Border x:Name="hoverRecolor" CornerRadius="3" Background="#000000" Opacity="0"/>
+                                <Border x:Name="pulseBox" CornerRadius="3" Background="{TemplateBinding Background}" Opacity="0"/>
+                                <Border CornerRadius="3" Padding="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ContentPresenter HorizontalAlignment="Stretch"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}}" Value="True"/>
+                                    <Condition Binding="{Binding Path=Opacity, RelativeSource={RelativeSource Self}}" Value="{x:Null}"/>
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="rectangle" To="1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.EnterActions>
+                                <MultiDataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="rectangle" To="0.3" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.ExitActions>
+                            </MultiDataTrigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="hoverRecolor" To="0.1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="hoverRecolor" To="0" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="hoverRecolor" To="0.2" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="hoverRecolor" To="0.1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="Tag" Value="pulse">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation RepeatBehavior="Forever" AutoReverse="True" Storyboard.TargetName="pulseBox" From="0" To="1" Duration="0:0:0.7" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseInOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="pulseBox" To="0" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="rectangle" To="1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="rectangle" To="0.5" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="buttons_blank" TargetType="Button">
+            <Setter Property="ToolTipService.InitialShowDelay" Value="1700"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Padding" Value="10,5,10,7"/>
+            <Setter Property="Margin" Value="0,0,2,0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="rectangle" CornerRadius="3" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Border Padding="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ContentPresenter HorizontalAlignment="Stretch"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        
+        <Style x:Key="textBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Focusable" Value="True"/>
+            <Setter Property="Cursor" Value="IBeam"/>
+            <Setter Property="Background" Value="#19000000"/>
+            <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="CaretBrush" Value="#000000"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid Margin="0,0,0,0">
+                            <Border 
+                                x:Name="container"
+                                CornerRadius="3" 
+                                Padding="0" 
+                                Background="{TemplateBinding Background}">
+                                <ScrollViewer 
+                                  BorderThickness="0" 
+                                  IsTabStop="False" 
+                                  Margin="0" 
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch"
+                                  TextElement.Foreground="{TemplateBinding Foreground}">
+                                    <Border Margin="8,5" VerticalAlignment="Center" x:Name="PART_ContentHost"/>
+                                </ScrollViewer>
+                            </Border>
+                            <Border 
+                                CornerRadius="3" 
+                                Name="glow" 
+                                Background="#FFFFFF" 
+                                IsHitTestVisible="False" 
+                                Opacity="0"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="PART_ContentHost" Property="TextBox.IsFocused" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="glow" To="0.1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="glow" To="0" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="container" To="1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="container" To="0.5" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="passwordBox" TargetType="{x:Type PasswordBox}">
+            <Setter Property="Focusable" Value="True"/>
+            <Setter Property="Cursor" Value="IBeam"/>
+            <Setter Property="Background" Value="#19000000"/>
+            <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="CaretBrush" Value="#000000"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type PasswordBox}">
+                        <Grid Margin="0,0,0,0">
+                            <Border 
+                                x:Name="container"
+                                CornerRadius="3" 
+                                Padding="0" 
+                                Background="{TemplateBinding Background}">
+                                <ScrollViewer 
+                                  BorderThickness="0" 
+                                  IsTabStop="False" 
+                                  Margin="0" 
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch"
+                                  TextElement.Foreground="{TemplateBinding Foreground}">
+                                    <Border Margin="8,5" VerticalAlignment="Center" x:Name="PART_ContentHost"/>
+                                </ScrollViewer>
+                            </Border>
+                            <Border 
+                                CornerRadius="3" 
+                                Name="glow" 
+                                Background="#FFFFFF" 
+                                IsHitTestVisible="False" 
+                                Opacity="0"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="PART_ContentHost" Property="TextBox.IsFocused" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="glow" To="0.1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="glow" To="0" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="container" To="1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="container" To="0.5" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="textBoxPlaceholder" TargetType="{x:Type TextBlock}">
+            <Setter Property="Focusable" Value="True"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
+            <Setter Property="Cursor" Value="IBeam"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        </Style>
+
+        <Style x:Key="checkBox" TargetType="CheckBox">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <Grid>
+                            <Border x:Name="hitPlate" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Transparent" />
+                            <TextBlock x:Name="CheckText" Padding="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}" TextWrapping="Wrap" />
+                            <Grid x:Name="centerGrid" Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <Border x:Name="OutterBorder" Background="#33000000" CornerRadius="3" Width="28" Height="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,0,10,0" />
+                                <Border x:Name="InnerBorder" Background="#AAAAAA" CornerRadius="9" Width="18" Height="18" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="-20,0,0,0">
+                                    <Border.RenderTransform>
+                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                    </Border.RenderTransform>
+                                    <Border.RenderTransformOrigin>
+                                        <Point X="0.5" Y="0.5"/>
+                                    </Border.RenderTransformOrigin>
+                                </Border>
+                            </Grid>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="CheckText" Property="Text" Value="">
+                                <Setter TargetName="CheckText" Property="Visibility" Value="Hidden"/>
+                                <Setter TargetName="centerGrid" Property="HorizontalAlignment" Value="Center"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation Storyboard.TargetName="InnerBorder" To="1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                            <DoubleAnimation Storyboard.TargetName="OutterBorder" To="1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                            <DoubleAnimation Storyboard.TargetName="CheckText" To="1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation Storyboard.TargetName="InnerBorder" To="0.6" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                            <DoubleAnimation Storyboard.TargetName="OutterBorder" To="0.3" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                            <DoubleAnimation Storyboard.TargetName="CheckText" To="0.3" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsChecked" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="InnerBorder" To="#46B446" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color"/>
+                                            <ThicknessAnimation Storyboard.TargetName="InnerBorder" To="20,0,0,0" Duration="0:0:0.1" Storyboard.TargetProperty="Margin"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.EnterActions>
+                                <MultiTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="InnerBorder" To="#AAAAAA" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color"/>
+                                            <ThicknessAnimation Storyboard.TargetName="InnerBorder" To="-20,0,0,0" Duration="0:0:0.1" Storyboard.TargetProperty="Margin"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.ExitActions>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsEnabled" Value="True" />
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="InnerBorder" Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleY)" To="1.2" Duration="0:0:0.1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetName="InnerBorder" Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleX)" To="1.2" Duration="0:0:0.1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.EnterActions>
+                                <MultiTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="InnerBorder" Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetName="InnerBorder" Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.ExitActions>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="windowControllerBtnStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        </Style>
+
+        <Style x:Key="closeBtnStyle" TargetType="Button" BasedOn="{StaticResource windowControllerBtnStyle}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Border
+                                x:Name="hitPlate"
+                                Width="30"
+                                Height="30"
+                                Background="Transparent" />
+                            <Path 
+                                x:Name="vector"
+                                Fill="#88000000" 
+                                Margin="0,0,0,0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Data="M351.4 200l4.4-4.4c0.2-0.2 0.2-0.4 0-0.6l-1.2-1.2c-0.2-0.2-0.4-0.2-0.6 0l-4.4 4.4l-4.4-4.4  c-0.2-0.2-0.4-0.2-0.6 0l-1.2 1.2c-0.2 0.2-0.2 0.4 0 0.6l4.4 4.4l-4.4 4.4c-0.2 0.2-0.2 0.4 0 0.6l1.2 1.2c0.2 0.2 0.4 0.2 0.6 0  l4.4-4.4l4.4 4.4c0.2 0.2 0.4 0.2 0.6 0l1.2-1.2c0.2-0.2 0.2-0.4 0-0.6L351.4 200z" 
+                                Width="13"
+                                Height="13" 
+                                Stretch="Uniform" />
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <ColorAnimation Storyboard.TargetName="vector" To="#88000000"  Storyboard.TargetProperty="Fill.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <ColorAnimation Storyboard.TargetName="hitPlate" To="#00000000"  Storyboard.TargetProperty="Background.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <ColorAnimation Storyboard.TargetName="vector" To="#FF000000"  Storyboard.TargetProperty="Fill.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <ColorAnimation Storyboard.TargetName="hitPlate" To="#33000000"  Storyboard.TargetProperty="Background.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <ColorAnimation Storyboard.TargetName="vector" To="#FF000000"  Storyboard.TargetProperty="Fill.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <ColorAnimation Storyboard.TargetName="hitPlate" To="#66000000"  Storyboard.TargetProperty="Background.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SliderThumbStyle" TargetType="{x:Type Thumb}">
+            <Setter Property="SnapsToDevicePixels" Value="False"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="RenderTransformOrigin">
+                <Setter.Value>
+                    <Point X="0.5" Y="0.5"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Border
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Margin="0,0,0,0"
+                            Name="knob"
+                            Width="18"
+                            Height="18"
+                            Background="#222222"
+                            CornerRadius="9">
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Thumb.IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="30">
+                                            <ColorAnimation Storyboard.TargetName="knob" To="#222222"  Storyboard.TargetProperty="Background.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1.2" Duration="0:0:0.1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1.2" Duration="0:0:0.1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="30">
+                                            <ColorAnimation Storyboard.TargetName="knob" To="#222222"  Storyboard.TargetProperty="Background.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1" Duration="0:0:0.1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1" Duration="0:0:0.1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <ControlTemplate x:Key="HorizontalSlider" TargetType="{x:Type Slider}">
+            <Grid>
+                <Border 
+                    Background= "Transparent" />
+                <Border
+                    Height="6"
+                    Background="{TemplateBinding Background}"
+                    x:Name="vector"
+                    Margin="10,0,10,0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Stretch"
+                    Panel.ZIndex="0" 
+                    CornerRadius="3">
+                </Border>
+                <Track Name="PART_Track">
+                    <Track.Thumb>
+                        <Thumb Style="{StaticResource SliderThumbStyle}" />
+                    </Track.Thumb>
+                </Track>
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="VerticalSlider" TargetType="{x:Type Slider}">
+            <Grid>
+                <Border 
+                    Background= "Transparent" />
+                <Border
+                    Width="6"
+                    Background="{TemplateBinding Background}"
+                    x:Name="vector"
+                    Margin="0,10,0,10"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Center"
+                    Panel.ZIndex="0" 
+                    CornerRadius="3">
+                </Border>
+                <Track Name="PART_Track">
+                    <Track.Thumb>
+                        <Thumb Style="{StaticResource SliderThumbStyle}" />
+                    </Track.Thumb>
+                </Track>
+            </Grid>
+        </ControlTemplate>
+        <Style TargetType="{x:Type Slider}">
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Interval" Value="1"/>
+            <Setter Property="IsMoveToPointEnabled" Value="True"/>
+            <Setter Property="SmallChange" Value="1"/>
+            <Setter Property="IsSelectionRangeEnabled" Value="True"/>
+            <Setter Property="TickFrequency" Value="1"/>
+            <Setter Property="Background" Value="#33000000"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Style.Triggers>
+                <Trigger Property="Orientation" Value="Horizontal">
+                    <Setter Property="Template" Value="{StaticResource HorizontalSlider}" />
+                </Trigger>
+                <Trigger Property="Orientation" Value="Vertical">
+                    <Setter Property="Template" Value="{StaticResource VerticalSlider}" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type ScrollViewer}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollViewer">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid Background="{TemplateBinding Background}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ScrollContentPresenter Grid.Column="0" Grid.Row="0" x:Name="ScrollContentPresenter" Cursor="{TemplateBinding Cursor}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                <ScrollBar Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Margin="{TemplateBinding Padding}" Name="PART_VerticalScrollBar" Value="{TemplateBinding VerticalOffset}" ViewportSize="{TemplateBinding ViewportHeight}" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Thumb" TargetType="{x:Type Thumb}">
+            <Setter Property="Background" Value="#888888"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Border Background="Transparent">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="2" Margin="3"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#999999"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ScrollBarPageButton" TargetType="{x:Type RepeatButton}">
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Focusable" Value="false"/>
+            <Setter Property="IsTabStop" Value="false"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RepeatButton}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <ControlTemplate x:Key="HorizontalScrollBar" TargetType="{x:Type ScrollBar}">
+            <Grid x:Name="Bg" SnapsToDevicePixels="true" Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.00001*"/>
+                </Grid.ColumnDefinitions>
+                <Track x:Name="PART_Track" IsDirectionReversed="false" IsEnabled="{TemplateBinding IsMouseOver}" Grid.Column="1">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Command="{x:Static ScrollBar.PageUpCommand}" Style="{StaticResource ScrollBarPageButton}"/>
+                    </Track.DecreaseRepeatButton>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Command="{x:Static ScrollBar.PageDownCommand}" Style="{StaticResource ScrollBarPageButton}"/>
+                    </Track.IncreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb Style="{DynamicResource Thumb}" Height="10"/>
+                    </Track.Thumb>
+                </Track>
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="VerticalScrollBar" TargetType="{x:Type ScrollBar}">
+            <Grid x:Name="Bg" SnapsToDevicePixels="true" Background="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.00001*"/>
+                </Grid.RowDefinitions>
+                <Track x:Name="PART_Track" IsDirectionReversed="true" IsEnabled="{TemplateBinding IsMouseOver}" Grid.Row="1">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Command="{x:Static ScrollBar.PageLeftCommand}" Style="{StaticResource ScrollBarPageButton}"/>
+                    </Track.DecreaseRepeatButton>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Command="{x:Static ScrollBar.PageRightCommand}" Style="{StaticResource ScrollBarPageButton}"/>
+                    </Track.IncreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb Style="{DynamicResource Thumb}" Width="10"/>
+                    </Track.Thumb>
+                </Track>
+            </Grid>
+        </ControlTemplate>
+        <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Style.Triggers>
+                <Trigger Property="Orientation"  Value="Horizontal">
+                    <Setter Property="Width" Value="Auto" />
+                    <Setter Property="Height" Value="10" />
+                    <Setter Property="Template" Value="{StaticResource HorizontalScrollBar}" />
+                </Trigger>
+                <Trigger Property="Orientation" Value="Vertical">
+                    <Setter Property="Width" Value="10" />
+                    <Setter Property="Height" Value="Auto" />
+                    <Setter Property="Template" Value="{StaticResource VerticalScrollBar}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
+            <Border x:Name="PART_ContentHost" Focusable="True" />
+        </ControlTemplate>
+        <Style x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="32" />
+                            </Grid.ColumnDefinitions>
+                            <Border
+                                x:Name="Border"
+                                Grid.ColumnSpan="2"
+                                CornerRadius="0"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="0" />
+                            <Path
+                                x:Name="Arrow"
+                                Grid.Column="1"    
+                                Fill="{TemplateBinding Foreground}"
+                                Stroke="{TemplateBinding Foreground}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Width="10"
+                                Height="10"
+                                Stretch="Uniform"
+                                Data="M 0 0 L 8 12 L 16 0 Z"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="Gray"/>
+                                <Setter TargetName="Arrow" Property="Fill" Value="Gray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <DataTemplate x:Key="mySelectionBoxItemTemplate">
+            <TextBlock Text="{Binding PropertyPath}" />
+        </DataTemplate>
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="Foreground" Value="#000" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#33000000"/>
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <Border x:Name="rectangle" CornerRadius="3" Opacity="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                <Grid>
+                                    <ToggleButton
+                                        Name="ToggleButton"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        Background="{TemplateBinding Background}"
+                                        Foreground="{TemplateBinding Foreground}"
+                                        Style="{StaticResource ComboBoxToggleButton}"
+                                        Focusable="false"
+                                        IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                                        ClickMode="Press">
+                                    </ToggleButton>
+                                    <Grid 
+                                        x:Name="hoverRecolor" 
+                                        Background="#000000" 
+                                        Opacity="0"
+                                        IsHitTestVisible="False"  />
+                                    <ContentPresenter
+                                        Name="ContentSite"
+                                        IsHitTestVisible="False"
+                                        RecognizesAccessKey="True"
+                                        Content="{TemplateBinding SelectionBoxItem}"
+                                        ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                        ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                        Margin="10,2,10,3"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Left"/>
+                                    <TextBox x:Name="PART_EditableTextBox"
+                                        Style="{x:Null}"
+                                        Template="{StaticResource ComboBoxTextBox}"
+                                        TextWrapping="Wrap"
+                                        Margin="0,0,0,0"
+                                        Focusable="True"                             
+                                        Visibility="Hidden"
+                                        IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                                </Grid>
+                            </Border>
+                            <Popup
+                                Name="Popup"
+                                Placement="Bottom"
+                                IsOpen="{TemplateBinding IsDropDownOpen}"
+                                AllowsTransparency="True"
+                                Focusable="False"
+                                PopupAnimation="Slide">
+                                <Grid
+                                    Name="DropDown"
+                                    SnapsToDevicePixels="True"               
+                                    MinWidth="{TemplateBinding ActualWidth}"
+                                    MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder" Background="{TemplateBinding Background}" BorderThickness="1,0,1,1">
+                                        <Border.BorderBrush>
+                                            <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                                <GradientStop Color="#00FFFFFF" Offset="0"/>
+                                                <GradientStop Color="#33FFFFFF" Offset="0.5"/>
+                                            </LinearGradientBrush>
+                                        </Border.BorderBrush>
+                                    </Border>
+                                    <ScrollViewer Margin="0" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+                                <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0"/>
+                                <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
+                            </Trigger>
+                            <Trigger Property="IsEditable" Value="true">
+                                <Setter Property="IsTabStop" Value="false"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}}" Value="True"/>
+                                    <Condition Binding="{Binding Path=Opacity, RelativeSource={RelativeSource Self}}" Value="{x:Null}"/>
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="ToggleButton" To="1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.EnterActions>
+                                <MultiDataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="ToggleButton" To="0.3" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.ExitActions>
+                            </MultiDataTrigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="hoverRecolor" To="0.1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="hoverRecolor" To="0" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsDropDownOpen" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="hoverRecolor" To="0.2" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="hoverRecolor" To="0.1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="Background" Value="#EEE" />
+            <Setter Property="Foreground" Value="#000" />
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock 
+                            Text="{TemplateBinding Content}"
+                            TextTrimming="CharacterEllipsis"
+                            MaxWidth="{TemplateBinding MaxWidth}"
+                        />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border x:Name="rectangle" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <Grid x:Name="pulseBox" Background="#888888" Opacity="0"/>
+                                <Grid x:Name="hoverRecolor" Background="#000000" Opacity="0"/>
+                                <Border HorizontalAlignment="Stretch">
+                                    <ContentPresenter HorizontalAlignment="Stretch" Margin="10,2,10,3"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}}" Value="True"/>
+                                    <Condition Binding="{Binding Path=Opacity, RelativeSource={RelativeSource Self}}" Value="{x:Null}"/>
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="rectangle" To="1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.EnterActions>
+                                <MultiDataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="rectangle" To="0.3" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.ExitActions>
+                            </MultiDataTrigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="hoverRecolor" To="0.1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="hoverRecolor" To="0" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="hoverRecolor" To="0.2" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="hoverRecolor" To="0.1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="indicator_wifi" TargetType="Label">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#AAAAAA"/>
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Label">
+                        <Canvas Name="cv" Width="16.000" Height="12.134" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent">
+                            <Path Fill="{TemplateBinding Background}" Data="F1 M 9.483,9.238 C 8.700,8.455 7.291,8.455 6.430,9.238 C 5.882,9.786 5.882,10.647 6.430,11.195 L 6.978,11.743 C 7.213,11.978 7.604,12.134 7.917,12.134 C 8.230,12.134 8.622,11.978 8.856,11.743 L 9.404,11.195 C 10.031,10.568 10.031,9.707 9.483,9.238 Z"/>
+                            <Path Fill="{TemplateBinding Background}" Data="F1 M 14.650,5.480 C 14.336,5.480 13.945,5.323 13.710,5.089 C 12.223,3.601 10.187,2.740 8.074,2.740 C 5.960,2.740 3.925,3.601 2.437,5.089 C 1.889,5.637 1.028,5.637 0.480,5.089 C -0.146,4.541 -0.146,3.679 0.402,3.131 C 2.437,1.096 5.177,0.000 7.995,0.000 C 10.892,0.000 13.554,1.096 15.589,3.131 C 16.137,3.679 16.137,4.541 15.589,5.089 C 15.354,5.323 14.963,5.480 14.650,5.480 Z"/>
+                            <Path Fill="{TemplateBinding Background}" Data="F1 M 4.394,8.533 C 4.081,8.533 3.690,8.377 3.455,8.142 C 2.907,7.594 2.907,6.733 3.455,6.185 C 4.707,4.932 6.273,4.306 7.995,4.306 C 9.718,4.306 11.362,5.010 12.536,6.185 C 13.084,6.733 13.084,7.594 12.536,8.142 C 11.988,8.690 11.127,8.690 10.579,8.142 C 9.874,7.437 8.935,7.046 7.917,7.046 C 6.899,7.046 5.960,7.437 5.255,8.142 C 5.099,8.377 4.786,8.533 4.394,8.533 Z"/>
+                        </Canvas>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="0">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="HoldEnd" To="#AAAAAA" Duration="0:0:0.05" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="Stop" To="#AAAAAA" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="Tag" Value="1">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="HoldEnd" To="#33BB33" Duration="0:0:0.05" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="Stop" To="#AAAAAA" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="Tag" Value="2">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="HoldEnd" To="#6666FF" Duration="0:0:0.05" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="Stop" To="#AAAAAA" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="indicator_lte" TargetType="Label">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#AAAAAA"/>
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Label">
+                        <Canvas Name="cv" Width="16.000" Height="8.937" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent">
+                            <Path Fill="{TemplateBinding Background}" Data="F1 M 1.125,8.937 C 1.000,8.937 0.813,8.937 0.688,8.875 C 0.563,8.812 0.438,8.750 0.313,8.625 C 0.188,8.500 0.125,8.438 0.062,8.250 C 0.000,8.125 0.000,8.000 0.000,7.812 C 0.000,7.750 0.000,7.687 0.000,7.625 C 0.000,7.562 0.062,7.500 0.062,7.437 C 0.062,7.375 0.125,7.312 0.188,7.250 C 0.250,7.188 0.250,7.125 0.313,7.063 C 0.688,6.625 1.438,6.625 1.875,7.063 C 1.937,7.125 2.000,7.188 2.000,7.250 C 2.062,7.313 2.062,7.375 2.125,7.437 C 2.125,7.500 2.187,7.563 2.187,7.625 C 2.187,7.687 2.187,7.750 2.187,7.812 C 2.187,7.875 2.187,7.937 2.187,8.062 C 2.187,8.187 2.125,8.187 2.125,8.250 C 2.125,8.312 2.063,8.375 2.000,8.437 C 1.938,8.500 1.938,8.562 1.875,8.625 C 1.688,8.813 1.438,8.937 1.125,8.937 Z"/>
+                            <Path Fill="{TemplateBinding Background}" Data="F1 M 14.875,8.937 C 14.250,8.937 13.750,8.438 13.750,7.813 L 13.750,1.125 C 13.750,0.500 14.250,0.000 14.875,0.000 C 15.500,0.000 16.000,0.500 16.000,1.125 L 16.000,7.875 C 15.938,8.438 15.500,8.937 14.875,8.937 Z"/>
+                            <Path Fill="{TemplateBinding Background}" Data="F1 M 11.438,8.937 C 10.813,8.937 10.313,8.438 10.313,7.813 L 10.313,3.625 C 10.313,3.000 10.813,2.500 11.438,2.500 C 12.063,2.500 12.562,3.000 12.562,3.625 L 12.562,7.813 C 12.500,8.438 12.063,8.937 11.438,8.937 Z"/>
+                            <Path Fill="{TemplateBinding Background}" Data="F1 M 8.000,8.937 C 7.375,8.937 6.875,8.438 6.875,7.813 L 6.875,5.625 C 6.875,5.000 7.375,4.500 8.000,4.500 C 8.625,4.500 9.125,5.000 9.125,5.625 L 9.125,7.813 C 9.063,8.438 8.625,8.937 8.000,8.937 Z"/>
+                            <Path Fill="{TemplateBinding Background}" Data="F1 M 4.563,8.937 C 3.938,8.937 3.438,8.438 3.438,7.813 L 3.438,7.000 C 3.438,6.375 3.938,5.875 4.563,5.875 C 5.188,5.875 5.688,6.375 5.688,7.000 L 5.688,7.813 C 5.625,8.438 5.188,8.937 4.563,8.937 Z"/>
+                        </Canvas>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="0">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="HoldEnd" To="#AAAAAA" Duration="0:0:0.05" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="Stop" To="#AAAAAA" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="Tag" Value="1">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="HoldEnd" To="#33BB33" Duration="0:0:0.05" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="Stop" To="#AAAAAA" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="Tag" Value="2">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="HoldEnd" To="#5555FF" Duration="0:0:0.05" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="Stop" To="#AAAAAA" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="indicator_sim" TargetType="Label">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#AAAAAA"/>
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Label">
+                        <Canvas Name="cv" Width="16.000" Height="6.096" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent">
+                            <Path Fill="{TemplateBinding Background}" Data="F1 M 5.252,5.097 C 5.425,5.297 5.920,5.219 6.374,5.118 C 6.549,5.078 6.691,5.034 7.037,4.929 C 7.383,4.824 13.814,2.584 14.412,2.325 C 14.998,2.071 15.502,1.847 15.784,1.412 C 16.120,0.894 16.000,0.754 15.852,0.606 C 15.703,0.458 15.333,0.336 15.238,0.317 C 15.238,0.317 14.999,0.129 14.573,0.043 C 14.417,0.011 14.238,-0.007 14.035,0.002 C 13.276,0.037 12.151,0.513 10.988,1.077 C 10.511,1.304 9.232,1.996 9.232,1.996 C 9.232,1.996 1.042,0.555 0.758,0.505 C 0.473,0.454 0.214,0.545 0.000,0.823 C 0.328,0.960 0.328,0.960 0.328,0.960 L 6.908,3.318 L 5.811,4.070 L 3.227,3.640 C 3.227,3.640 3.094,3.613 2.995,3.711 C 2.949,3.756 2.912,3.792 2.912,3.792 L 3.124,3.855 L 5.341,4.536 C 5.341,4.536 5.136,4.964 5.252,5.097 Z"/>
+                            <Path Fill="{TemplateBinding Background}" Data="F1 M 11.486,3.780 C 11.486,3.780 12.060,5.501 12.112,5.770 C 12.164,6.038 11.888,6.096 11.888,6.096 L 9.454,4.480 L 11.486,3.780 Z"/>
+                            <Path Fill="{TemplateBinding Background}" Data="F1 M 7.630,5.642 L 7.317,5.193 L 6.708,5.375 L 7.490,5.835 C 7.490,5.835 7.669,5.744 7.630,5.642 Z"/>
+                        </Canvas>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="0">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="HoldEnd" To="#AAAAAA" Duration="0:0:0.05" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="Stop" To="#AAAAAA" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="Tag" Value="1">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="HoldEnd" To="#33BB33" Duration="0:0:0.05" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="Stop" To="#AAAAAA" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="Tag" Value="2">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="HoldEnd" To="#6666FF" Duration="0:0:0.05" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="Stop" To="#AAAAAA" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="indicator_remote" TargetType="Label">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#AAAAAA"/>
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Label">
+                        <Canvas Name="cv" Width="14.622" Height="15.000" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent">
+                            <Path Fill="{TemplateBinding Background}" Data="F1 M 10.441,8.255 C 10.331,8.255 10.220,8.218 10.128,8.143 C 9.915,7.970 9.884,7.657 10.057,7.445 C 10.572,6.815 10.856,6.018 10.856,5.203 C 10.856,4.387 10.572,3.591 10.057,2.961 C 9.883,2.749 9.914,2.436 10.127,2.262 C 10.338,2.088 10.651,2.119 10.825,2.332 C 11.485,3.139 11.848,4.159 11.848,5.203 C 11.848,6.246 11.485,7.266 10.826,8.073 C 10.728,8.193 10.585,8.255 10.441,8.255 Z"/>
+                            <Path Fill="{TemplateBinding Background}" Data="F1 M 4.179,8.253 C 4.035,8.253 3.893,8.191 3.795,8.071 C 3.136,7.265 2.774,6.246 2.774,5.203 C 2.774,4.160 3.137,3.141 3.797,2.334 C 3.970,2.122 4.283,2.091 4.495,2.264 C 4.707,2.437 4.738,2.750 4.565,2.962 C 4.050,3.592 3.766,4.388 3.766,5.203 C 3.766,6.018 4.049,6.814 4.563,7.444 C 4.737,7.656 4.705,7.968 4.493,8.142 C 4.401,8.217 4.290,8.253 4.179,8.253 Z"/>
+                            <Path Fill="{TemplateBinding Background}" Data="F1 M 2.426,10.405 C 2.268,10.405 2.110,10.342 1.993,10.218 C 0.708,8.856 0.000,7.075 0.000,5.202 C 0.000,3.330 0.708,1.549 1.992,0.187 C 2.218,-0.052 2.595,-0.063 2.834,0.162 C 3.073,0.388 3.084,0.765 2.858,1.004 C 1.783,2.144 1.191,3.635 1.191,5.202 C 1.191,6.770 1.783,8.261 2.859,9.401 C 3.085,9.640 3.074,10.017 2.834,10.242 C 2.719,10.351 2.572,10.405 2.426,10.405 Z"/>
+                            <Path Fill="{TemplateBinding Background}" Data="F1 M 12.196,10.405 C 12.050,10.405 11.903,10.351 11.788,10.242 C 11.548,10.017 11.537,9.640 11.763,9.401 C 12.839,8.261 13.431,6.770 13.431,5.202 C 13.431,3.635 12.839,2.144 11.764,1.004 C 11.538,0.765 11.549,0.388 11.788,0.162 C 12.028,-0.064 12.405,-0.052 12.630,0.187 C 13.914,1.549 14.622,3.330 14.622,5.202 C 14.622,7.075 13.914,8.857 12.629,10.218 C 12.512,10.342 12.355,10.405 12.196,10.405 Z"/>
+                            <Path Fill="{TemplateBinding Background}" Data="F1 M 8.855,5.202 C 8.855,4.349 8.164,3.659 7.311,3.659 C 6.459,3.659 5.768,4.349 5.768,5.202 C 5.768,5.743 6.048,6.217 6.469,6.492 L 6.469,15.000 L 8.068,15.000 L 8.068,6.539 C 8.535,6.274 8.855,5.778 8.855,5.202 Z"/>
+                        </Canvas>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="0">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="HoldEnd" To="#AAAAAA" Duration="0:0:0.05" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="Stop" To="#AAAAAA" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="Tag" Value="1">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="HoldEnd" To="#33BB33" Duration="0:0:0.05" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="Stop" To="#AAAAAA" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="Tag" Value="2">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="HoldEnd" To="#6666FF" Duration="0:0:0.05" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation FillBehavior="Stop" To="#AAAAAA" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="indicator_speech" TargetType="Border">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="pulst">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard Timeline.DesiredFrameRate="40">
+                                <DoubleAnimation RepeatBehavior="Forever" AutoReverse="True" From="0.2" To="1" Duration="0:0:0.7" Storyboard.TargetProperty="Opacity">
+                                    <DoubleAnimation.EasingFunction>
+                                        <PowerEase EasingMode="EaseInOut"/>
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="ToolTip">
+            <Setter Property="Padding" Value="10, 5" />
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="BorderBrush" Value="#55000000"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <StackPanel>
+                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        
+        
+    </Application.Resources>
+</Application>

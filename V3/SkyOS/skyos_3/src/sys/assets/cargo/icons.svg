@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;}
+	.st1{fill:url(#SVGID_1_);}
+	.st2{fill:#81786B;stroke:#5B554D;stroke-width:0.9106;stroke-miterlimit:10;}
+	.st3{fill:#44321F;}
+</style>
+<rect y="896" class="st0" width="128" height="128"/>
+<rect x="128" y="896" class="st0" width="128" height="128"/>
+<rect x="256" y="896" class="st0" width="128" height="128"/>
+<rect x="384" y="896" class="st0" width="128" height="128"/>
+<rect x="512" y="896" class="st0" width="128" height="128"/>
+<rect x="640" y="896" class="st0" width="128" height="128"/>
+<rect x="768" y="896" class="st0" width="128" height="128"/>
+<rect x="896" y="896" class="st0" width="128" height="128"/>
+<rect y="768" class="st0" width="128" height="128"/>
+<rect x="128" y="768" class="st0" width="128" height="128"/>
+<rect x="256" y="768" class="st0" width="128" height="128"/>
+<rect x="384" y="768" class="st0" width="128" height="128"/>
+<rect x="512" y="768" class="st0" width="128" height="128"/>
+<rect x="640" y="768" class="st0" width="128" height="128"/>
+<rect x="768" y="768" class="st0" width="128" height="128"/>
+<rect x="896" y="768" class="st0" width="128" height="128"/>
+<rect y="640" class="st0" width="128" height="128"/>
+<rect x="128" y="640" class="st0" width="128" height="128"/>
+<rect x="256" y="640" class="st0" width="128" height="128"/>
+<rect x="384" y="640" class="st0" width="128" height="128"/>
+<rect x="512" y="640" class="st0" width="128" height="128"/>
+<rect x="640" y="640" class="st0" width="128" height="128"/>
+<rect x="768" y="640" class="st0" width="128" height="128"/>
+<rect x="896" y="640" class="st0" width="128" height="128"/>
+<rect y="512" class="st0" width="128" height="128"/>
+<rect x="128" y="512" class="st0" width="128" height="128"/>
+<rect x="256" y="512" class="st0" width="128" height="128"/>
+<rect x="384" y="512" class="st0" width="128" height="128"/>
+<rect x="512" y="512" class="st0" width="128" height="128"/>
+<rect x="640" y="512" class="st0" width="128" height="128"/>
+<rect x="768" y="512" class="st0" width="128" height="128"/>
+<rect x="896" y="512" class="st0" width="128" height="128"/>
+<rect y="384" class="st0" width="128" height="128"/>
+<rect x="128" y="384" class="st0" width="128" height="128"/>
+<rect x="256" y="384" class="st0" width="128" height="128"/>
+<rect x="384" y="384" class="st0" width="128" height="128"/>
+<rect x="512" y="384" class="st0" width="128" height="128"/>
+<rect x="640" y="384" class="st0" width="128" height="128"/>
+<rect x="768" y="384" class="st0" width="128" height="128"/>
+<rect x="896" y="384" class="st0" width="128" height="128"/>
+<rect y="256" class="st0" width="128" height="128"/>
+<rect x="128" y="256" class="st0" width="128" height="128"/>
+<rect x="256" y="256" class="st0" width="128" height="128"/>
+<rect x="384" y="256" class="st0" width="128" height="128"/>
+<rect x="512" y="256" class="st0" width="128" height="128"/>
+<rect x="640" y="256" class="st0" width="128" height="128"/>
+<rect x="768" y="256" class="st0" width="128" height="128"/>
+<rect x="896" y="256" class="st0" width="128" height="128"/>
+<rect x="128" y="128" class="st0" width="128" height="128"/>
+<rect x="256" y="128" class="st0" width="128" height="128"/>
+<rect x="384" y="128" class="st0" width="128" height="128"/>
+<rect x="512" y="128" class="st0" width="128" height="128"/>
+<rect x="640" y="128" class="st0" width="128" height="128"/>
+<rect x="768" y="128" class="st0" width="128" height="128"/>
+<rect x="896" y="128" class="st0" width="128" height="128"/>
+<rect x="128" class="st0" width="128" height="128"/>
+<rect x="256" class="st0" width="128" height="128"/>
+<rect x="384" class="st0" width="128" height="128"/>
+<rect x="512" class="st0" width="128" height="128"/>
+<rect x="640" class="st0" width="128" height="128"/>
+<rect x="768" class="st0" width="128" height="128"/>
+<rect x="896" class="st0" width="128" height="128"/>
+<rect y="128" class="st0" width="128" height="128"/>
+<g>
+	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="51.3969" y1="-7.4757" x2="76.6031" y2="135.4757">
+		<stop  offset="0" style="stop-color:#A8804D"/>
+		<stop  offset="0.5" style="stop-color:#8F6D41"/>
+		<stop  offset="1" style="stop-color:#6E5432"/>
+	</linearGradient>
+	<rect x="9" class="st1" width="110" height="128"/>
+	<rect x="10.9" y="60.8" class="st2" width="106.1" height="6.5"/>
+	<g>
+		<path class="st3" d="M115.3,3.7v120.6H12.7V3.7H115.3 M119,0H9v128h110V0L119,0z"/>
+	</g>
+</g>
+<rect class="st0" width="128" height="128"/>
+</svg>

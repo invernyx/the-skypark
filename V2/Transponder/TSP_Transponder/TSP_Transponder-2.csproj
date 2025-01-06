@@ -1,0 +1,810 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="..\packages\Obfuscar.2.2.28\build\obfuscar.props" Condition="Exists('..\packages\Obfuscar.2.2.28\build\obfuscar.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2418D61A-B99D-465B-84E6-CD894329FB0F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>TSP_Transponder</RootNamespace>
+    <AssemblyName>TSP_Transponder</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>output.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DiscordRPC, Version=1.0.166.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DiscordRichPresence.1.0.166\lib\net35\DiscordRPC.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="gdalconst_csharp, Version=1.0.7372.36899, Culture=neutral, PublicKeyToken=db5a52b08dc5b321, processorArchitecture=MSIL">
+      <HintPath>..\packages\GDAL.2.4.4\lib\net40\gdalconst_csharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="gdal_csharp, Version=1.0.7372.36899, Culture=neutral, PublicKeyToken=db5a52b08dc5b321, processorArchitecture=MSIL">
+      <HintPath>..\packages\GDAL.2.4.4\lib\net40\gdal_csharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="GoogleAnalyticsTracker.Core, Version=6.0.0.0, Culture=neutral, PublicKeyToken=04ab204e84b117c0, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoogleAnalyticsTracker.Core.6.0.5\lib\netstandard2.0\GoogleAnalyticsTracker.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="GoogleAnalyticsTracker.Simple, Version=6.0.0.0, Culture=neutral, PublicKeyToken=04ab204e84b117c0, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoogleAnalyticsTracker.Simple.6.0.5\lib\netstandard2.0\GoogleAnalyticsTracker.Simple.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="IdentityModel, Version=4.4.0.0, Culture=neutral, PublicKeyToken=e7877f4675df049f, processorArchitecture=MSIL">
+      <HintPath>..\packages\IdentityModel.4.4.0\lib\net472\IdentityModel.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="IdentityModel.OidcClient, Version=3.0.0.0, Culture=neutral, PublicKeyToken=5580d04c1b6c37c1, processorArchitecture=MSIL">
+      <HintPath>..\packages\IdentityModel.OidcClient.3.1.2\lib\net472\IdentityModel.OidcClient.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="LiteDB, Version=5.0.11.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiteDB.5.0.11\lib\net45\LiteDB.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="LockheedMartin.Prepar3D.SimConnect">
+      <HintPath>Assembly\LockheedMartin.Prepar3D.SimConnect.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.5.0.0\lib\net461\Microsoft.Extensions.Configuration.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Binder.5.0.0\lib\net461\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.5.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.5.0.0\lib\net461\Microsoft.Extensions.Logging.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.5.0.0\lib\net461\Microsoft.Extensions.Options.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.5.0.0\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.FlightSimulator.SimConnect, Version=10.0.62615.0, Culture=neutral, PublicKeyToken=5f523ae7e6e1b389, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Assembly\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.6.8.0\lib\net461\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.6.8.0\lib\net461\Microsoft.IdentityModel.Logging.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.8.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="NAudio, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.10.0\lib\net35\NAudio.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ogr_csharp, Version=1.0.7372.36898, Culture=neutral, PublicKeyToken=db5a52b08dc5b321, processorArchitecture=MSIL">
+      <HintPath>..\packages\GDAL.2.4.4\lib\net40\ogr_csharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="osr_csharp, Version=1.0.7372.36898, Culture=neutral, PublicKeyToken=db5a52b08dc5b321, processorArchitecture=MSIL">
+      <HintPath>..\packages\GDAL.2.4.4\lib\net40\osr_csharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sandwych.GeographicLib, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sandwych.GeographicLib.1.49.3\lib\net45\Sandwych.GeographicLib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net46\System.Data.SQLite.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.113.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.113.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.5.0.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.8.0\lib\net461\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Text.Encodings.Web, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.5.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20505.0\lib\net40\System.Web.Helpers.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20505.0\lib\net40\System.Web.Mvc.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20505.0\lib\net40\System.Web.Razor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20505.0\lib\net40\System.Web.WebPages.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20505.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20505.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="websocket-sharp, Version=1.0.2.59611, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebSocketSharp.1.0.3-rc11\lib\websocket-sharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Models\Adventures\Actions\cargo_dropoff_2.cs" />
+    <Compile Include="Models\Adventures\Actions\cargo_pickup_2.cs" />
+    <Compile Include="Models\Adventures\Actions\flight_timer_end.cs" />
+    <Compile Include="Models\Adventures\Actions\trigger_distance.cs" />
+    <Compile Include="Models\Adventures\Actions\flight_timer_start.cs" />
+    <Compile Include="Models\Adventures\Actions\trigger_button.cs" />
+    <Compile Include="Models\Adventures\Actions\trigger_engine_stop.cs" />
+    <Compile Include="Models\Adventures\Actions\trigger_gs_start.cs" />
+    <Compile Include="Models\Adventures\Actions\trigger_gs_end.cs" />
+    <Compile Include="Models\PostProcessing\AdventuresCompile.cs" />
+    <Compile Include="Models\Adventures\AdventureTemplateFeatured.cs" />
+    <Compile Include="Models\Adventures\AdventureInvoices\StagedInvoices.cs" />
+    <Compile Include="Models\Adventures\Route.cs" />
+    <Compile Include="Models\Companies.cs" />
+    <Compile Include="Models\Adventures\Limit.cs" />
+    <Compile Include="Models\Aircraft\AircraftPayloadStation.cs" />
+    <Compile Include="Models\Airports\Airport.cs" />
+    <Compile Include="Models\Airports\AirportFilters.cs" />
+    <Compile Include="Models\Contractors\Loadmaster.cs" />
+    <Compile Include="Models\DataStore\LiteDbService.cs" />
+    <Compile Include="Models\PostProcessing\DevProcess.cs" />
+    <Compile Include="Models\Flyr\Flyr.cs" />
+    <Compile Include="Models\GoogleAnalyticscs.cs" />
+    <Compile Include="Models\LocationHistory.cs" />
+    <Compile Include="Models\Messaging\ChatThread.cs" />
+    <Compile Include="Models\Notifications\Notification.cs" />
+    <Compile Include="Models\Notifications\NotificationService.cs" />
+    <Compile Include="Models\Payload\CargoGroup.cs" />
+    <Compile Include="Models\Payload\CargoManifest.cs" />
+    <Compile Include="Models\Payload\CargoDestination.cs" />
+    <Compile Include="Models\Payload\CargoUnit.cs" />
+    <Compile Include="Models\Scenr\MapImages.cs" />
+    <Compile Include="Models\EventBus\Compute_Autopilot.cs" />
+    <Compile Include="Models\Topography\GdalConfiguration.cs" />
+    <Compile Include="Models\Adventures\Actions\action_base.cs" />
+    <Compile Include="Models\Adventures\Actions\adventure_fail.cs" />
+    <Compile Include="Models\Adventures\Actions\scene_unload.cs" />
+    <Compile Include="Models\Adventures\Actions\scene_load.cs" />
+    <Compile Include="Models\Adventures\Actions\trigger_ias_start.cs" />
+    <Compile Include="Models\Adventures\Actions\trigger_ias_end.cs" />
+    <Compile Include="Models\Adventures\Actions\trigger_alt_end.cs" />
+    <Compile Include="Models\Adventures\Actions\trigger_g_end.cs" />
+    <Compile Include="Models\Adventures\Actions\trigger_alt_start.cs" />
+    <Compile Include="Models\Adventures\Actions\trigger_g_start.cs" />
+    <Compile Include="Models\Adventures\Actions\adventure_milestone.cs" />
+    <Compile Include="Models\Adventures\Actions\audio_effect_play.cs" />
+    <Compile Include="Models\Adventures\Actions\audio_speech_play.cs" />
+    <Compile Include="Models\Adventures\Actions\cargo_dropoff.cs" />
+    <Compile Include="Models\Adventures\Actions\cargo_pickup.cs" />
+    <Compile Include="Models\Adventures\Adventure.cs" />
+    <Compile Include="Models\Adventures\CreationParams.cs" />
+    <Compile Include="Models\Adventures\AdventureTemplate.cs" />
+    <Compile Include="Models\Adventures\RouteGenerator\RouteGenerator.cs" />
+    <Compile Include="Models\Adventures\Adventures.cs" />
+    <Compile Include="Models\Adventures\Interaction.cs" />
+    <Compile Include="Models\Adventures\Situation.cs" />
+    <Compile Include="Models\Aircraft\FleetService.cs" />
+    <Compile Include="Models\Aircraft\AircraftMountingPoint.cs" />
+    <Compile Include="Models\Airports\AirportsScan.cs" />
+    <Compile Include="Models\Airports\Airports_ESP.cs" />
+    <Compile Include="Models\Airports\Developers.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Agn\AgnFile.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\AirportName.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\ApproachLights.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\Apron.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\ApronCollection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\ApronEdgeLights.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\Com.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\Helipad.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\OffsetThreshold.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\Runway.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\SkipSection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\Start.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\TaxiNameCollection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\TaxiParking.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\TaxiParkingCollection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\TaxiPath.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\TaxiPathCollection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\TaxiPoint.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\TaxiPointCollection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\TowerSceneryObject.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\Unknown.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\AirportSubRecords\Vasi.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\BglFile.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\Header.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\Section.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\SectionFactory.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\Sections\AirportSection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\Sections\NameListSection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\SubRecord.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\SubSection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\SubSections\AirportRecord.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\SubSections\AirportSubsection.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Bgl\SubSections\NameListRecord.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Common\FileFormatException.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Common\GeoLocation.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Common\IHasData.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Common\SimulatorFile.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\ApproachLightType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\CodedString.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\FrequencyType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\HelipadType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\ParkingName.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\ParkingType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\PushbackType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\Qmid.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\StartType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\Surface.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\TaxiwayEdgeMarking.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\TaxiwayPathType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\TaxiwayPointType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\Esp\VasiType.cs" />
+    <Compile Include="Models\Airports\OrbxScanner\GlobalSuppressions.cs" />
+    <Compile Include="Models\API\ClientCollection.cs" />
+    <Compile Include="Models\API\FileRequest.cs" />
+    <Compile Include="Models\API\FileUpload.cs" />
+    <Compile Include="Models\API\SocketClient.cs" />
+    <Compile Include="Models\API\WSLocal.cs" />
+    <Compile Include="Models\API\WSRemote.cs" />
+    <Compile Include="Models\Audio\Audio.cs" />
+    <Compile Include="Models\Audio\AudioLibrary.cs" />
+    <Compile Include="Models\Transactor\Discount.cs" />
+    <Compile Include="Models\Transactor\Fee.cs" />
+    <Compile Include="Models\Transactor\Invoice.cs" />
+    <Compile Include="Models\Transactor\Account.cs" />
+    <Compile Include="Models\Bank\Bank.cs" />
+    <Compile Include="Models\Bank\Invoices.cs" />
+    <Compile Include="Models\Transactor\Transaction.cs" />
+    <Compile Include="Models\Connectors\ConnectorInstance_Base.cs" />
+    <Compile Include="Models\Connectors\ConnectorInstance_MSFS.cs" />
+    <Compile Include="Models\Connectors\Screen_Capture.cs" />
+    <Compile Include="Models\ControlAssignments\ControlAssignments.cs" />
+    <Compile Include="Models\CustomLog.cs" />
+    <Compile Include="Models\FlightPlans\FlightPlan.cs" />
+    <Compile Include="Models\FlightPlans\FlightPlansDirectory.cs" />
+    <Compile Include="Models\FlightPlans\Types\PlanTypeBase.cs" />
+    <Compile Include="Models\FlightPlans\Types\PlanTypePLN.cs" />
+    <Compile Include="Models\Navigraph\Authenticate.cs" />
+    <Compile Include="Models\Navigraph\NavData.cs" />
+    <Compile Include="Models\Passengers\Elements\ElementBase.cs" />
+    <Compile Include="Models\Passengers\Elements\Galley.cs" />
+    <Compile Include="Models\Passengers\Elements\Lavatories.cs" />
+    <Compile Include="Models\Passengers\Elements\Seat.cs" />
+    <Compile Include="Models\Passengers\Human.cs" />
+    <Compile Include="Models\Passengers\Layout.cs" />
+    <Compile Include="Models\Passengers\Core.cs" />
+    <Compile Include="Models\Passengers\Family.cs" />
+    <Compile Include="Models\PathFinding\PathFinding.cs" />
+    <Compile Include="Models\PathFinding\PathFindingSearchEngine.cs" />
+    <Compile Include="Models\PathFinding\VehMovements.cs" />
+    <Compile Include="Models\Progress\Ranking.cs" />
+    <Compile Include="Models\EventBus\Compute_Base.cs" />
+    <Compile Include="Models\Topography\MapData.cs" />
+    <Compile Include="Models\Topography\Topography.cs" />
+    <Compile Include="Models\Topography\Utils\FlightPath.cs" />
+    <Compile Include="Models\Topography\Utils\PointElevation.cs" />
+    <Compile Include="Models\Topography\Utils\TileDataSet.cs" />
+    <Compile Include="Models\Topography\Utils\TileInfo.cs" />
+    <Compile Include="Models\Updater\Updater.cs" />
+    <Compile Include="Models\Weather\AviationWeather_gov.cs" />
+    <Compile Include="Models\Payload\Assets\Asset.cs" />
+    <Compile Include="Models\Payload\Assets\AssetsLibrary.cs" />
+    <Compile Include="Models\WorldManager\Events\DeliveryEvent.cs" />
+    <Compile Include="Models\WorldManager\WorldManager.cs" />
+    <Compile Include="Models\WorldManager\Scene.cs" />
+    <Compile Include="Models\EventBus\Compute_Cruise.cs" />
+    <Compile Include="Models\EventBus\Compute_Engines.cs" />
+    <Compile Include="Models\EventBus\Compute_Aircraft.cs" />
+    <Compile Include="Models\EventBus\Compute_AircraftCrash.cs" />
+    <Compile Include="Models\EventBus\Compute_GForces.cs" />
+    <Compile Include="Models\EventBus\Compute_Fuel.cs" />
+    <Compile Include="Models\EventBus\Compute_ScreenCapture.cs" />
+    <Compile Include="Models\EventBus\Compute_Taxi.cs" />
+    <Compile Include="Models\EventBus\Compute_Weather.cs" />
+    <Compile Include="Models\EventBus\Compute_Position.cs" />
+    <Compile Include="Models\EventBus\Compute_Integrity.cs" />
+    <Compile Include="Models\EventBus\Compute_Touchdown.cs" />
+    <Compile Include="Models\EventBus\Messages.cs" />
+    <Compile Include="Models\Weather\HiFi_ActiveSky_16.cs" />
+    <Compile Include="Models\Weather\WeatherData.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RichPresence\RichPresence.cs" />
+    <Compile Include="Models\CameraSequences\CameraSequences.cs" />
+    <Compile Include="Models\Connectors\SimConnection.cs" />
+    <Compile Include="Models\Aircraft\AircraftInstance.cs" />
+    <Compile Include="Models\API\API.cs" />
+    <Compile Include="Models\FlightPlans\FlightPlans.cs" />
+    <Compile Include="Models\SimLibrary.cs" />
+    <Compile Include="Models\EventBus\EventManager.cs" />
+    <Compile Include="Utilities\Animations.cs" />
+    <Compile Include="Utilities\AzureMaps.cs" />
+    <Compile Include="Utilities\Countries.cs" />
+    <Compile Include="Utilities\ExifEditor.cs" />
+    <Compile Include="Utilities\ExtWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utilities\Oidc.WpfWebView.cs" />
+    <Compile Include="Utilities\P42StopWatch.cs" />
+    <Compile Include="Utilities\TaskBarFinder.cs" />
+    <Compile Include="Models\PostProcessing\UpgradeProcess.cs" />
+    <Compile Include="Utilities\Utils.cs" />
+    <Compile Include="Utilities\EmbeddedAssembly.cs" />
+    <Compile Include="Utilities\NamedPipes.cs" />
+    <Compile Include="Utilities\WindowPosition.cs" />
+    <Compile Include="Models\Airports\AirportsLib.cs" />
+    <EmbeddedResource Include="Models\Adventures\DefaultPack\Adventures.zip" />
+    <None Include="Models\Connectors\ConnectorInstance_P3D.1cs" />
+    <Compile Include="Utilities\URIHandler.cs" />
+    <Compile Include="Models\UserData.cs" />
+    <EmbeddedResource Include="Utilities\Countries\countries.json" />
+    <EmbeddedResource Include="Utilities\Holidays\holidays.json" />
+    <Page Include="UI\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Payload\Assets\tsp_assets_clearsky.csv" />
+    <EmbeddedResource Include="Models\Airports\DefaultSet\apt_dump.csv" />
+    <EmbeddedResource Include="Models\Payload\Assets\tsp_assets_coyote.csv" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="airports.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\LockheedMartin.Prepar3D.SimConnect.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="output.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\websocket-sharp.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\browser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\skypad.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\output.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\discord.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BuildNumber.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\app_icons.png" />
+    <Resource Include="Resources\TSLlogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\NAudio.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\RawInput.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\DiscordRPC.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\Newtonsoft.Json.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BuildDate.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\Microsoft.FlightSimulator.SimConnect.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Models\FlightPlans\WriteTemplates\PLN.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.Configuration.Abstractions.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.Configuration.Binder.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.Configuration.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.DependencyInjection.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.Logging.Abstractions.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.Logging.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.Options.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Extensions.Primitives.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.IdentityModel.JsonWebTokens.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.IdentityModel.Logging.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.IdentityModel.Tokens.dll" />
+    <EmbeddedResource Include="Assembly\System.Buffers.dll" />
+    <EmbeddedResource Include="Assembly\System.IdentityModel.Tokens.Jwt.dll" />
+    <EmbeddedResource Include="Assembly\System.Memory.dll" />
+    <EmbeddedResource Include="Assembly\System.Runtime.CompilerServices.Unsafe.dll" />
+    <EmbeddedResource Include="Assembly\System.Text.Encodings.Web.dll" />
+    <EmbeddedResource Include="Assembly\System.Threading.Tasks.Extensions.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\System.ComponentModel.Annotations.dll" />
+    <EmbeddedResource Include="Assembly\System.Numerics.Vectors.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Models\Updater\The Skypark Installer.exe" />
+    <Resource Include="Resources\tsp_logo.png" />
+    <Resource Include="Resources\Unboxing\0000.jpg" />
+    <Resource Include="Resources\Unboxing\0001.jpg" />
+    <Resource Include="Resources\Unboxing\0002.jpg" />
+    <Resource Include="Resources\Unboxing\0003.jpg" />
+    <Resource Include="Resources\Unboxing\0004.jpg" />
+    <Resource Include="Resources\Unboxing\0005.jpg" />
+    <Resource Include="Resources\Unboxing\0006.jpg" />
+    <Resource Include="Resources\Unboxing\0007.jpg" />
+    <Resource Include="Resources\Unboxing\0008.jpg" />
+    <Resource Include="Resources\Unboxing\0009.jpg" />
+    <Resource Include="Resources\Unboxing\0010.jpg" />
+    <Resource Include="Resources\Unboxing\0011.jpg" />
+    <Resource Include="Resources\Unboxing\0012.jpg" />
+    <Resource Include="Resources\Unboxing\0013.jpg" />
+    <Resource Include="Resources\Unboxing\0014.jpg" />
+    <Resource Include="Resources\Unboxing\0015.jpg" />
+    <Resource Include="Resources\Unboxing\0016.jpg" />
+    <Resource Include="Resources\Unboxing\0017.jpg" />
+    <Resource Include="Resources\Unboxing\0018.jpg" />
+    <Resource Include="Resources\Unboxing\0019.jpg" />
+    <Resource Include="Resources\Unboxing\0020.jpg" />
+    <Resource Include="Resources\Unboxing\0021.jpg" />
+    <Resource Include="Resources\Unboxing\0022.jpg" />
+    <Resource Include="Resources\Unboxing\0023.jpg" />
+    <Resource Include="Resources\Unboxing\0024.jpg" />
+    <Resource Include="Resources\Unboxing\0025.jpg" />
+    <Resource Include="Resources\Unboxing\0026.jpg" />
+    <Resource Include="Resources\Unboxing\0027.jpg" />
+    <Resource Include="Resources\Unboxing\0028.jpg" />
+    <Resource Include="Resources\Unboxing\0029.jpg" />
+    <Resource Include="Resources\Unboxing\0030.jpg" />
+    <Resource Include="Resources\Unboxing\0031.jpg" />
+    <Resource Include="Resources\Unboxing\0032.jpg" />
+    <Resource Include="Resources\Unboxing\0033.jpg" />
+    <Resource Include="Resources\Unboxing\0034.jpg" />
+    <Resource Include="Resources\Unboxing\0035.jpg" />
+    <Resource Include="Resources\Unboxing\0036.jpg" />
+    <Resource Include="Resources\Unboxing\0037.jpg" />
+    <Resource Include="Resources\Unboxing\0038.jpg" />
+    <Resource Include="Resources\Unboxing\0039.jpg" />
+    <Resource Include="Resources\Unboxing\0040.jpg" />
+    <Resource Include="Resources\Unboxing\0041.jpg" />
+    <Resource Include="Resources\Unboxing\0042.jpg" />
+    <Resource Include="Resources\Unboxing\0043.jpg" />
+    <Resource Include="Resources\Unboxing\0044.jpg" />
+    <Resource Include="Resources\Unboxing\0045.jpg" />
+    <Resource Include="Resources\Unboxing\0046.jpg" />
+    <Resource Include="Resources\Unboxing\0047.jpg" />
+    <Resource Include="Resources\Unboxing\0048.jpg" />
+    <Resource Include="Resources\Unboxing\0049.jpg" />
+    <Resource Include="Resources\Unboxing\0050.jpg" />
+    <Resource Include="Resources\Unboxing\0051.jpg" />
+    <Resource Include="Resources\Unboxing\0052.jpg" />
+    <Resource Include="Resources\Unboxing\0053.jpg" />
+    <Resource Include="Resources\Unboxing\0054.jpg" />
+    <Resource Include="Resources\Unboxing\0055.jpg" />
+    <Resource Include="Resources\Unboxing\0056.jpg" />
+    <Resource Include="Resources\Unboxing\0057.jpg" />
+    <Resource Include="Resources\Unboxing\0058.jpg" />
+    <Resource Include="Resources\Unboxing\0059.jpg" />
+    <Resource Include="Resources\Unboxing\0060.jpg" />
+    <Resource Include="Resources\Unboxing\0061.jpg" />
+    <Resource Include="Resources\Unboxing\0062.jpg" />
+    <Resource Include="Resources\Unboxing\0063.jpg" />
+    <Resource Include="Resources\Unboxing\0064.jpg" />
+    <Resource Include="Resources\Unboxing\0065.jpg" />
+    <Resource Include="Resources\Unboxing\0066.jpg" />
+    <Resource Include="Resources\Unboxing\0067.jpg" />
+    <Resource Include="Resources\Unboxing\0068.jpg" />
+    <Resource Include="Resources\Unboxing\0069.jpg" />
+    <Resource Include="Resources\Unboxing\0070.jpg" />
+    <Resource Include="Resources\Unboxing\0071.jpg" />
+    <Resource Include="Resources\Unboxing\0072.jpg" />
+    <Resource Include="Resources\Unboxing\0073.jpg" />
+    <Resource Include="Resources\Unboxing\0074.jpg" />
+    <Resource Include="Resources\Unboxing\0075.jpg" />
+    <Resource Include="Resources\Unboxing\0076.jpg" />
+    <Resource Include="Resources\Unboxing\0077.jpg" />
+    <Resource Include="Resources\Unboxing\0078.jpg" />
+    <Resource Include="Resources\Unboxing\0079.jpg" />
+    <Resource Include="Resources\Unboxing\0080.jpg" />
+    <Resource Include="Resources\Unboxing\0081.jpg" />
+    <Resource Include="Resources\Unboxing\0082.jpg" />
+    <Resource Include="Resources\Unboxing\0083.jpg" />
+    <Resource Include="Resources\Unboxing\0084.jpg" />
+    <Resource Include="Resources\Unboxing\0085.jpg" />
+    <Resource Include="Resources\Unboxing\0086.jpg" />
+    <Resource Include="Resources\Unboxing\0087.jpg" />
+    <Resource Include="Resources\Unboxing\0088.jpg" />
+    <Resource Include="Resources\Unboxing\0089.jpg" />
+    <Resource Include="Resources\Unboxing\0090.jpg" />
+    <Resource Include="Resources\Unboxing\0091.jpg" />
+    <Resource Include="Resources\Unboxing\0092.jpg" />
+    <Resource Include="Resources\Unboxing\0093.jpg" />
+    <Resource Include="Resources\Unboxing\0094.jpg" />
+    <Resource Include="Resources\Unboxing\0095.jpg" />
+    <Resource Include="Resources\Unboxing\0096.jpg" />
+    <Resource Include="Resources\Unboxing\0097.jpg" />
+    <Resource Include="Resources\Unboxing\0098.jpg" />
+    <Resource Include="Resources\Unboxing\0099.jpg" />
+    <Resource Include="Resources\Unboxing\0100.jpg" />
+    <Resource Include="Resources\Unboxing\0101.jpg" />
+    <Resource Include="Resources\Unboxing\0102.jpg" />
+    <Resource Include="Resources\Unboxing\0103.jpg" />
+    <Resource Include="Resources\Unboxing\0104.jpg" />
+    <Resource Include="Resources\Unboxing\0105.jpg" />
+    <Resource Include="Resources\Unboxing\0106.jpg" />
+    <Resource Include="Resources\Unboxing\0107.jpg" />
+    <Resource Include="Resources\Unboxing\0108.jpg" />
+    <Resource Include="Resources\Unboxing\0109.jpg" />
+    <Resource Include="Resources\Unboxing\0110.jpg" />
+    <Resource Include="Resources\Unboxing\0111.jpg" />
+    <Resource Include="Resources\Unboxing\0112.jpg" />
+    <Resource Include="Resources\Unboxing\0113.jpg" />
+    <Resource Include="Resources\Unboxing\0114.jpg" />
+    <Resource Include="Resources\Unboxing\0115.jpg" />
+    <Resource Include="Resources\Unboxing\0116.jpg" />
+    <Resource Include="Resources\Unboxing\0117.jpg" />
+    <Resource Include="Resources\Unboxing\0118.jpg" />
+    <Resource Include="Resources\Unboxing\0119.jpg" />
+    <Resource Include="Resources\Unboxing\0120.jpg" />
+    <Resource Include="Resources\rendered_1.png" />
+    <Resource Include="Resources\rendered_2.png" />
+    <EmbeddedResource Include="Assembly\gdalconst_csharp.dll" />
+    <EmbeddedResource Include="Assembly\gdal_csharp.dll" />
+    <EmbeddedResource Include="Assembly\ogr_csharp.dll" />
+    <EmbeddedResource Include="Assembly\osr_csharp.dll" />
+    <EmbeddedResource Include="Assembly\Sandwych.GeographicLib.dll" />
+    <EmbeddedResource Include="Assembly\EntityFramework.dll" />
+    <EmbeddedResource Include="Assembly\EntityFramework.SqlServer.dll" />
+    <EmbeddedResource Include="Deploy\SimConnect.dll" />
+    <EmbeddedResource Include="Assembly\BouncyCastle.Crypto.dll" />
+    <EmbeddedResource Include="Assembly\System.Diagnostics.DiagnosticSource.dll" />
+    <EmbeddedResource Include="Assembly\System.ValueTuple.dll" />
+    <EmbeddedResource Include="Assembly\IdentityModel.dll" />
+    <EmbeddedResource Include="Assembly\IdentityModel.OidcClient.dll" />
+    <EmbeddedResource Include="Assembly\System.Data.SQLite.dll" />
+    <EmbeddedResource Include="Assembly\System.Data.SQLite.EF6.dll" />
+    <EmbeddedResource Include="Assembly\System.Data.SQLite.Linq.dll" />
+    <EmbeddedResource Include="Assembly\GoogleAnalyticsTracker.Core.dll" />
+    <EmbeddedResource Include="Assembly\GoogleAnalyticsTracker.Simple.dll" />
+    <EmbeddedResource Include="Assembly\Microsoft.Web.Infrastructure.dll" />
+    <EmbeddedResource Include="Assembly\System.Web.Helpers.dll" />
+    <EmbeddedResource Include="Assembly\System.Web.Mvc.dll" />
+    <EmbeddedResource Include="Assembly\System.Web.Razor.dll" />
+    <EmbeddedResource Include="Assembly\System.Web.WebPages.Deployment.dll" />
+    <EmbeddedResource Include="Assembly\System.Web.WebPages.dll" />
+    <EmbeddedResource Include="Assembly\System.Web.WebPages.Razor.dll" />
+    <EmbeddedResource Include="Assembly\LiteDB.dll" />
+    <Content Include="Models\Topography\GdalConfiguration.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libraries\RawInput\RawInput.csproj">
+      <Project>{4143d085-38cf-4640-bb05-2fdffaf94d76}</Project>
+      <Name>RawInput</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>ECHO.
+ECHO ------------------ File Version ------------------
+for /f "tokens=2 delims==" %25%25a in ('wmic OS Get localdatetime /value') do set "dt=%25%25a"
+set "YY=%25dt:~2,2%25" &amp; set "YYYY=%25dt:~0,4%25" &amp; set "MM=%25dt:~4,2%25" &amp; set "DD=%25dt:~6,2%25"
+set "HH=%25dt:~8,2%25" &amp; set "Min=%25dt:~10,2%25" &amp; set "Sec=%25dt:~12,2%25"
+
+echo %25YYYY%25-%25MM%25-%25DD%25
+echo %25YYYY%25-%25MM%25-%25DD%25 &gt; "$(ProjectDir)\Resources\BuildDate.txt"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEventDependsOn>
+    $(PostBuildEventDependsOn);
+    PostBuildMacros;
+  </PostBuildEventDependsOn>
+    <PostBuildEvent>if $(ConfigurationName) == Release ("$(SIGNTOOL)" sign /f "$(CODESIGNING)\invernyx.pfx" /t http://timestamp.comodoca.com/authenticode /fd sha256 /p $(CODESIGNINGPW) "$(TargetPath)")</PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="PostBuildMacros">
+    <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
+      <Output TaskParameter="Assemblies" ItemName="Targets" />
+    </GetAssemblyIdentity>
+    <ItemGroup>
+      <VersionNumber Include="@(Targets->'%(Version)')" />
+    </ItemGroup>
+  </Target>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Obfuscar.2.2.28\build\obfuscar.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Obfuscar.2.2.28\build\obfuscar.props'))" />
+    <Error Condition="!Exists('..\packages\GDAL.Native.2.4.4\build\net40\GDAL.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GDAL.Native.2.4.4\build\net40\GDAL.Native.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\GDAL.Native.2.4.4\build\net40\GDAL.Native.targets" Condition="Exists('..\packages\GDAL.Native.2.4.4\build\net40\GDAL.Native.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+</Project>

@@ -1,0 +1,429 @@
+@import '@/sys/scss/sizes.scss';
+@import '@/sys/scss/colors.scss';
+@import '@/sys/scss/mixins.scss';
+
+.cabin_layout {
+	$size_x: 3em;
+	$size_y: 3em;
+	$spacing: 0.1em;
+	$padding: 0.3em;
+
+	.theme--bright & {
+		.feature {
+			&-door {
+				&:before {
+					background-image: url(../../assets/pax/dark/door.svg);
+				}
+			}
+			&-seat {
+				&-jumpseat {
+					background-color: rgba($ui_colors_bright_shade_3, 0.8);
+				}
+			}
+			&-util {
+				background-color: rgba($ui_colors_bright_shade_3, 0.8);
+				&-lavatories {
+					&:before {
+						background-image: url(../../assets/pax/dark/cabin_lav.svg);
+						border: 0 dotted rgba($ui_colors_bright_shade_1, 0.8);
+					}
+				}
+				&-galley {
+					&:before {
+						background-image: url(../../assets/pax/bright/cabin_galley.svg);
+						background-color: rgba($ui_colors_bright_shade_4, 0.8);
+					}
+				}
+				&-partition {
+					&:before {
+						background-color: rgba($ui_colors_bright_shade_4, 0.8);
+					}
+				}
+			}
+			&-stairs {
+				border-color: rgba($ui_colors_bright_shade_3, 0.8);
+				&:before {
+					background-image: url(../../assets/pax/dark/stairs_down_up.svg);
+				}
+			}
+			&-cargo {
+				&-small {
+					&:before {
+						background-image: url(../../assets/cargo/dark/cargo_small.svg);
+					}
+				}
+				&-medium {
+					&:before {
+						background-image: url(../../assets/cargo/dark/cargo_medium.svg);
+					}
+				}
+				&-large {
+					&:before {
+						background-image: url(../../assets/cargo/dark/cargo_large.svg);
+					}
+				}
+			}
+		}
+	}
+
+	.theme--dark & {
+		.feature {
+			&-door {
+				&:before {
+					background-image: url(../../assets/pax/bright/door.svg);
+				}
+			}
+			&-seat {
+				&-jumpseat {
+					background-color: rgba($ui_colors_dark_shade_3, 0.8);
+				}
+			}
+			&-util {
+				&-lavatories,
+				&-galley,
+				&-fill {
+					background-color: rgba($ui_colors_dark_shade_3, 0.8);
+				}
+				&-lavatories {
+					&:before {
+						background-image: url(../../assets/pax/bright/cabin_lav.svg);
+						border: 0 dotted rgba($ui_colors_dark_shade_1, 0.8);
+					}
+				}
+				&-galley {
+					&:before {
+						background-image: url(../../assets/pax/bright/cabin_galley.svg);
+						background-color: rgba($ui_colors_dark_shade_1, 0.8);
+					}
+				}
+				&-partition {
+					border: 0 solid rgba($ui_colors_dark_shade_3, 0.8);
+				}
+			}
+			&-stairs {
+				border-color: rgba($ui_colors_dark_shade_3, 0.8);
+				&:before {
+					background-image: url(../../assets/pax/bright/stairs_down_up.svg);
+				}
+			}
+			&-cargo {
+				&-small {
+					&:before {
+						background-image: url(../../assets/cargo/bright/cargo_small.svg);
+					}
+				}
+				&-medium {
+					&:before {
+						background-image: url(../../assets/cargo/bright/cargo_medium.svg);
+					}
+				}
+				&-large {
+					&:before {
+						background-image: url(../../assets/cargo/bright/cargo_large.svg);
+					}
+				}
+			}
+		}
+	}
+
+	&_cell  {
+		&.window_right {
+			.feature {
+				&-door {
+					&.orient {
+						&-right {
+							margin-right: -$padding - 0.2em;
+						}
+					}
+				}
+			}
+		}
+		&.window_left {
+			.feature {
+				&-door {
+					&.orient {
+						&-left {
+							margin-left: -$padding - 0.2em;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.feature {
+		position: absolute;
+		top: $spacing;
+		right: $spacing;
+		bottom: $spacing;
+		left: $spacing;
+		pointer-events: none;
+		z-index: 2;
+		&-door {
+			border: 0em solid rgba($ui_colors_bright_shade_1, 0.9);
+			&.orient{
+				&-up {
+					border-top-width: 0.3em;
+					&:before {
+						transform: rotate(0deg);
+					}
+				}
+				&-right {
+					border-right-width: 0.3em;
+					&:before {
+						transform: rotate(-270deg);
+					}
+				}
+				&-bottom {
+					border-bottom-width: 0.3em;
+					&:before {
+						transform: rotate(-180deg);
+					}
+				}
+				&-left {
+					border-left-width: 0.3em;
+					&:before {
+						transform: rotate(270deg);
+					}
+				}
+			}
+			&:before {
+				content: '';
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				margin: -0.3em;
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+		}
+		&-stairs {
+			margin: -0.1em;
+			border: 0.2em solid transparent;
+			&:before {
+				content: '';
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+		}
+		&-seat {
+			//margin: -0.2em;
+			transform-origin: center;
+			z-index: 3;
+			$seat_offset: -0.4em;
+			&:before {
+				content: '';
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center bottom;
+			}
+			&.orient{
+				&-up {
+					margin-bottom: $seat_offset;
+					&:before {
+						transform: rotate(0deg);
+					}
+				}
+				&-right {
+					margin-left: $seat_offset;
+					&:before {
+						transform: rotate(-270deg);
+					}
+				}
+				&-bottom {
+					margin-top: $seat_offset;
+					&:before {
+						transform: rotate(-180deg);
+					}
+				}
+				&-left {
+					margin-right: $seat_offset;
+					&:before {
+						transform: rotate(270deg);
+					}
+				}
+			}
+			&-pilot {
+				&:before {
+					background-image: url(../../assets/pax/seat-pilot.png);
+				}
+			}
+			&-copilot {
+				&:before {
+					background-image: url(../../assets/pax/seat-copilot.png);
+				}
+			}
+			&-jumpseat {
+				margin: -0.1em;
+				&:before {
+					background-image: url(../../assets/pax/seat-jumpseat.png);
+					background-position: center top;
+				}
+				&.orient{
+					&-up {
+						top: 30%;
+						bottom: -$seat_offset;
+						&:before {
+							margin-top: -0.5em;
+							transform: rotate(0deg);
+						}
+					}
+					&-right {
+						right: 30%;
+						left: -$seat_offset;
+						&:before {
+							transform: rotate(-270deg);
+						}
+					}
+					&-bottom {
+						bottom: 30%;
+						top: -$seat_offset;
+						&:before {
+							margin-bottom: -0.5em;
+							transform: rotate(-180deg);
+						}
+					}
+					&-left {
+						left: 30%;
+						right: -$seat_offset;
+						&:before {
+							transform: rotate(270deg);
+						}
+					}
+				}
+			}
+			&-first_class {
+				&:before {
+					background-image: url(../../assets/pax/seat-first_class.png);
+				}
+			}
+			&-premium_class {
+				&:before {
+					background-image: url(../../assets/pax/seat-premium_class.png);
+				}
+			}
+			&-premium_economy_class {
+				&:before {
+					background-image: url(../../assets/pax/seat-premium_economy_class.png);
+				}
+			}
+			&-economy_class {
+				&:before {
+					background-image: url(../../assets/pax/seat-economy_class.png);
+				}
+			}
+		}
+		&-util {
+			margin: -0.1em;
+			&:before {
+				content: '';
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+			&-lavatories {
+				&.orient{
+					&-up {
+						&:before {
+							border-top-width: 0.2em;
+						}
+					}
+					&-right {
+						&:before {
+							border-right-width: 0.2em;
+						}
+					}
+					&-bottom {
+						&:before {
+							border-bottom-width: 0.2em;
+						}
+					}
+					&-left {
+						&:before {
+							border-left-width: 0.2em;
+						}
+					}
+				}
+			}
+			&-galley {
+				&.orient{
+					&-up {
+						&:before {
+							bottom: 10%;
+						}
+					}
+					&-right {
+						&:before {
+							left: 10%;
+						}
+					}
+					&-bottom {
+						&:before {
+							top: 10%;
+						}
+					}
+					&-left {
+						&:before {
+							right: 10%;
+						}
+					}
+				}
+			}
+			&-partition {
+				background-color: transparent;
+				&:before {
+					background-color: transparent;
+				}
+				&.orient{
+					&-up {
+						border-top-width: 0.2em;
+					}
+					&-right {
+						border-right-width: 0.2em;
+					}
+					&-bottom {
+						border-bottom-width: 0.2em;
+					}
+					&-left {
+						border-left-width: 0.2em;
+					}
+				}
+			}
+		}
+		&-cargo {
+			margin: -0.1em;
+			&:before {
+				content: '';
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				margin-left: -0.2em;
+				margin-right: -0.2em;
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+		}
+	}
+}

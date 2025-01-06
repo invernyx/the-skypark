@@ -1,0 +1,84 @@
+
+@font-face {
+	font-family:"SkyOS-Light";
+	src: url(../assets/fonts/NotoSans-Regular.ttf) format("truetype");
+}
+
+@font-face {
+	font-family:"SkyOS-Regular";
+	src: url(../assets/fonts/NotoSans-Regular.ttf) format("truetype");
+}
+
+@font-face {
+	font-family:"SkyOS-SemiBold";
+	src: url(../assets/fonts/NotoSans-Bold.ttf) format("truetype");
+}
+
+@font-face {
+	font-family:"SkyOS-Bold";
+	src: url(../assets/fonts/NotoSans-Bold.ttf) format("truetype");
+}
+
+@font-face {
+	font-family:"SkyOS-Black";
+	src: url(../assets/fonts/NotoSans-Bold.ttf) format("truetype");
+}
+
+body {
+	font-family: "SkyOS-Regular";
+	font-size: 14px;
+	line-height: 1.4em;
+}
+
+h1 {
+	font-family: "SkyOS-Bold";
+	font-weight: normal;
+	&:first-child {
+		margin-top: 0;
+	}
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+h2 {
+	font-family: "SkyOS-Bold";
+	font-weight: normal;
+	font-size: 1.4em;
+	line-height: 1.4em;
+	margin-bottom: 0.5em;
+	margin-top: 1.5em;
+	&:first-child {
+		margin-top: 0;
+	}
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+strong {
+	font-family: "SkyOS-SemiBold";
+}
+
+p {
+	&.notice {
+		opacity: 0.75;
+		font-size: 0.8em;
+		line-height: 1.4em;
+	}
+}
+
+* {
+	line-height: 1.4em;
+	-webkit-font-smoothing: subpixel-antialiased;
+}
+
+select,
+textarea,
+input {
+	font-family: "SkyOS-Regular";
+}
+
+.text-center {
+	text-align: center;
+}

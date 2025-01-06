@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1433
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TSP_OSM_Loader", "TSP_OSM_Loader\TSP_OSM_Loader.csproj", "{0E4B5FB9-9755-4808-BF55-3955A6833428}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0E4B5FB9-9755-4808-BF55-3955A6833428}.Debug|x64.ActiveCfg = Debug|x64
+		{0E4B5FB9-9755-4808-BF55-3955A6833428}.Debug|x64.Build.0 = Debug|x64
+		{0E4B5FB9-9755-4808-BF55-3955A6833428}.Release|x64.ActiveCfg = Release|x64
+		{0E4B5FB9-9755-4808-BF55-3955A6833428}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9ED05BB8-125B-4CFF-B2F6-020459991738}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<SimBase.Document Type="AceXML" version="1,0">
+    <Descr>AceXML Document</Descr>
+    <FlightPlan.FlightPlan>
+		<Title>%TITLE%</Title>
+		<FPType>%FLIGHTRULE%</FPType>
+		<RouteType>%ROUTETYPE%</RouteType>
+		<CruisingAlt>%ALTITUDE%</CruisingAlt>
+		<DepartureID>%DEPARTUREICAO%</DepartureID>
+		<DepartureLLA>%DEPARTURELLA%</DepartureLLA>
+		<DestinationID>%ARRIVALICAO%</DestinationID>
+		<DestinationLLA>%ARRIVALLLA%</DestinationLLA>
+		<Descr>%DESCRIPTION%</Descr>
+		<DeparturePosition>0</DeparturePosition>
+		<DepartureName>%DEPARTURENAME%</DepartureName>
+		<DestinationName>%ARRIVALNAME%</DestinationName>
+        <AppVersion>
+            <AppVersionMajor>11</AppVersionMajor>
+            <AppVersionBuild>282174</AppVersionBuild>
+        </AppVersion>
+		%WAYPOINTS%
+    </FlightPlan.FlightPlan>
+</SimBase.Document>

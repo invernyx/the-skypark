@@ -1,0 +1,162 @@
+
+@font-face {
+	font-family:"SkyOS-Light";
+	src: url(../assets/fonts/NotoSans-Regular.ttf) format("truetype");
+}
+
+@font-face {
+	font-family:"SkyOS-Regular";
+	src: url(../assets/fonts/NotoSans-Regular.ttf) format("truetype");
+}
+
+@font-face {
+	font-family:"SkyOS-SemiBold";
+	src: url(../assets/fonts/NotoSans-Bold.ttf) format("truetype");
+}
+
+@font-face {
+	font-family:"SkyOS-Bold";
+	src: url(../assets/fonts/NotoSans-Bold.ttf) format("truetype");
+}
+
+@font-face {
+	font-family:"SkyOS-Black";
+	src: url(../assets/fonts/NotoSans-Bold.ttf) format("truetype");
+}
+
+body {
+	font-family: "SkyOS-Regular";
+	font-size: 14px;
+	line-height: 1.4em;
+}
+
+h1 {
+	font-family: "SkyOS-Bold";
+	font-weight: normal;
+	line-height: 1.2em;
+	&:first-child {
+		margin-top: 0;
+	}
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+h2 {
+	font-family: "SkyOS-Bold";
+	font-weight: normal;
+	font-size: 1.4em;
+	line-height: 1.2em;
+	margin-bottom: 0.5em;
+	margin-top: 1.5em;
+	&:first-child {
+		margin-top: 0;
+	}
+	&:last-child {
+		margin-bottom: 0;
+	}
+	&.nm {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+}
+
+h3 {
+	font-family: "SkyOS-Bold";
+	font-weight: normal;
+	font-size: 1.2em;
+	line-height: 1.2em;
+	margin-bottom: 0.5em;
+	margin-top: 1.5em;
+	&:first-child {
+		margin-top: 0;
+	}
+	&:last-child {
+		margin-bottom: 0;
+	}
+	&.separator {
+		display: flex;
+		text-align: center;
+		justify-content: center;
+		align-items: center;
+		&::before,
+		&::after {
+			content: "";
+			display: block;
+			height: 1px;
+			min-width: 20px;
+			flex-grow: 1;
+			opacity: 0.2;
+		}
+		&::before {
+			margin-right: 0.4em;
+		}
+		&::after {
+			margin-left: 0.4em;
+		}
+		.theme--bright & {
+			&::before,
+			&::after {
+				background-color: $ui_colors_bright_shade_5;
+			}
+		}
+		.theme--dark & {
+			&::before,
+			&::after {
+				background-color: $ui_colors_dark_shade_5;
+			}
+		}
+	}
+}
+
+strong {
+	font-family: "SkyOS-SemiBold";
+}
+
+span {
+	&.faded {
+		opacity: 0.6;
+	}
+}
+
+p {
+	&.notice {
+		opacity: 0.75;
+		font-size: 0.85em;
+		line-height: 1.4em;
+	}
+	&:first-child {
+		margin-top: 0;
+	}
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+* {
+	//line-height: 1.4em;
+	-webkit-font-smoothing: subpixel-antialiased;
+}
+
+select,
+textarea,
+input {
+	font-family: "SkyOS-Regular";
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.nowrap {
+	white-space: nowrap;
+}
+
+pre {
+	max-width: 350px;
+	overflow: auto;
+}

@@ -1,0 +1,1844 @@
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Threading;
+using System.Diagnostics;
+using System.Collections.Generic;
+using System.Windows.Interop;
+using System.Runtime.InteropServices;
+using System.Web.Script.Serialization;
+using System.Windows.Media.Media3D;
+using System.Text.RegularExpressions;
+using LockheedMartin.Prepar3D.SimConnect;
+using TSP_Transponder.Models;
+using TSP_Transponder.Models.Connectors;
+using TSP_Transponder.Models.CameraSequences;
+using TSP_Transponder.Models.EventBus;
+using TSP_Transponder.Models.WeatherModel;
+using TSP_Transponder.Models.Weather;
+using TSP_Transponder.Models.WorldManager;
+using TSP_Transponder.Models.PathFinding;
+using TSP_Transponder.Models.Adventures;
+using TSP_Transponder.Models.API;
+using static TSP_Transponder.Utils;
+using static TSP_Transponder.Models.SimLibrary;
+using static TSP_Transponder.Models.PathFinding.VehMovement;
+using static TSP_Transponder.Models.WeatherModel.WeatherData;
+using static TSP_Transponder.Models.Connectors.SimConnection;
+using TSP_Transponder.Models.Aircraft;
+using TSP_Transponder.Models.Airports;
+using System.Globalization;
+
+namespace TSP_Transponder
+{
+    public class ConnectorInstance_P3D : ConnectorInstance_Base
+    {
+        #region SimConnect Variables
+
+        #region Timers
+#pragma warning disable IDE1006
+        [DllImport("winmm.dll")]
+        private static extern int timeGetDevCaps(ref TimerCaps caps, int sizeOfTimerCaps);
+
+        [DllImport("winmm.dll")]
+        private static extern int timeSetEvent(int delay, int resolution, TimeProc proc, int user, int mode);
+
+        [DllImport("winmm.dll")]
+        private static extern int timeKillEvent(int id);
+
+        delegate void TimeProc(int id, int msg, int user, int param1, int param2);
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct TimerCaps
+        {
+            public int periodMin;
+            public int periodMax;
+        }
+
+        private static Thread TimerThread = null;
+        private static TimeProc callback;
+        public static int camTimerID = 0;
+#pragma warning restore IDE1006
+        #endregion
+        
+        private SimConnect SimConnectModule;
+        private enum GROUPID
+        {
+            FLAG = 2000000000,
+        };
+        private enum DATA_REQUESTS
+        {
+            Version,
+            Sim_Fast_Data,
+            Sim_Slow_Data,
+            Sim_Slow_AI_Data,
+            AI_Release,
+            Aircraft_Loaded,
+            Aircraft_Init,
+            Flight_Loaded,
+            GetCameraPos,
+            Environment_Wx,
+            Sim_Version,
+        };
+        private enum OBJECTS_REQUESTS
+        {
+            Delete,
+            Lightbox,
+            Scenr,
+        };
+        private enum EVENT_ID
+        {
+            Sim_State,
+            Sim_Paused,
+            Sim_Loaded,
+            Sim_Sound,
+            Menu_1,
+            CameraMode,
+            Frame,
+            PositionChange,
+            EVENT_FREEZE_ALT,
+            EVENT_FREEZE_ATT,
+            EVENT_FREEZE_POS,
+            EVENT_SIM_PAUSED_SET,
+            EVENT_SIM_SLEW_SET,
+        }
+        private enum DEFINITIONS
+        {
+            FastLoopStruct,
+            SlowLoopStruct,
+            AircraftStruct,
+            SlowLoopAIStruct,
+            VehMovementsWP,
+            VehMovementsLoop,
+        }
+        private enum GROUP_ID
+        {
+            SET_TIME,
+            SET_POS,
+            ID_PRIORITY_STANDARD = 1900000000
+        };
+        private enum NOTIFICATION_GROUPS
+        {
+            GROUP_MENU,
+            GROUP_KNEEBOARD,
+        }
+
+        private bool ConnectConfirmed = false;
+        private long ConnectAttemptLast = 0;
+        private long ConnectAttemptDelay = 30000;
+        private object ParallelBusy = new object();
+
+        private const int WM_USER_SIMCONNECT = 0x0402;
+        private const string DEFAULT_SIMCONNECT_STATUS = "";
+        private bool TryingConnect = false;
+        private HwndSource HandleSource;
+        private double LastAPIResponse = 0;
+        private IntPtr Handle;
+        private Stopwatch SimRuntime = new Stopwatch();
+        private double LastSimFrame = 0;
+        private List<double> FrameRates = new List<double>();
+        private GeoLoc PreMenuPosition = new GeoLoc(0, 0);
+
+        private Dictionary<string, Dictionary<string, List<string>>> AircraftCFG = new Dictionary<string, Dictionary<string, List<string>>>();
+        private string AircraftAir = "";
+
+        public override bool IsConnected
+        {
+            get
+            {
+                try
+                {
+                    return SimConnectModule != null && ConnectConfirmed;
+                }
+                catch
+                {
+                    Disconnect();
+                    return false;
+                }
+            }
+        }
+        #endregion
+
+        public override void Startup(MainWindow _Window)
+        {
+            SimConnectModule = null;
+            MW = _Window;
+
+            Handle = new WindowInteropHelper(_Window).Handle;
+            HandleSource = HwndSource.FromHwnd(Handle);
+            ConnectAttemptLast = -ConnectAttemptDelay;
+        }
+
+        public override void Connect()
+        {
+            if (TryingConnect)
+            {
+                return;
+            }
+            TryingConnect = true;
+        
+            if (SimConnectModule == null)
+            {
+                if(ConnectedInstance != null)
+                {
+                    return;
+                }
+
+                try
+                {
+                    SimConnectModule = new SimConnect("The Skypark", Handle, WM_USER_SIMCONNECT, null, 0);
+                    HandleSource.AddHook(HandleSimConnectEvents);
+                    LastSent = App.Timer.ElapsedMilliseconds;
+                    SimConnectModule.RequestVersion(DATA_REQUESTS.Version);
+                    foreach (Simulator sim in SimList)
+                    {
+                        if (sim.Connector.GetType() == typeof(ConnectorInstance_P3D))
+                        {
+                            Process[] processes = Process.GetProcessesByName(sim.Exe.Replace(".exe", ""));
+                            foreach (Process proc in processes)
+                            {
+                                if (proc.Id != 0 && proc.MainWindowHandle != IntPtr.Zero && !proc.HasExited)
+                                {
+                                    var versionInfo = FileVersionInfo.GetVersionInfo(proc.MainModule.FileName);
+                                    int version = versionInfo.FileMajorPart;
+
+                                    if (sim.MajorVersion == version)
+                                    {
+                                        ActiveSimProc = proc;
+                                        ActiveSim = sim;
+                                        SetupEventHandlers();
+                                        HiFi_ActiveSky_16.Startup();
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Console.WriteLine("Connected to ESP SimConnect");
+                }
+                catch
+                {
+                    Console.WriteLine("ESP SimConnect not ready");
+                    //Console.WriteLine("Failed to connect to Prepar3D");
+                }
+                
+                TryingConnect = false;
+                    
+            }
+            else
+            {
+                if (IsConnected)
+                {
+                    try
+                    {
+                        LastSent = App.Timer.ElapsedMilliseconds;
+                        SimConnectModule.RequestVersion(DATA_REQUESTS.Version);
+                        TryingConnect = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Previous Session Crashed " + ex.Message + Environment.NewLine + ex.StackTrace);
+                        PreviousSessionCrashed = true;
+                        Disconnect();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Error connecting to SimConnect");
+                    Disconnect();
+                    TryingConnect = false;
+                }
+            }
+            
+        }
+
+        public override void Disconnect()
+        {
+            Console.WriteLine("Disconnect SimConnect");
+            if (SimConnectModule != null)
+            {
+                try
+                {
+                    if (HandleSource != null)
+                    {
+                        HandleSource.RemoveHook(HandleSimConnectEvents);
+                    }
+
+                    SimConnectModule.Dispose();
+                }
+                catch
+                {
+                }
+
+                SimConnectModule = null;
+                Disconnected();
+
+                SimRuntime.Stop();
+                ConnectConfirmed = false;
+                ConnectAttemptLast = 0;
+                IsRunning = false;
+                IsPaused = false;
+                TryingConnect = false;
+                AircraftCFG.Clear();
+                AircraftAir = "";
+
+                Console.WriteLine("SimConnect Closed");
+            }
+        }
+        
+        public override void Configure(Simulator sim, bool toInstall = true)
+        {
+        }
+
+        public override void SetPause(bool state)
+        {
+            LastSent = App.Timer.ElapsedMilliseconds;
+            if (state)
+            {
+                SimConnectModule.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, EVENT_ID.EVENT_SIM_PAUSED_SET, 1, GROUP_ID.SET_POS, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+            }
+            else
+            {
+                SimConnectModule.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, EVENT_ID.EVENT_SIM_PAUSED_SET, 0, GROUP_ID.SET_POS, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+            }
+        }
+
+        public override void MoveSimObject(uint id, MovementState State)
+        {
+            if (App.MW.IsShuttingDown)
+            {
+                return;
+            }
+
+            VehMovementState Init = new VehMovementState()
+            {
+                Latitude = State.Position.Lat,
+                Longitude = State.Position.Lon,
+                Heading = State.Position.Hdg,
+            };
+
+            try
+            {
+                lock (ParallelBusy)
+                {
+                    SimConnectModule.SetDataOnSimObject(DEFINITIONS.VehMovementsLoop, id, SIMCONNECT_DATA_SET_FLAG.DEFAULT, Init);
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        public override void AttachSimObject(uint simIDChild, uint simIDParent, AircraftMountingPoint mount)
+        {
+            if (simIDParent == 0)
+            {
+                simIDParent = SimConnect.SIMCONNECT_OBJECT_ID_USER;
+            }
+
+            SIMCONNECT_DATA_XYZ Location = new SIMCONNECT_DATA_XYZ()
+            {
+                x = -mount.Location.X,
+                y = -mount.Location.Y,
+                z = -mount.Location.Z,
+            };
+
+            SIMCONNECT_DATA_PBH PBH = new SIMCONNECT_DATA_PBH()
+            {
+                Pitch = mount.Pitch,
+                Bank = mount.Bank,
+                Heading = mount.Heading
+            };
+
+            SimConnectModule.AttachSimObjectToSimObject(simIDParent, new SIMCONNECT_DATA_XYZ(), new SIMCONNECT_DATA_PBH(), simIDChild, Location, PBH);
+        }
+
+        public override void ReleaseSimObject(uint simIDChild, uint simIDParent)
+        {
+            SimConnectModule.ReleaseSimObjectFromSimObject(simIDParent, simIDChild);
+        }
+
+        public override void CreateSimObject(long uid, string simobject, GeoPosition Loc, SceneObjType Type)
+        {
+
+            SIMCONNECT_DATA_INITPOSITION Init;
+            Init.Altitude = Loc.Alt;
+            Init.Latitude = Loc.Lat;
+            Init.Longitude = Loc.Lon;
+            Init.Pitch = 0;
+            Init.Bank = 0;
+            Init.Heading = Loc.Hdg;
+            Init.Airspeed = 0;
+
+            if (Loc.Alt != 0)
+            {
+                Init.OnGround = 0;
+            }
+            else
+            {
+                Init.Altitude = 100000;
+                Init.OnGround = 1;
+            }
+
+            switch (Type)
+            {
+                case SceneObjType.Dynamic:
+                    {
+                        try
+                        {
+                            lock (ParallelBusy)
+                            {
+                                SimConnectModule.AICreateSimulatedObject(simobject, Init, (OBJECTS_REQUESTS)uid);
+                            }
+                        }
+                        catch
+                        {
+                        }
+                        break;
+                    }
+                case SceneObjType.Static:
+                    {
+
+                        try
+                        {
+                            lock (ParallelBusy)
+                            {
+                                SimConnectModule.AICreateNonATCAircraft(simobject, "idk", Init, (OBJECTS_REQUESTS)uid);
+                            }
+                        }
+                        catch
+                        {
+                        }
+                        break;
+                    }
+            }
+
+        }
+
+        public override void DestroySimObject(uint simID)
+        {
+            try
+            {
+                lock (ParallelBusy)
+                {
+                    SimConnectModule.AIRemoveObject(simID, OBJECTS_REQUESTS.Delete);
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        public override void CreateEffect(long uid, string effect, GeoPosition Loc, int duration)
+        {
+            SIMCONNECT_DATA_LATLONALT newLoc = new SIMCONNECT_DATA_LATLONALT()
+            {
+                Longitude = Loc.Lon,
+                Latitude = Loc.Lat,
+                Altitude = Loc.Alt,
+            };
+
+            Thread.Sleep(1);
+            SimConnectModule.CreateEffect(effect, newLoc, new SIMCONNECT_DATA_XYZ(), false, 0, (OBJECTS_REQUESTS)uid, duration);
+        }
+
+        public override void CreateAttachedEffect(long uid, string effect, Point3D Pos, int duration)
+        {
+            SIMCONNECT_DATA_XYZ newLoc = new SIMCONNECT_DATA_XYZ()
+            {
+                x = Pos.X,
+                y = Pos.Y,
+                z = Pos.Z
+            };
+
+            lock (ParallelBusy)
+            {
+                SimConnectModule.CreateEffect(effect, new SIMCONNECT_DATA_LATLONALT(), newLoc, true, 0, (OBJECTS_REQUESTS)uid, duration);
+            }
+        }
+
+        public override void MonitorAI(uint SimID)
+        {
+            try
+            {
+                if (IsConnected)
+                {
+                    // Get Data at every 10 seconds
+                    lock (ParallelBusy)
+                    {
+                        SimConnectModule.RequestDataOnSimObject(
+                            DATA_REQUESTS.Sim_Slow_AI_Data,
+                            DEFINITIONS.SlowLoopAIStruct,
+                            SimID,
+                            SIMCONNECT_PERIOD.ONCE,
+                            SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT,
+                            0,
+                            1,
+                            0
+                        );
+                    }
+                }
+            }
+            catch
+            {
+                Disconnect();
+            }
+
+        }
+
+        public override void DestroyEffect(uint simID)
+        {
+            try
+            {
+                lock (ParallelBusy)
+                {
+                    SimConnectModule.RemoveEffect(simID);
+                }
+            }
+            catch
+            {
+            }
+        }
+
+
+        private Surface ConvertSurface(int surface)
+        {
+            /*
+            0 = Concrete
+            1 = Grass
+            2 = Water
+            3 = Grass_bumpy
+            4 = Asphalt
+            5 = Short_grass
+            6 = Long_grass
+            7 = Hard_turf
+            8 = Snow
+            9 = Ice
+            10 = Urban
+            11 = Forest
+            12 = Dirt
+            13 = Coral
+            14 = Gravel
+            15 = Oil_treated
+            16 = Steel_mats
+            17 = Bituminus
+            18 = Brick
+            19 = Macadam
+            20 = Planks
+            21 = Sand
+            22 = Shale
+            23 = Tarmac
+            24 = Wright_flyer_track
+            */
+
+            switch (surface)
+            {
+                case 0: return Surface.Concrete;
+                case 1: return Surface.Grass;
+                case 2: return Surface.Water;
+                case 3: return Surface.Grass;
+                case 4: return Surface.Asphalt;
+                case 5: return Surface.Grass;
+                case 6: return Surface.Grass;
+                case 7: return Surface.Grass;
+                case 8: return Surface.Snow;
+                case 9: return Surface.Ice;
+                case 10: return Surface.Unknown;
+                case 11: return Surface.Unknown;
+                case 12: return Surface.Dirt;
+                case 13: return Surface.Coral;
+                case 14: return Surface.Gravel;
+                case 15: return Surface.OilTreated;
+                case 16: return Surface.SteelMats;
+                case 17: return Surface.Bituminous;
+                case 18: return Surface.Brick;
+                case 19: return Surface.Macadam;
+                case 20: return Surface.Planks;
+                case 21: return Surface.Sand;
+                case 22: return Surface.Shale;
+                case 23: return Surface.Tarmac;
+                default: return Surface.Unknown;
+            }
+        }
+
+        private void SetupEventHandlers()
+        {
+            try
+            {
+                LastSent = App.Timer.ElapsedMilliseconds;
+                SimConnectModule.OnRecvOpen += new SimConnect.RecvOpenEventHandler(Simconnect_OnRecvOpen);
+                SimConnectModule.OnRecvQuit += new SimConnect.RecvQuitEventHandler(Simconnect_OnRecvQuit);
+                SimConnectModule.OnRecvException += new SimConnect.RecvExceptionEventHandler(Simconnect_OnRecvException);
+                SimConnectModule.OnRecvEvent += new SimConnect.RecvEventEventHandler(Simconnect_OnRecvEvent);
+                SimConnectModule.OnRecvEventFrame += new SimConnect.RecvEventFrameEventHandler(SimConnect_OnRecvEventFrame);
+                SimConnectModule.OnRecvVersion += SimConnect_OnRecvVersion;
+                SimConnectModule.OnRecvSystemState += new SimConnect.RecvSystemStateEventHandler(SimConnect_OnRecvSystemState);
+                SimConnectModule.OnRecvWeatherObservation += new SimConnect.RecvWeatherObservationEventHandler(Simconnect_OnRecvWeatherObservation);
+                SimConnectModule.OnRecvSimobjectData += Simconnect_OnRecvSimobjectData;
+                SimConnectModule.OnRecvCamera6dof += SimConnect_OnRecvCamera6dof;
+                SimConnectModule.OnRecvAssignedObjectId += new SimConnect.RecvAssignedObjectIdEventHandler(SimConnect_OnRecvAssignedObjectId);
+
+                // Static Data
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.AircraftStruct, "TITLE", null, SIMCONNECT_DATATYPE.STRING256, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.AircraftStruct, "CATEGORY", null, SIMCONNECT_DATATYPE.STRING256, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.AircraftStruct, "WING SPAN", "METERS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.AircraftStruct, "STRUCT ENGINE POSITION:1", "FEET", SIMCONNECT_DATATYPE.XYZ, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.AircraftStruct, "STRUCT ENGINE POSITION:2", "FEET", SIMCONNECT_DATATYPE.XYZ, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.AircraftStruct, "STRUCT ENGINE POSITION:3", "FEET", SIMCONNECT_DATATYPE.XYZ, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.AircraftStruct, "STRUCT ENGINE POSITION:4", "FEET", SIMCONNECT_DATATYPE.XYZ, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.AircraftStruct, "STRUCT EYEPOINT DYNAMIC OFFSET", "METERS", SIMCONNECT_DATATYPE.XYZ, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.AircraftStruct, "ACTIVE EYEPOINT LLA", "FEET", SIMCONNECT_DATATYPE.LATLONALT, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.AircraftStruct, "FUEL TOTAL CAPACITY", "LITERS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.AircraftStruct, "EMPTY_WEIGHT_KG_KG", "KILOGRAMS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.AircraftStruct, "ENGINE TYPE", "MASK", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.AircraftStruct, "NUMBER OF ENGINES", "NUMBER", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+
+                // AI Aircraft Tracking
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopAIStruct, "AIRSPEED TRUE", "KNOTS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopAIStruct, "SURFACE RELATIVE GROUND SPEED", "KNOTS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopAIStruct, "PLANE BANK DEGREES", "DEGREES", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopAIStruct, "PLANE PITCH DEGREES", "DEGREES", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopAIStruct, "VERTICAL SPEED", "FEET PER MINUTE", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopAIStruct, "PLANE LATITUDE", "DEGREES", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopAIStruct, "PLANE LONGITUDE", "DEGREES", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopAIStruct, "PLANE ALTITUDE", "FEET", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopAIStruct, "INDICATED ALTITUDE", "FEET", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopAIStruct, "PLANE ALT ABOVE GROUND", "FEET", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopAIStruct, "PLANE HEADING DEGREES TRUE", "DEGREE", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+
+                //SimObject Movements Setter
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.VehMovementsLoop, "PLANE LATITUDE", "DEGREES", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.VehMovementsLoop, "PLANE LONGITUDE", "DEGREES", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                //SimConnectModule.AddToDataDefinition(DEFINITIONS.VehMovementsLoop, "PLANE ALTITUDE", "FEET", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.VehMovementsLoop, "PLANE HEADING DEGREES TRUE", "DEGREES", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                //SimConnectModule.AddToDataDefinition(DEFINITIONS.VehMovementsLoop, "RUDDER DEFLECTION", "DEGREES", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                //SimConnectModule.AddToDataDefinition(DEFINITIONS.VehMovementsLoop, "SURFACE RELATIVE GROUND SPEED", "KNOTS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+
+
+
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.VehMovementsWP, "AI WAYPOINT LIST", "number", SIMCONNECT_DATATYPE.WAYPOINT, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+
+                // Slow Refresh Loop
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopStruct, "FUEL TOTAL CAPACITY", "LITERS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopStruct, "AMBIENT VISIBILITY", "METERS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopStruct, "AMBIENT PRECIP STATE", "MASK", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopStruct, "AMBIENT PRECIP RATE", "ENUM", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopStruct, "BAROMETER PRESSURE", "MILLIBARS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopStruct, "AMBIENT TEMPERATURE", "MILLIBARS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.SlowLoopStruct, "SURFACE CONDITION", "ENUM", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+
+
+
+                // Fast Aircraft loop
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "AIRSPEED TRUE", "KNOTS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "SURFACE RELATIVE GROUND SPEED", "KNOTS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "PLANE BANK DEGREES", "DEGREES", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "PLANE PITCH DEGREES", "DEGREES", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "VERTICAL SPEED", "FEET PER MINUTE", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "PLANE LATITUDE", "DEGREES", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "PLANE LONGITUDE", "DEGREES", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "PLANE ALTITUDE", "FEET", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "INDICATED ALTITUDE", "FEET", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "PLANE ALT ABOVE GROUND", "FEET", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "PLANE HEADING DEGREES TRUE", "DEGREE", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "INCIDENCE ALPHA", "DEGREES", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "INCIDENCE BETA", "DEGREES", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "ACCELERATION BODY X", "GFORCE", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "ACCELERATION BODY Y", "GFORCE", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "ACCELERATION BODY Z", "GFORCE", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "VELOCITY BODY X", "FEET PER SECOND", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "VELOCITY BODY Y", "FEET PER SECOND", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "VELOCITY BODY Z", "FEET PER SECOND", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "G FORCE", "GFORCE", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "GENERAL ENG COMBUSTION:1", "BOOL", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "GENERAL ENG COMBUSTION:2", "BOOL", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "GENERAL ENG COMBUSTION:3", "BOOL", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "GENERAL ENG COMBUSTION:4", "BOOL", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "AIRCRAFT WIND X", "KNOTS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "AIRCRAFT WIND Z", "KNOTS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "AMBIENT WIND DIRECTION", "DEGREES", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "AMBIENT WIND VELOCITY", "KNOTS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "STALL WARNING", "BOOL", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "OVERSPEED WARNING", "BOOL", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "LIGHT ON STATES", "ENUM", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "AUTOPILOT MASTER", "BOOL", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "GEAR CENTER POSITION", "PERCENT", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "GEAR LEFT POSITION", "PERCENT", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "GEAR RIGHT POSITION", "PERCENT", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "GEAR TAIL POSITION", "PERCENT", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "GEAR AUX POSITION", "PERCENT", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "CENTER WHEEL RPM", "RPM", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "LEFT WHEEL RPM", "RPM", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "RIGHT WHEEL RPM", "RPM", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "AUX WHEEL RPM", "RPM", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "SIM ON GROUND", "BOOL", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "SURFACE TYPE", "ENUM", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "AMBIENT IN CLOUD", "MILLIBARS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "IS SLEW ACTIVE", "BOOL", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "TIME ZONE OFFSET", "SECONDS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "ABSOLUTE TIME", "SECONDS", SIMCONNECT_DATATYPE.INT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "IS POSITION FREEZE ON", "BOOL", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "FUEL TOTAL QUANTITY", "GALLONS", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "EXIT OPEN:0", "PERCENT", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "EXIT OPEN:1", "PERCENT", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "EXIT OPEN:2", "PERCENT", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "EXIT OPEN:3", "PERCENT", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+                SimConnectModule.AddToDataDefinition(DEFINITIONS.FastLoopStruct, "EXIT OPEN:4", "PERCENT", SIMCONNECT_DATATYPE.FLOAT64, 0f, SimConnect.SIMCONNECT_UNUSED);
+
+
+                SimConnectModule.RegisterDataDefineStruct<AircraftStruct>(DEFINITIONS.AircraftStruct);
+                SimConnectModule.RegisterDataDefineStruct<FastLoopStruct>(DEFINITIONS.FastLoopStruct);
+                SimConnectModule.RegisterDataDefineStruct<SlowLoopStruct>(DEFINITIONS.SlowLoopStruct);
+                SimConnectModule.RegisterDataDefineStruct<SlowLoopAIStruct>(DEFINITIONS.SlowLoopAIStruct);
+                SimConnectModule.RegisterDataDefineStruct<VehMovementState>(DEFINITIONS.VehMovementsLoop);
+                
+                SimConnectModule.MapClientEventToSimEvent(EVENT_ID.EVENT_FREEZE_ALT, "FREEZE_ALTITUDE_SET");
+                SimConnectModule.MapClientEventToSimEvent(EVENT_ID.EVENT_SIM_PAUSED_SET, "PAUSE_SET");
+                SimConnectModule.MapClientEventToSimEvent(EVENT_ID.EVENT_SIM_SLEW_SET, "SLEW_SET");
+                SimConnectModule.MapClientEventToSimEvent(EVENT_ID.EVENT_FREEZE_ATT, "FREEZE_ATTITUDE_SET");
+                SimConnectModule.MapClientEventToSimEvent(EVENT_ID.EVENT_FREEZE_POS, "FREEZE_LATITUDE_LONGITUDE_SET");
+                SimConnectModule.MapClientEventToSimEvent(EVENT_ID.Menu_1, "Open Skypad...");
+
+                SimConnectModule.AddClientEventToNotificationGroup(GROUP_ID.SET_POS, EVENT_ID.EVENT_FREEZE_ALT, false);
+                SimConnectModule.AddClientEventToNotificationGroup(GROUP_ID.SET_POS, EVENT_ID.EVENT_FREEZE_ATT, false);
+                SimConnectModule.AddClientEventToNotificationGroup(GROUP_ID.SET_POS, EVENT_ID.EVENT_FREEZE_POS, false);
+                SimConnectModule.AddClientEventToNotificationGroup(GROUP_ID.SET_POS, EVENT_ID.EVENT_SIM_PAUSED_SET, false);
+                SimConnectModule.AddClientEventToNotificationGroup(GROUP_ID.SET_POS, EVENT_ID.EVENT_SIM_SLEW_SET, false);
+                SimConnectModule.AddClientEventToNotificationGroup(NOTIFICATION_GROUPS.GROUP_MENU, EVENT_ID.Menu_1, false);
+
+                SimConnectModule.SubscribeToSystemEvent(EVENT_ID.Sim_State, "Sim");
+                SimConnectModule.SubscribeToSystemEvent(EVENT_ID.Sim_Paused, "Pause");
+                SimConnectModule.SubscribeToSystemEvent(EVENT_ID.Sim_Sound, "Sound");
+                SimConnectModule.SubscribeToSystemEvent(EVENT_ID.CameraMode, "View");
+                SimConnectModule.SubscribeToSystemEvent(EVENT_ID.Frame, "Frame");
+                SimConnectModule.SubscribeToSystemEvent(EVENT_ID.PositionChange, "PositionChanged");
+
+                SimConnectModule.SetNotificationGroupPriority(GROUP_ID.SET_TIME, SimConnect.SIMCONNECT_GROUP_PRIORITY_HIGHEST);
+
+                // Get Data at every Frame
+                SimConnectModule.RequestDataOnSimObject(
+                    DATA_REQUESTS.Sim_Fast_Data,
+                    DEFINITIONS.FastLoopStruct,
+                    SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                    SIMCONNECT_PERIOD.VISUAL_FRAME,
+                    SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT,
+                    0,
+                    0,
+                    0
+                );
+
+                // Get Data at every 10 seconds
+                SimConnectModule.RequestDataOnSimObject(
+                    DATA_REQUESTS.Sim_Slow_Data,
+                    DEFINITIONS.SlowLoopStruct,
+                    SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                    SIMCONNECT_PERIOD.SECOND,
+                    SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT,
+                    0,
+                    10,
+                    0
+                );
+
+                // Add one menu item
+                SimConnectModule.MenuAddItem("Open Skypad...", EVENT_ID.Menu_1, 1);
+                SimConnectModule.RequestVersion(DATA_REQUESTS.Sim_Version);
+
+            }
+            catch (COMException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void SimConnect_OnRecvVersion(SimConnect sender, SIMCONNECT_RECV_VERSION data)
+        {
+            if (!ConnectConfirmed)
+            {
+                ConnectConfirmed = true;
+                Connected(this);
+            }
+            LastReceived = App.Timer.ElapsedMilliseconds;
+            ActiveSimVersionMajor = data.dwApplicationVersionMajor;
+            ActiveSimVersionMinor = data.dwApplicationVersionMinor;
+        }
+
+        private void SimConnect_OnRecvAssignedObjectId(SimConnect sender, SIMCONNECT_RECV_ASSIGNED_OBJECT_ID data)
+        {
+            LastReceived = App.Timer.ElapsedMilliseconds;
+
+            switch ((OBJECTS_REQUESTS)data.dwRequestID)
+            {
+                case OBJECTS_REQUESTS.Delete:
+                    {
+                        break;
+                    }
+                default:
+                    {
+                        World.ConfirmID(data.dwRequestID, data.dwObjectID);
+                        // SimConnectModule.AIReleaseControl(data.dwObjectID, DATA_REQUESTS.AI_Release);
+
+                        // Get Data about that new Object
+                        //SimConnectModule.RequestDataOnSimObject(
+                        //    DATA_REQUESTS.Sim_Slow_AI_Data,
+                        //    DEFINITIONS.SlowLoopAIStruct,
+                        //    data.dwObjectID,
+                        //    SIMCONNECT_PERIOD.SECOND,
+                        //    SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT,
+                        //    0,
+                        //    1,
+                        //    0
+                        //);
+
+                        //SimConnectModule.TransmitClientEvent(data.dwObjectID, EVENT_ID.EVENT_SIM_SLEW_SET, 1, GROUPID.FLAG, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+
+                        break;
+                    }
+            }
+
+            /*
+            switch ((OBJECTS_REQUESTS)data.dwRequestID)
+            {
+                case OBJECTS_REQUESTS.Lightbox:
+                    {
+                        //if(Lightbox_ID == 0)
+                        //{
+                        //    Lightbox_ID = Convert.ToUInt32(data.dwObjectID);
+                        //    SIMCONNECT_DATA_XYZ pos1 = new SIMCONNECT_DATA_XYZ()
+                        //    {
+                        //        x = 0,
+                        //        y = 0,
+                        //        z = 0,
+                        //    };
+                        //    SIMCONNECT_DATA_XYZ pos2 = new SIMCONNECT_DATA_XYZ()
+                        //    {
+                        //        x = 0,
+                        //        y = 20,
+                        //        z = 0,
+                        //    };
+                        //    SIMCONNECT_DATA_PBH pbh1 = new SIMCONNECT_DATA_PBH()
+                        //    {
+                        //        Bank = 0,
+                        //        Heading = 0,
+                        //        Pitch = 0,
+                        //    };
+                        //
+                        //
+                        //    SimConnectModule.AttachSimObjectToSimObject(0, pos1, pbh1, Lightbox_ID, pos2, pbh1);
+                        //
+                        //    SimConnectModule.SetDataOnSimObject(DEFINITIONS.Struct_Rec_Playback, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_DATA_SET_FLAG.DEFAULT, new PlaybackStruct()
+                        //    {
+                        //        Altitude = SimData.SimConnect.Altitude + 230,
+                        //    });
+                        //
+                        //    //SimConnectModule.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, EVENT_ID.EVENT_SIM_SLEW_SET, 1, GROUP_ID.SET_POS, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                        //    SimConnectModule.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, EVENT_ID.EVENT_SIM_PAUSED_SET, 1, GROUP_ID.SET_POS, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                        //
+                        //    SimConnectModule.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, EVENT_ID.EVENT_FREEZE_ALT, 1, GROUP_ID.SET_POS, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                        //    SimConnectModule.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, EVENT_ID.EVENT_FREEZE_ATT, 1, GROUP_ID.SET_POS, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                        //    SimConnectModule.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, EVENT_ID.EVENT_FREEZE_POS, 1, GROUP_ID.SET_POS, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                        //
+                        //}
+                        //else
+                        //{
+                        //    Lightbox_ID = 0;
+                        //}
+                        break;
+                    }
+            }
+            */
+        }
+
+        private void Simconnect_OnRecvSimobjectData(SimConnect sender, SIMCONNECT_RECV_SIMOBJECT_DATA data)
+        {
+            LastReceived = App.Timer.ElapsedMilliseconds;
+            switch ((DATA_REQUESTS)data.dwRequestID)
+            {
+                case DATA_REQUESTS.Sim_Fast_Data:
+                    {
+                        LastAPIResponse = App.Timer.ElapsedMilliseconds;
+                        if (Aircraft != null)
+                        {
+                            SimData.FastLoop = (FastLoopStruct)data.dwData[0];
+
+                            if (SimData.FastLoop.ABS_TIME != LastTemporalData.ABS_TIME)
+                            {
+                                if (!IsPaused && IsRunning)
+                                {
+                                    LastTemporalData.PLANE_COURSE = MapCalcBearing(LastTemporalData.PLANE_LOCATION.Lat, LastTemporalData.PLANE_LOCATION.Lon, SimData.FastLoop.PLANE_LATITUDE, SimData.FastLoop.PLANE_LONGITUDE);
+                                }
+
+                                LastTemporalData.FRAME_DIST = MapCalcDist(LastTemporalData.PLANE_LOCATION, new GeoLoc(SimData.FastLoop.PLANE_LONGITUDE, SimData.FastLoop.PLANE_LATITUDE), DistanceUnit.Kilometers, true);
+                                LastTemporalData.AIRSPEED_TRUE = SimData.FastLoop.AIRSPEED_TRUE;
+                                LastTemporalData.SURFACE_RELATIVE_GROUND_SPEED = SimData.FastLoop.SURFACE_RELATIVE_GROUND_SPEED;
+                                LastTemporalData.PLANE_BANK_DEGREES = SimData.FastLoop.PLANE_BANK_DEGREES;
+                                LastTemporalData.PLANE_PITCH_DEGREES = SimData.FastLoop.PLANE_PITCH_DEGREES;
+                                LastTemporalData.VERTICAL_SPEED = SimData.FastLoop.VERTICAL_SPEED;
+                                LastTemporalData.PLANE_LOCATION.Lon = SimData.FastLoop.PLANE_LONGITUDE;
+                                LastTemporalData.PLANE_LOCATION.Lat = SimData.FastLoop.PLANE_LATITUDE;
+                                LastTemporalData.PLANE_ALTITUDE = SimData.FastLoop.PLANE_ALTITUDE;
+                                LastTemporalData.INDICATED_ALTITUDE = SimData.FastLoop.INDICATED_ALTITUDE;
+                                LastTemporalData.PLANE_ALT_ABOVE_GROUND = SimData.FastLoop.PLANE_ALT_ABOVE_GROUND;
+                                LastTemporalData.PLANE_HEADING_DEGREES = SimData.FastLoop.PLANE_HEADING_DEGREES;
+                                LastTemporalData.INCIDENCE_ALPHA = SimData.FastLoop.INCIDENCE_ALPHA;
+                                LastTemporalData.INCIDENCE_BETA = SimData.FastLoop.INCIDENCE_BETA;
+                                LastTemporalData.ACCELERATION_BODY_X = SimData.FastLoop.ACCELERATION_BODY_X;
+                                LastTemporalData.ACCELERATION_BODY_Y = SimData.FastLoop.ACCELERATION_BODY_Y;
+                                LastTemporalData.ACCELERATION_BODY_Z = SimData.FastLoop.ACCELERATION_BODY_Z;
+                                LastTemporalData.VELOCITY_BODY_X = SimData.FastLoop.VELOCITY_BODY_X;
+                                LastTemporalData.VELOCITY_BODY_Y = SimData.FastLoop.VELOCITY_BODY_Y;
+                                LastTemporalData.VELOCITY_BODY_Z = SimData.FastLoop.VELOCITY_BODY_Z;
+                                LastTemporalData.G_FORCE = SimData.FastLoop.G_FORCE;
+                                LastTemporalData.GENERAL_ENG_COMBUSTION_1 = Convert.ToBoolean(SimData.FastLoop.GENERAL_ENG_COMBUSTION_1);
+                                LastTemporalData.GENERAL_ENG_COMBUSTION_2 = Convert.ToBoolean(SimData.FastLoop.GENERAL_ENG_COMBUSTION_2);
+                                LastTemporalData.GENERAL_ENG_COMBUSTION_3 = Convert.ToBoolean(SimData.FastLoop.GENERAL_ENG_COMBUSTION_3);
+                                LastTemporalData.GENERAL_ENG_COMBUSTION_4 = Convert.ToBoolean(SimData.FastLoop.GENERAL_ENG_COMBUSTION_4);
+                                LastTemporalData.GENERAL_ENG_COMBUSTION = LastTemporalData.GENERAL_ENG_COMBUSTION_1 || LastTemporalData.GENERAL_ENG_COMBUSTION_2 || LastTemporalData.GENERAL_ENG_COMBUSTION_3 || LastTemporalData.GENERAL_ENG_COMBUSTION_4;
+                                LastTemporalData.AIRCRAFT_WIND_X = SimData.FastLoop.AIRCRAFT_WIND_X;
+                                LastTemporalData.AIRCRAFT_WIND_Z = SimData.FastLoop.AIRCRAFT_WIND_Z;
+                                LastTemporalData.AMBIENT_WIND_DIRECTION = SimData.FastLoop.AMBIENT_WIND_DIRECTION;
+                                LastTemporalData.AMBIENT_WIND_VELOCITY = SimData.FastLoop.AMBIENT_WIND_VELOCITY;
+                                LastTemporalData.STALL_WARNING = Convert.ToBoolean(SimData.FastLoop.STALL_WARNING);
+                                LastTemporalData.OVERSPEED_WARNING = Convert.ToBoolean(SimData.FastLoop.OVERSPEED_WARNING);
+                                LastTemporalData.LIGHT_ON_STATES = SimData.FastLoop.LIGHT_ON_STATES;
+                                LastTemporalData.AUTOPILOT_MASTER = Convert.ToBoolean(SimData.FastLoop.AUTOPILOT_MASTER);
+                                LastTemporalData.GEAR_CENTER_POSITION = SimData.FastLoop.GEAR_CENTER_POSITION;
+                                LastTemporalData.GEAR_LEFT_POSITION = SimData.FastLoop.GEAR_LEFT_POSITION;
+                                LastTemporalData.GEAR_RIGHT_POSITION = SimData.FastLoop.GEAR_RIGHT_POSITION;
+                                LastTemporalData.GEAR_TAIL_POSITION = SimData.FastLoop.GEAR_TAIL_POSITION;
+                                LastTemporalData.GEAR_AUX_POSITION = SimData.FastLoop.GEAR_AUX_POSITION;
+                                LastTemporalData.CENTER_WHEEL_RPM = SimData.FastLoop.CENTER_WHEEL_RPM;
+                                LastTemporalData.LEFT_WHEEL_RPM = SimData.FastLoop.LEFT_WHEEL_RPM;
+                                LastTemporalData.RIGHT_WHEEL_RPM = SimData.FastLoop.RIGHT_WHEEL_RPM;
+                                LastTemporalData.AUX_WHEEL_RPM = SimData.FastLoop.AUX_WHEEL_RPM;
+                                LastTemporalData.SIM_ON_GROUND = Convert.ToBoolean(SimData.FastLoop.SIM_ON_GROUND);
+                                LastTemporalData.SURFACE_TYPE = ConvertSurface(Convert.ToInt32(SimData.FastLoop.SURFACE_TYPE));
+                                LastTemporalData.AMBIENT_IN_CLOUD = Convert.ToBoolean(SimData.FastLoop.AMBIENT_IN_CLOUD);
+                                LastTemporalData.IS_SLEW_ACTIVE = Convert.ToBoolean(SimData.FastLoop.IS_SLEW_ACTIVE);
+                                LastTemporalData.SIM_LOCAL_TIME = new DateTime((long)(SimData.FastLoop.ABS_TIME - SimData.FastLoop.TIME_ZONE_OFFSET) * 10000000, DateTimeKind.Utc);
+                                LastTemporalData.SIM_ZULU_TIME = new DateTime((long)(SimData.FastLoop.ABS_TIME) * 10000000, DateTimeKind.Utc);
+                                LastTemporalData.SIM_ZULU_OFFSET = SimData.FastLoop.TIME_ZONE_OFFSET;
+                                LastTemporalData.ABS_TIME = SimData.FastLoop.ABS_TIME;
+                                LastTemporalData.FUEL_QUANTITY = SimData.FastLoop.FUEL_QUANTITY;
+                                LastTemporalData.APP_RUNTIME = App.Timer.ElapsedMilliseconds;
+                                LastTemporalData.SYS_TIME = new DateTime(DateTime.Now.Ticks);
+                                LastTemporalData.SYS_ZULU_TIME = new DateTime(DateTime.UtcNow.Ticks);
+                                LastTemporalData.EXIT_0 = Convert.ToInt32(SimData.FastLoop.EXIT_0);
+                                LastTemporalData.EXIT_1 = Convert.ToInt32(SimData.FastLoop.EXIT_1);
+                                LastTemporalData.EXIT_2 = Convert.ToInt32(SimData.FastLoop.EXIT_2);
+                                LastTemporalData.EXIT_3 = Convert.ToInt32(SimData.FastLoop.EXIT_3);
+                                LastTemporalData.EXIT_4 = Convert.ToInt32(SimData.FastLoop.EXIT_4);
+                                LastTemporalData.EXIT = (LastTemporalData.EXIT_0 > 0 || LastTemporalData.EXIT_1 > 0 || LastTemporalData.EXIT_2 > 0 || LastTemporalData.EXIT_3 > 0 || LastTemporalData.EXIT_4 > 0);
+                            }
+
+                            Blogs.Ingest(LastTemporalData, Blogs.Active);
+                            Adventures.ProcessInstantData(LastTemporalData);
+                            
+                        }
+
+                        break;
+                    }
+                case DATA_REQUESTS.Sim_Slow_AI_Data:
+                    {
+                        SlowLoopAIStruct SlowAILoop = (SlowLoopAIStruct)data.dwData[0];
+
+                        TemporalData TD = new TemporalData();
+                        TD.AIRSPEED_TRUE = SlowAILoop.AIRSPEED_TRUE;
+                        TD.SURFACE_RELATIVE_GROUND_SPEED = SlowAILoop.SURFACE_RELATIVE_GROUND_SPEED;
+                        TD.PLANE_BANK_DEGREES = SlowAILoop.PLANE_BANK_DEGREES;
+                        TD.PLANE_PITCH_DEGREES = SlowAILoop.PLANE_PITCH_DEGREES;
+                        TD.VERTICAL_SPEED = SlowAILoop.VERTICAL_SPEED;
+                        TD.PLANE_LOCATION.Lon = SlowAILoop.PLANE_LONGITUDE;
+                        TD.PLANE_LOCATION.Lat = SlowAILoop.PLANE_LATITUDE;
+                        TD.PLANE_ALTITUDE = SlowAILoop.PLANE_ALTITUDE;
+                        TD.INDICATED_ALTITUDE = SlowAILoop.INDICATED_ALTITUDE;
+                        TD.PLANE_ALT_ABOVE_GROUND = SlowAILoop.PLANE_ALT_ABOVE_GROUND;
+                        TD.PLANE_HEADING_DEGREES = SlowAILoop.PLANE_MAGVAR;
+                        TD.APP_RUNTIME = App.Timer.ElapsedMilliseconds;
+                        TD.SYS_TIME = new DateTime(DateTime.Now.Ticks);
+                        TD.SYS_ZULU_TIME = new DateTime(DateTime.UtcNow.Ticks);
+                        TD.PLANE_COURSE = MapCalcBearing(TD.PLANE_LOCATION.Lat, TD.PLANE_LOCATION.Lon, SlowAILoop.PLANE_LATITUDE, SlowAILoop.PLANE_LONGITUDE);
+
+                        World.UpdateObjectData(data.dwObjectID, TD);
+                        break;
+                    }
+                case DATA_REQUESTS.Sim_Slow_Data:
+                    {
+                        SimData.SlowLoop = (SlowLoopStruct)data.dwData[0];
+                        
+                        LastTemporalData.FUEL_TOTAL_CAPACITY_LITERS = SimData.SlowLoop.FUEL_TOTAL_QUANTITY;
+                        LastTemporalData.AMBIENT_VISIBILITY = Convert.ToInt64(SimData.SlowLoop.AMBIENT_VISIBILITY);
+                        LastTemporalData.AMBIENT_PRECIP_STATE = Convert.ToInt32(SimData.SlowLoop.AMBIENT_PRECIP_STATE);
+                        LastTemporalData.AMBIENT_PRECIP_RATE = Convert.ToInt32(SimData.SlowLoop.AMBIENT_PRECIP_RATE);
+                        LastTemporalData.BAROMETER_PRESSURE = SimData.SlowLoop.BAROMETER_PRESSURE;
+                        LastTemporalData.AMBIENT_TEMPERATURE = SimData.SlowLoop.AMBIENT_TEMPERATURE;
+                        LastTemporalData.SURFACE_CONDITION = Convert.ToInt32(SimData.SlowLoop.SURFACE_CONDITION);
+
+                        try
+                        {
+                            LastSent = App.Timer.ElapsedMilliseconds;
+                            SimConnectModule.WeatherRequestInterpolatedObservation(
+                                DATA_REQUESTS.Environment_Wx,
+                                (float)SimData.FastLoop.PLANE_LATITUDE,
+                                (float)SimData.FastLoop.PLANE_LONGITUDE,
+                                (float)SimData.FastLoop.PLANE_ALTITUDE
+                            );
+                        }
+                        catch
+                        {
+                            Disconnect();
+                            Thread.Sleep(2000);
+                            Connect();
+                        }
+
+                        break;
+                    }
+                case DATA_REQUESTS.Aircraft_Init:
+                    {
+                        SimData.AircraftData = (AircraftStruct)data.dwData[0];
+                        SimData.AircraftData.TITLE = SimData.AircraftData.TITLE.Replace('|', '/');
+                        //Aircraft.Livery = SimData.InitData.Title;
+
+                        if (Aircraft != null)
+                        {
+                            if (Aircraft.LastLivery == SimData.AircraftData.TITLE)
+                            {
+                                return;
+                            }
+                        }
+
+                        Console.WriteLine("Loaded Aircraft Livery: " + SimData.AircraftData.TITLE);
+                        Aircraft.LastLivery = SimData.AircraftData.TITLE;
+
+                        #region Wingspan
+                        if (SimData.AircraftData.WING_SPAN > 10)
+                        {
+                            Aircraft.WingspanMeters = SimData.AircraftData.WING_SPAN;
+                        }
+                        else
+                        {
+                            Aircraft.WingspanMeters = 10;
+                        }
+                        #endregion
+
+                        #region Engine Locations
+                        Aircraft.EngineCount = (int)SimData.AircraftData.ENGINE_COUNT;
+                        Aircraft.EngineLocation1 = new Point3D(SimData.AircraftData.STRUCT_ENGINE_POSITION_1.x * 0.3048, SimData.AircraftData.STRUCT_ENGINE_POSITION_1.y * 0.3048, SimData.AircraftData.STRUCT_ENGINE_POSITION_1.z * 0.3048);
+                        Aircraft.EngineLocation2 = new Point3D(SimData.AircraftData.STRUCT_ENGINE_POSITION_2.x * 0.3048, SimData.AircraftData.STRUCT_ENGINE_POSITION_2.y * 0.3048, SimData.AircraftData.STRUCT_ENGINE_POSITION_2.z * 0.3048);
+                        Aircraft.EngineLocation3 = new Point3D(SimData.AircraftData.STRUCT_ENGINE_POSITION_3.x * 0.3048, SimData.AircraftData.STRUCT_ENGINE_POSITION_3.y * 0.3048, SimData.AircraftData.STRUCT_ENGINE_POSITION_3.z * 0.3048);
+                        Aircraft.EngineLocation4 = new Point3D(SimData.AircraftData.STRUCT_ENGINE_POSITION_4.x * 0.3048, SimData.AircraftData.STRUCT_ENGINE_POSITION_4.y * 0.3048, SimData.AircraftData.STRUCT_ENGINE_POSITION_4.z * 0.3048);
+                        #endregion
+
+                        #region Contact points
+                        List<Point3D> contacts = new List<Point3D>();
+                        foreach (KeyValuePair<string, List<string>> paramString in GetCFGSection("contact_points", AircraftCFG).Value)
+                        {
+                            foreach (string line in paramString.Value)
+                            {
+                                if (line.ToLower().StartsWith("point."))
+                                {
+                                    string[] linesplit = line.Split('=');
+                                    int index = Convert.ToInt32(linesplit[0].Split('/')[0].Split('.')[1]);
+
+                                    List<string> valuesList = new List<string>();
+                                    string[] values = linesplit[1].Split(',');
+
+                                    float.TryParse(values[2].Trim(), out float x);
+                                    float.TryParse(values[3].Trim(), out float y);
+                                    float.TryParse(values[1].Trim(), out float z);
+                                    contacts.Add(new Point3D(x * 0.3048f, x * 0.3048, z * 0.3048));
+                                }
+                            }
+                        }
+                        List<Point3D> contactsSorted = contacts.OrderBy(o => o.Z).Reverse().ToList();
+                        if (contactsSorted.Count > 0)
+                        {
+                            Aircraft.LocationFront = contactsSorted[0];
+                        }
+
+                        if (Aircraft.EngineLocation1.Z > Aircraft.LocationFront.Z)
+                        {
+                            Aircraft.LocationFront.Z = Aircraft.EngineLocation1.Z;
+                        }
+                        #endregion
+
+                        #region Tail location
+                        string tailY = "";
+                        string tailZ = "";
+                        var section = GetCFGSection("airplane_geometry", AircraftCFG).Value;
+                        if (section != null)
+                        {
+                            foreach (KeyValuePair<string, List<string>> paramString in section)
+                            {
+                                foreach (string line in paramString.Value)
+                                {
+
+                                    if (line.ToLower().StartsWith("vtail_span"))
+                                    {
+                                        string[] linesplit = line.Split('=');
+                                        tailY = linesplit[1].Split('/')[0].Trim();
+                                    }
+
+                                    if (line.ToLower().StartsWith("vtail_pos_lon"))
+                                    {
+                                        string[] linesplit = line.Split('=');
+                                        tailZ = linesplit[1].Split('/')[0].Trim();
+                                    }
+
+
+                                }
+                            }
+                            float.TryParse(tailY, out float y);
+                            float.TryParse(tailZ, out float z);
+
+                            if (z > contactsSorted[contactsSorted.Count - 1].Z)
+                            {
+                                z = (float)contactsSorted[contactsSorted.Count - 1].Z;
+                            }
+                            else
+                            {
+                                z *= 0.3048f;
+                            }
+
+                            SimConnection.Aircraft.LocationTail = new Point3D(0, y * 0.3048, z);
+                        }
+                        else if (contactsSorted.Count > 0)
+                        {
+                            SimConnection.Aircraft.LocationTail = new Point3D(0, 5, contactsSorted[contactsSorted.Count - 1].Z);
+                        }
+                        #endregion
+
+                        #region Send to Websocket
+                        //Dictionary<string, dynamic> structure = new Dictionary<string, dynamic>()
+                        //{
+                        //    { "sim_init", new Dictionary<string, dynamic>()
+                        //        {
+                        //            { "Title", SimData.AircraftData.TITLE },
+                        //            { "Type", SimData.AircraftData.TYPE },
+                        //        }
+                        //    }
+                        //};
+                        //APIBase.ClientCollection.SendMessage(App.JSSerializer.Serialize(structure), APIBase.ClientType.All);
+                        #endregion
+
+                        Blogs.Reset();
+
+                        break;
+                    }
+
+            }
+        }
+
+        private void SimConnect_OnRecvCamera6dof(SimConnect sender, SIMCONNECT_RECV_CAMERA_6DOF data)
+        {
+            SimConnection.LastReceived = App.Timer.ElapsedMilliseconds;
+            switch ((DATA_REQUESTS)data.dwRequestID)
+            {
+                case DATA_REQUESTS.GetCameraPos:
+                    {
+
+                        break;
+                    }
+            }
+        }
+
+        private void Simconnect_OnRecvWeatherObservation(SimConnect sender, SIMCONNECT_RECV_WEATHER_OBSERVATION data)
+        {
+            SimConnection.LastReceived = App.Timer.ElapsedMilliseconds;
+            SimData.Metar = data.szMetar;
+            InjestMetar(SimData.Metar);
+        }
+
+        private void SimConnect_OnRecvSystemState(SimConnect sender, SIMCONNECT_RECV_SYSTEM_STATE data)
+        {
+            LastReceived = App.Timer.ElapsedMilliseconds;
+            switch ((DATA_REQUESTS)data.dwRequestID)
+            {
+                case DATA_REQUESTS.Aircraft_Loaded:
+                    {
+                        // Split path from air file to get the aircraft folder name
+                        string aircraftName = data.szString;
+                        string aircraftDirectory = Path.GetDirectoryName(data.szString);
+                        string[] pathArray = data.szString.Split('\\');
+                        aircraftName = pathArray[pathArray.Length - 2];
+
+                        LastSent = App.Timer.ElapsedMilliseconds;
+                        SimConnectModule.RequestDataOnSimObject(
+                            DATA_REQUESTS.Aircraft_Init,
+                            DEFINITIONS.AircraftStruct,
+                            SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                            SIMCONNECT_PERIOD.ONCE,
+                            SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT,
+                            0,
+                            0,
+                            0
+                        );
+
+                        if (Aircraft != null)
+                        {
+                            if (Aircraft.Name == aircraftName)
+                            {
+                                return;
+                            }
+                        }
+
+                        AircraftAir = data.szString;
+                        //Aircraft = AircraftLibraryService.GetAircraft(this, aircraftName, Directory.GetParent(AircraftAir).FullName);
+                        //Aircraft.LoadSettings();
+                        //AircraftCFG = DecompileCFG(ReadCFG(Aircraft.ConfigFilePath));
+                        Adventures.ChangeAircraft();
+
+                        Console.WriteLine("New Aircraft loaded: " + aircraftName);
+
+                        LastSent = App.Timer.ElapsedMilliseconds;
+                        SimConnectModule.RequestSystemState(DATA_REQUESTS.Flight_Loaded, "FlightLoaded");
+                        break;
+                    }
+                case DATA_REQUESTS.Flight_Loaded:
+                    {
+                        Console.WriteLine("Flight Loaded");
+
+                        GetSimWindow();
+                        //SimConnection.GameOverlay.ResetOverlayZ();
+
+                        //SetPause(false);
+                        //Connector.SetLightbox(false);
+                        //if(SimData.FastLoop.SIM_ON_GROUND == 1)
+                        //{
+                        //    Connector.SetLightbox(true, CameraSequence.Introduction);
+                        //}
+                        break;
+                    }
+            }
+        }
+
+        private void Simconnect_OnRecvEvent(SimConnect sender, SIMCONNECT_RECV_EVENT recEvent)
+        {
+            //eventCount++;
+            //Console.WriteLine(eventCount);
+
+            SimConnection.LastReceived = App.Timer.ElapsedMilliseconds;
+            switch ((EVENT_ID)recEvent.uEventID)
+            {
+                case EVENT_ID.Menu_1:
+                    {
+                        MW.ToggleSkypad();
+                        break;
+                    }
+                case EVENT_ID.Sim_State:
+                    {
+                        //0 = Sim Stopped 1 = Sim Runnning
+                        if (Convert.ToBoolean(recEvent.dwData))
+                        {
+                            Console.WriteLine("Simulation Started");
+                            IsRunning = true;
+                            SimRuntime.Restart();
+                            LastSent = App.Timer.ElapsedMilliseconds;
+                            SimConnectModule.RequestSystemState(DATA_REQUESTS.Aircraft_Loaded, "AircraftLoaded");
+
+                            double dist = MapCalcDist(LastTemporalData.PLANE_LOCATION.Lat, LastTemporalData.PLANE_LOCATION.Lon, PreMenuPosition.Lat, PreMenuPosition.Lon, Utils.DistanceUnit.Kilometers);
+                            if (dist > 11)
+                            {
+                                Blogs.Reset();
+                            }
+
+                            GetSimWindow();
+                            GetSimIsFocused();
+                        }
+                        else
+                        {
+                            IsRunning = false;
+                            Console.WriteLine("Simulation Stopped");
+                            APIResponseTime.Clear();
+
+                        }
+
+                        PreMenuPosition.Lon = LastTemporalData.PLANE_LOCATION.Lon;
+                        PreMenuPosition.Lat = LastTemporalData.PLANE_LOCATION.Lat;
+                        ProcessPauseEvent();
+                        break;
+                    }
+                case EVENT_ID.Sim_Paused:
+                    {
+                        //0 = Sim Unpaused 1 = Sim Paused
+                        if (Convert.ToBoolean(recEvent.dwData))
+                        {
+                            IsPaused = true;
+                            Console.WriteLine("Simulation Paused");
+                        }
+                        else
+                        {
+                            IsPaused = false;
+                            Console.WriteLine("Simulation Unpaused");
+                            //Connector.SetLightbox(false);
+                        }
+                        ProcessPauseEvent();
+
+                        break;
+                    }
+                case EVENT_ID.Sim_Sound:
+                    {
+                        if (Convert.ToBoolean(recEvent.dwData))
+                        {
+                            SimHasSound = true;
+                            Console.WriteLine("Sound On");
+                        }
+                        else
+                        {
+                            SimHasSound = false;
+                            Console.WriteLine("Sound Off");
+                        }
+                        break;
+                    }
+                case EVENT_ID.CameraMode:
+                    {
+                        CameraMode = (CAMERA_MODE)recEvent.dwData;
+                        break;
+                    }
+                case EVENT_ID.PositionChange:
+                    {
+                        SimConnection.SimFrameAvg = 0;
+                        LastSimFrame = 0;
+                        lock (FrameRates)
+                        {
+                            Blogs.Reset();
+                            FrameRates.Clear();
+                        }
+                        break;
+                    }
+            }
+        }
+
+        private void SimConnect_OnRecvEventFrame(SimConnect sender, SIMCONNECT_RECV_EVENT_FRAME data)
+        {
+            LastReceived = App.Timer.ElapsedMilliseconds;
+            switch ((EVENT_ID)data.uEventID)
+            {
+                case EVENT_ID.Frame:
+                    {
+                        if (SimHasFocus || FrameRates.Count < 10)
+                        {
+                            double fr = App.Timer.ElapsedMilliseconds - LastSimFrame;
+                            double fps = 1000 / fr;
+                            if (fps > 0 && !double.IsInfinity(fps))
+                            {
+                                FrameRates.Add(fps);
+                                if (FrameRates.Count > 10)
+                                {
+                                    FrameRates.RemoveAt(0);
+                                }
+                            }
+
+                            SimFrameAvg = FrameRates.Average();
+                        }
+                        LastSimFrame = App.Timer.ElapsedMilliseconds;
+                        break;
+                    }
+            }
+        }
+
+        private void Simconnect_OnRecvOpen(SimConnect sender, SIMCONNECT_RECV_OPEN data)
+        {
+            SimConnection.LastReceived = App.Timer.ElapsedMilliseconds;
+        }
+
+        private void Simconnect_OnRecvQuit(SimConnect sender, SIMCONNECT_RECV data)
+        {
+            SimConnection.LastReceived = App.Timer.ElapsedMilliseconds;
+            Console.WriteLine("Prepar3D has exited");
+            Disconnect();
+        }
+
+        private void Simconnect_OnRecvException(SimConnect sender, SIMCONNECT_RECV_EXCEPTION data)
+        {
+            SimConnection.LastReceived = App.Timer.ElapsedMilliseconds;
+            Console.WriteLine("Exception received: " + App.JSSerializer.Serialize(data));
+            //Connector.SetLightbox(false);
+        }
+
+        private void RecoverFromError()
+        {
+            Disconnect();
+            Connect();
+        }
+
+        private IntPtr HandleSimConnectEvents(IntPtr hWnd, int message, IntPtr wParam, IntPtr lParam, ref bool isHandled)
+        {
+            isHandled = false;
+            switch (message)
+            {
+                case WM_USER_SIMCONNECT:
+                    {
+                        if (SimConnectModule != null)
+                        {
+                            try
+                            {
+                                SimConnectModule.ReceiveMessage();
+                            }
+                            catch { RecoverFromError(); }
+
+                            isHandled = true;
+                        }
+                    }
+                    break;
+
+                default:
+                break;
+            }
+
+            return IntPtr.Zero;
+        }
+
+        private string GetAircraftCFGPath(string airPath)
+        {
+            List<string> pathSplit = airPath.Replace("\\\\", "\\").Split('\\').ToList();
+            pathSplit.RemoveAt(pathSplit.Count - 1);
+            string AircraftDirectory = string.Join("\\", pathSplit.ToArray());
+            FileInfo[] AircraftCfgFiles = new DirectoryInfo(AircraftDirectory).GetFiles("aircraft.cfg");
+            FileInfo[] SimCfgFiles = new DirectoryInfo(AircraftDirectory).GetFiles("sim.cfg");
+
+            if (AircraftCfgFiles.Count() > 0)
+            {
+                return AircraftCfgFiles[0].FullName;
+            }
+            else if (SimCfgFiles.Count() > 0)
+            {
+                return SimCfgFiles[0].FullName;
+            }
+
+            return "";
+
+        }
+
+        private void SetCameraTimer(bool status)
+        {
+            TimerThread = new Thread(delegate ()
+            {
+                if (status)
+                {
+                    TimerCaps caps = new TimerCaps();
+                    timeGetDevCaps(ref caps, Marshal.SizeOf(caps));
+                    int period = 18;
+                    int resolution = 0;
+                    int mode = 1; // 0 for periodic, 1 for single event
+                    callback = new TimeProc(CameraTimerTick);
+                    camTimerID = timeSetEvent(period, resolution, callback, 0, mode);
+                    Console.WriteLine("Started ESP Connector Timer");
+                }
+                else
+                {
+                    timeKillEvent(camTimerID);
+                    Console.WriteLine("Stopped ESP Connector Timer");
+                }
+            });
+            TimerThread.IsBackground = true;
+            TimerThread.CurrentCulture = CultureInfo.CurrentCulture;
+            TimerThread.Start();
+
+        }
+
+        private void CameraTimerTick(int id, int msg, int user, int param1, int param2)
+        {
+            if (IsRunning)
+            {
+                SimConnection.APIResponseTime.Add((float)(App.Timer.ElapsedMilliseconds - LastAPIResponse));
+                while (SimConnection.APIResponseTime.Count > 60)
+                {
+                    SimConnection.APIResponseTime.RemoveAt(0);
+                }
+
+                if (!SequenceProcess.Timer.IsRunning && IsRunning)
+                {
+                    if (SimConnection.APIResponseTime.Count >= 30 && SimConnection.APIResponseTime.Average() < 70)
+                    {
+                        Console.WriteLine("Test Passed " + SimRuntime.ElapsedMilliseconds);
+                        SetPause(true);
+                        SequenceProcess.Timer.Start();
+
+                        //APIBase.ClientCollection.SendMessage(App.JSSerializer.Serialize(new Dictionary<string, dynamic>()
+                        //{
+                        //    { "aircraft_name", Connector.Aircraft.AircraftName }
+                        //}), APIBase.ClientType.Overlay);
+                    }
+                }
+            }
+            else if (SequenceProcess.Timer.IsRunning)
+            {
+                SequenceProcess.Timer.Stop();
+            }
+        }
+
+        private void InjestMetar(string metar)
+        {
+            // Examples
+            //????&A0 212126Z 00000KT&D0NG 100KM&B-450&D5450 CLR 17/10 Q1018 
+            //"????&A0 222221Z 07303KT&D462NG 100KM&B-457&D30936 1ST010&ST000FNVN000N -40/-52 Q1019 "
+            //KSEA&A131 000000Z 00000KT&D985NG 100KM&B-581&D3048 2CU053&CU000FNMN-19N 15/05 Q1013 @@@ 65 15 270 20 | 196 15 270 25 | 
+            //????&A0 222335Z 26910KT&D458NG 59KM&B-600&D1600 100KM&B1001&D23999 1CU030&CU000FNVN000N 13/07 Q1020
+            //????&A0 221658Z 22805KT&D900LM 227V229 32KM&B-429&D6000 2CU043&CU001FMMN000N 8CI295&CI001FMLN000N 25/25 Q0989
+            //????&A0 221658Z 22805G152KT&D900LM 227V229 32KM&B0&D5571 2CU043&CU001FMMN000N 8CI295&CI001FMLN000N 25/25 Q0989
+            //????&A0 221658Z 04612G15KT&D985NG 036V056 32KM&B-429&D2000 +SN 7ST033&ST001FNHS000L -5/-15 Q1001 
+
+            try
+            {
+                WeatherData NewWeather = new WeatherData();
+                string[] metarSplit = metar.Split(' ');
+
+                foreach (string segment in metarSplit)
+                {
+                    #region Cloud
+                    MatchCollection CloudMatches = new Regex(@"(\d)([A-Z]{2})(\d{3})((\&)([A-Z]{2})(\d{3})(\S{1,9}))?").Matches(segment);
+                    foreach (Match CloudMatch in CloudMatches)
+                    {
+                        string MatchStr = CloudMatch.ToString();
+
+                        WeatherData.Cloud_Types Type = WeatherData.Cloud_Types.None;
+                        switch (MatchStr.Substring(1, 2))
+                        {
+                            case "CI": Type = WeatherData.Cloud_Types.CI; break;
+                            case "CS": Type = WeatherData.Cloud_Types.CS; break;
+                            case "CC": Type = WeatherData.Cloud_Types.CC; break;
+                            case "AS": Type = WeatherData.Cloud_Types.AS; break;
+                            case "AC": Type = WeatherData.Cloud_Types.AC; break;
+                            case "SC": Type = WeatherData.Cloud_Types.SC; break;
+                            case "NS": Type = WeatherData.Cloud_Types.NS; break;
+                            case "ST": Type = WeatherData.Cloud_Types.ST; break;
+                            case "CU": Type = WeatherData.Cloud_Types.CU; break;
+                            case "CB": Type = WeatherData.Cloud_Types.CB; break;
+                        }
+
+                        WeatherData.CloudLayer NewLayer = new WeatherData.CloudLayer()
+                        {
+                            Base = Convert.ToInt32(MatchStr.Substring(3, 3)) * 100,
+                            //Coverage = Convert.ToInt16(MatchStr.Substring(0, 1)),
+                            Type = Type,
+                        };
+
+                        NewWeather.Clouds.Add(NewLayer);
+                    }
+                    #endregion
+
+                    #region Temperatures
+                    MatchCollection TemperatureMatches = new Regex(@"(-)?(\d{1,2})\/(-)?(\d{1,2})").Matches(segment);
+                    foreach (Match TemperatureMatche in TemperatureMatches)
+                    {
+                        string MatchStr = TemperatureMatche.ToString();
+                        string[] TempSpl = MatchStr.Split('/');
+
+                        NewWeather.Temperature = Convert.ToInt32(TempSpl[0]);
+                        NewWeather.DewPoint = Convert.ToInt32(TempSpl[1]);
+                    }
+                    #endregion
+
+                    #region Precipitation   
+                    foreach (Precipitation_Types Type in (Precipitation_Types[])Enum.GetValues(typeof(Precipitation_Types)))
+                    {
+                        MatchCollection mc = new Regex(@"(-|\+)?(\w{2})?(\w{2})?" + Type + @"(\w{2})?(\w{2})?\s").Matches(metar);
+                        if (mc.Count > 0)
+                        {
+                            string precip = mc[0].ToString().Trim();
+                            short Rate = 0;
+
+                            if (precip.Contains("TS"))
+                            {
+                                NewWeather.Thunderstorm = true;
+                            }
+
+                            switch (precip[0])
+                            {
+                                case '+':
+                                    {
+                                        Rate = 3;
+                                        break;
+                                    }
+                                case '-':
+                                    {
+                                        Rate = 1;
+                                        break;
+                                    }
+                                default:
+                                    {
+                                        Rate = 2;
+                                        break;
+                                    }
+                            }
+
+                            NewWeather.Precipitation = Type;
+                            NewWeather.Precipitation_Rate = Rate;
+                            break;
+                        }
+                    }
+                    #endregion
+
+                    #region Visibility
+                    NewWeather.VisibilitySM = LastTemporalData.AMBIENT_VISIBILITY;
+                    #endregion
+
+                    #region Wind
+                    MatchCollection WindMatches = new Regex(@"(\d{3})(\d{2})(G(\d{1,3}))?KT").Matches(segment);
+                    foreach (Match WindMatche in WindMatches)
+                    {
+                        string MatchStr = WindMatche.ToString();
+                        string[] Sects = MatchStr.Split('G');
+
+
+                        string Heading = Sects[0].Substring(0, 3);
+                        string Speed = Sects[0].Substring(3).Replace("KT", "");
+                        string Gust = Speed;
+                        if (MatchStr.Length > 7)
+                        {
+                            Gust = Sects[1].Replace("KT", "");
+                        }
+
+                        NewWeather.WindSpeed = Convert.ToInt16(Speed);
+                        NewWeather.WindHeading = Convert.ToInt16(Heading);
+                        NewWeather.WindGust = Convert.ToInt16(Gust);
+                    }
+                    #endregion
+
+                    #region Altimeter
+                    MatchCollection AltimeterMatches = new Regex(@"Q\d{4}").Matches(segment);
+                    foreach (Match AltimeterMatche in AltimeterMatches)
+                    {
+                        string MatchStr = AltimeterMatche.ToString();
+                        string[] Sects = MatchStr.Split('Q');
+
+                        string AltimeterStr = Sects[1];
+
+                        NewWeather.Altimeter = Convert.ToSingle(AltimeterStr);
+                    }
+                    #endregion
+
+                }
+
+                SimConnection.LatestWeatherData = NewWeather;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to process METAR: " + ex.Message + " on " + metar);
+            }
+        }
+
+        /*
+        private void SetLightbox(bool state, CameraSequence type = CameraSequence.Introduction)
+        {
+            if (LightboxState != state)
+            {
+                LightboxState = state;
+                if (state)
+                {
+                    ConnectorInstance_P3D.Lightbox.Create(type);
+                }
+                else
+                {
+                    ConnectorInstance_P3D.Lightbox.Destroy();
+                }
+            }
+        }
+
+        private class Lightbox
+        {
+            private void Create(CameraSequence type)
+            {
+                Console.WriteLine("Creating Lightbox");
+                SimConnection.LastSent = App.Timer.ElapsedMilliseconds;
+                SimConnectModule.CloseView("TSP Lightbox");
+
+                Rect size = SimConnection.CalculateSimWindowInnerCoords();
+                if (size.Right > 0 && size.Bottom > 0)
+                {
+                    SimConnectModule.UnsubscribeFromSystemEvent(EVENT_ID.CameraMode);
+                    SimConnectModule.OpenView("TSP Lightbox", "TSP_Lightbox");
+                    SimConnectModule.SetCameraWindowSize("TSP_Lightbox", (uint)(size.Right), (uint)size.Bottom);
+                    SimConnectModule.SetCameraWindowPosition("TSP_Lightbox", 0, 0);
+                    SimConnection.SetGameOverlay(true);
+                    SequenceProcess.Create(type, SequenceLib.GetSequence(CameraSequence.Introduction));
+                    SetCameraTimer(true);
+
+                }
+            }
+
+            private void Process()
+            {
+                CameraPosition SequenceFinalPos = SequenceProcess.Process();
+
+                if (SequenceFinalPos != null && SimConnectModule != null)
+                {
+
+                    double cos = Math.Cos(Math.PI * ((SimConnection.LastTemporalData.PLANE_HEADING_DEGREES) / 180));
+                    double sin = Math.Sin(Math.PI * ((SimConnection.LastTemporalData.PLANE_HEADING_DEGREES) / 180));
+
+                    double x = (SequenceFinalPos.X * cos) + (SequenceFinalPos.Z * sin);
+                    double z = (SequenceFinalPos.Z * cos) - (SequenceFinalPos.X * sin);
+                    double h = Normalize180(SequenceFinalPos.H + (SimConnection.LastTemporalData.PLANE_HEADING_DEGREES));
+
+                    try
+                    {
+                        SimConnection.LastSent = App.Timer.ElapsedMilliseconds;
+                        SimConnectModule.CameraSetRelative6DofByName("TSP_Lightbox", (float)x, (float)SequenceFinalPos.Y, (float)z, (float)-SequenceFinalPos.P, (float)SequenceFinalPos.B, (float)h);
+                    }
+                    catch
+                    {
+                        Disconnect();
+                        Destroy();
+                    }
+                }
+                else
+                {
+                    Destroy();
+                }
+            }
+
+            internal static void Destroy()
+            {
+                //Connector.SetGameOverlay(false);
+                SimConnection.LightboxState = false;
+                SetCameraTimer(false);
+                if (SimConnectModule != null)
+                {
+                    SimConnection.LastSent = App.Timer.ElapsedMilliseconds;
+                    SimConnectModule.CloseView("TSP Lightbox");
+                    SimConnectModule.SubscribeToSystemEvent(EVENT_ID.CameraMode, "View");
+                    SetPause(false);
+                }
+            }
+        }
+            */
+
+        private class SimData
+        {
+            internal static string Metar = "";
+            internal static FastLoopStruct FastLoop = new FastLoopStruct();
+            internal static SlowLoopStruct SlowLoop = new SlowLoopStruct();
+            internal static AircraftStruct AircraftData = new AircraftStruct();
+        }
+
+        #region Structs
+#pragma warning disable 0649
+
+        private struct AircraftStruct
+        {
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+            public string TITLE;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+            public string TYPE;
+            public double WING_SPAN;
+            public DATA_XYZ STRUCT_ENGINE_POSITION_1;
+            public DATA_XYZ STRUCT_ENGINE_POSITION_2;
+            public DATA_XYZ STRUCT_ENGINE_POSITION_3;
+            public DATA_XYZ STRUCT_ENGINE_POSITION_4;
+            public DATA_XYZ STRUCT_EYEPOINT_DYNAMIC_OFFSET;
+            public SIMCONNECT_DATA_LATLONALT ACTIVE_EYEPOINT_LLA;
+            public double FUEL_TOTAL_CAPACITY_LITERS;
+            public double EMPTY_WEIGHT_KG;
+            public double ENGINE_TYPE;
+            public double ENGINE_COUNT;
+        }
+
+        private struct FastLoopStruct
+        {
+            public double AIRSPEED_TRUE;
+            public double SURFACE_RELATIVE_GROUND_SPEED;
+            public double PLANE_BANK_DEGREES;
+            public double PLANE_PITCH_DEGREES;
+            public double VERTICAL_SPEED;
+            public double PLANE_LATITUDE;
+            public double PLANE_LONGITUDE;
+            public double PLANE_ALTITUDE;
+            public double INDICATED_ALTITUDE;
+            public double PLANE_ALT_ABOVE_GROUND;
+            public double PLANE_HEADING_DEGREES;
+            public double INCIDENCE_ALPHA;
+            public double INCIDENCE_BETA;
+            public double ACCELERATION_BODY_X;
+            public double ACCELERATION_BODY_Y;
+            public double ACCELERATION_BODY_Z;
+            public double VELOCITY_BODY_X;
+            public double VELOCITY_BODY_Y;
+            public double VELOCITY_BODY_Z;
+            public double G_FORCE;
+            public double GENERAL_ENG_COMBUSTION_1;
+            public double GENERAL_ENG_COMBUSTION_2;
+            public double GENERAL_ENG_COMBUSTION_3;
+            public double GENERAL_ENG_COMBUSTION_4;
+            public double AIRCRAFT_WIND_X;
+            public double AIRCRAFT_WIND_Z;
+            public double AMBIENT_WIND_DIRECTION;
+            public double AMBIENT_WIND_VELOCITY;
+            public double STALL_WARNING;
+            public double OVERSPEED_WARNING;
+            public double LIGHT_ON_STATES;
+            public double AUTOPILOT_MASTER;
+            public double GEAR_CENTER_POSITION;
+            public double GEAR_LEFT_POSITION;
+            public double GEAR_RIGHT_POSITION;
+            public double GEAR_TAIL_POSITION;
+            public double GEAR_AUX_POSITION;
+            public double CENTER_WHEEL_RPM;
+            public double LEFT_WHEEL_RPM;
+            public double RIGHT_WHEEL_RPM;
+            public double AUX_WHEEL_RPM;
+            public double SIM_ON_GROUND;
+            public double SURFACE_TYPE;
+            public double AMBIENT_IN_CLOUD;
+            public double IS_SLEW_ACTIVE;
+            public double TIME_ZONE_OFFSET;
+            public double ABS_TIME;
+            public double IS_POSITION_FREEZE;
+            public double FUEL_QUANTITY;
+            public double EXIT_0;
+            public double EXIT_1;
+            public double EXIT_2;
+            public double EXIT_3;
+            public double EXIT_4;
+        };
+
+        private struct SlowLoopAIStruct
+        {
+            public double AIRSPEED_TRUE;
+            public double SURFACE_RELATIVE_GROUND_SPEED;
+            public double PLANE_BANK_DEGREES;
+            public double PLANE_PITCH_DEGREES;
+            public double VERTICAL_SPEED;
+            public double PLANE_LATITUDE;
+            public double PLANE_LONGITUDE;
+            public double PLANE_ALTITUDE;
+            public double INDICATED_ALTITUDE;
+            public double PLANE_ALT_ABOVE_GROUND;
+            public double PLANE_MAGVAR;
+            public double MAGVAR;
+        };
+
+        private struct SlowLoopStruct
+        {
+            public double FUEL_TOTAL_QUANTITY;
+            public double AMBIENT_VISIBILITY;
+            public double AMBIENT_PRECIP_STATE;
+            public double AMBIENT_PRECIP_RATE;
+            public double BAROMETER_PRESSURE;
+            public double AMBIENT_TEMPERATURE;
+            public double SURFACE_CONDITION;
+        };
+
+        private struct VehMovementState
+        {
+            public double Latitude;
+            public double Longitude;
+            //public double Altitude;
+            public double Heading;
+            //public double Steer;
+            //public double Speed;
+        }
+
+        private struct DATA_XYZ
+        {
+            public double x;
+            public double y;
+            public double z;
+        }
+
+#pragma warning restore 0649
+        #endregion
+
+    }
+}

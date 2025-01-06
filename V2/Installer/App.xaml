@@ -1,0 +1,365 @@
+﻿<Application x:Class="TSP_Installer.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:TSP_Installer"
+             DispatcherUnhandledException="Application_DispatcherUnhandledException"
+             Startup="App_Startup">
+    <Application.Resources>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+        </Style>
+
+        <Style x:Key="windowControllerBtnStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        </Style>
+
+        <Style x:Key="closeBtnStyle" TargetType="Button" BasedOn="{StaticResource windowControllerBtnStyle}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Border
+                                x:Name="hitPlate"
+                                Width="30"
+                                Height="30"
+                                Background="Transparent" />
+                            <Path 
+                                x:Name="vector"
+                                Fill="#88000000" 
+                                Margin="0,0,0,0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Data="M351.4 200l4.4-4.4c0.2-0.2 0.2-0.4 0-0.6l-1.2-1.2c-0.2-0.2-0.4-0.2-0.6 0l-4.4 4.4l-4.4-4.4  c-0.2-0.2-0.4-0.2-0.6 0l-1.2 1.2c-0.2 0.2-0.2 0.4 0 0.6l4.4 4.4l-4.4 4.4c-0.2 0.2-0.2 0.4 0 0.6l1.2 1.2c0.2 0.2 0.4 0.2 0.6 0  l4.4-4.4l4.4 4.4c0.2 0.2 0.4 0.2 0.6 0l1.2-1.2c0.2-0.2 0.2-0.4 0-0.6L351.4 200z" 
+                                Width="13"
+                                Height="13" 
+                                Stretch="Uniform" />
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <ColorAnimation Storyboard.TargetName="vector" To="#88000000"  Storyboard.TargetProperty="Fill.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <ColorAnimation Storyboard.TargetName="hitPlate" To="#00000000"  Storyboard.TargetProperty="Background.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <ColorAnimation Storyboard.TargetName="vector" To="#FF000000"  Storyboard.TargetProperty="Fill.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <ColorAnimation Storyboard.TargetName="hitPlate" To="#33000000"  Storyboard.TargetProperty="Background.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <ColorAnimation Storyboard.TargetName="vector" To="#FF000000"  Storyboard.TargetProperty="Fill.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <ColorAnimation Storyboard.TargetName="hitPlate" To="#66000000"  Storyboard.TargetProperty="Background.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="minimizeBtnStyle" TargetType="Button" BasedOn="{StaticResource windowControllerBtnStyle}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Border
+                                x:Name="hitPlate"
+                                Width="30"
+                                Height="30"
+                                Background="Transparent" />
+                            <Path 
+                                x:Name="vector"
+                                Fill="#88000000" 
+                                Margin="0,9,0,0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Data="M357.5 197.8h-6.3l-2.5 0l-6.3 0c-0.2 0-0.4 0.2-0.4 0.4l0 1.6c0 0.2 0.2 0.4 0.4 0.4l6.3 0  l2.5 0l6.3 0c0.2 0 0.4-0.2 0.4-0.4v-1.6C358 198 357.8 197.8 357.5 197.8z" 
+                                Width="13"
+                                Height="13" 
+                                Stretch="Uniform" />
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <ColorAnimation Storyboard.TargetName="vector" To="#88000000"  Storyboard.TargetProperty="Fill.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <ColorAnimation Storyboard.TargetName="hitPlate" To="#00000000"  Storyboard.TargetProperty="Background.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <ColorAnimation Storyboard.TargetName="vector" To="#FF000000"  Storyboard.TargetProperty="Fill.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <ColorAnimation Storyboard.TargetName="hitPlate" To="#33000000"  Storyboard.TargetProperty="Background.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <ColorAnimation Storyboard.TargetName="vector" To="#FF000000"  Storyboard.TargetProperty="Fill.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <ColorAnimation Storyboard.TargetName="hitPlate" To="#66000000"  Storyboard.TargetProperty="Background.Color" Duration="00:00:00.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style x:Key="buttons" TargetType="Button">
+            <Setter Property="ToolTipService.InitialShowDelay" Value="1700"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Padding" Value="10,5,10,7"/>
+            <Setter Property="Margin" Value="0,0,2,0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#33000000"/>
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="rectangle" CornerRadius="10" Opacity="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <Border x:Name="hoverRecolor" CornerRadius="10" Background="#000000" Opacity="0"/>
+                                <Border x:Name="pulseBox" CornerRadius="10" Background="{TemplateBinding Background}" Opacity="0"/>
+                                <Border CornerRadius="10" Padding="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}}" Value="True"/>
+                                    <Condition Binding="{Binding Path=Opacity, RelativeSource={RelativeSource Self}}" Value="{x:Null}"/>
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="rectangle" To="1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.EnterActions>
+                                <MultiDataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="rectangle" To="0.3" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.ExitActions>
+                            </MultiDataTrigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="hoverRecolor" To="0.1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="hoverRecolor" To="0" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="hoverRecolor" To="0.2" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="hoverRecolor" To="0.1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="Tag" Value="pulse">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation RepeatBehavior="Forever" AutoReverse="True" Storyboard.TargetName="pulseBox" From="0" To="1" Duration="0:0:0.7" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseInOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="pulseBox" To="0" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="rectangle" To="1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="rectangle" To="0.5" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="textBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Focusable" Value="True"/>
+            <Setter Property="Cursor" Value="IBeam"/>
+            <Setter Property="Background" Value="#19000000"/>
+            <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="CaretBrush" Value="#000000"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid Margin="0,0,0,0">
+                            <Border 
+                                x:Name="container"
+                                CornerRadius="10" 
+                                Padding="0" 
+                                Background="{TemplateBinding Background}">
+                                <ScrollViewer 
+                                  BorderThickness="0" 
+                                  IsTabStop="False" 
+                                  Margin="0" 
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch"
+                                  TextElement.Foreground="{TemplateBinding Foreground}">
+                                    <Border Margin="8,5" VerticalAlignment="Center" x:Name="PART_ContentHost"/>
+                                </ScrollViewer>
+                            </Border>
+                            <Border 
+                                CornerRadius="10" 
+                                Name="glow" 
+                                Background="#FFFFFF" 
+                                IsHitTestVisible="False" 
+                                Opacity="0"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="PART_ContentHost" Property="TextBox.IsFocused" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="glow" To="0.1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="glow" To="0" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="Stop" Storyboard.TargetName="container" To="1" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard Timeline.DesiredFrameRate="40">
+                                            <DoubleAnimation FillBehavior="HoldEnd" Storyboard.TargetName="container" To="0.5" Duration="0:0:0.1" Storyboard.TargetProperty="Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+    </Application.Resources>
+</Application>

@@ -1,0 +1,33 @@
+@mixin shadowed($color) {
+	box-shadow:
+		0px 3px 5px rgba($color, 0.3),
+		0px 3px 10px rgba($color, 0.2);
+}
+
+@mixin shadowed_shallow($color) {
+	box-shadow:
+		0px 1px 2px rgba($color, 0.3),
+		0px 2px 5px rgba($color, 0.15);
+}
+
+@mixin shadowed_deep($color) {
+	box-shadow:
+		0px 1px 2px rgba($color, 0.3),
+		0px 2px 4px rgba($color, 0.15),
+		0px 5px 10px rgba($color, 0.2);
+}
+
+@mixin shadowed_deep_next($color) {
+	filter:
+		drop-shadow(0 1px 2px rgba($color, 0.3))
+		drop-shadow(0 2px 4px rgba($color, 0.15))
+		drop-shadow(0 5px 10px rgba($color, 0.2));
+}
+
+@mixin shadowed_text($color) {
+	text-shadow:
+		0 0 1px rgba($color, 1),
+		0 0px 4px rgba($color, 1),
+		0 2px 8px rgba($color, 0.5),
+		0 2px 30px rgba($color, 0.8);
+}
