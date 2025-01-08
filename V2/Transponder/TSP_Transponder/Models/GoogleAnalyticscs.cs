@@ -16,7 +16,7 @@ namespace TSP_Transponder.Models
         public static bool Startup(MainWindow _MW)
         {
             #region Get GA
-            //GATrack = new SimpleTracker("REPLACE_WITH_ANALYTICS_CODE", new AnalyticsSession(UserData.Get("ga")), new SimpleTrackerEnvironment(Environment.OSVersion.Platform.ToString(), Environment.OSVersion.Version.ToString(), Environment.OSVersion.VersionString));
+            GATrack = new SimpleTracker("REPLACE_WITH_ANALYTICS_CODE", new AnalyticsSession(UserData.Get("ga")), new SimpleTrackerEnvironment(Environment.OSVersion.Platform.ToString(), Environment.OSVersion.Version.ToString(), Environment.OSVersion.VersionString));
             GATrack.ThrowOnErrors = true;
 
             if (!App.IsDev)
