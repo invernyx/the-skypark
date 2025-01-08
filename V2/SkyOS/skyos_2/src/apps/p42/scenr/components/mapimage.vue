@@ -50,10 +50,10 @@ export default Vue.extend({
 				zoom: 2,
 				heading: 0,
 				pitch: 0,
-				accessToken: "pk.eyJ1Ijoia2V2ZW5tZW5hcmQiLCJhIjoiY2trb2c0amo2MGNoMzJ2cWRranI2cDExMSJ9.OpawoDudvj_NWm8gH_3oxA",
+				accessToken: "pk.eyJ1IjoidHVyYm9mYW5kdWRlIiwiYSI6ImNtMG9idWlrNzAydmMya3Ewcm12MWZ1d2wifQ.kKB63Sv2O6oG7cC1ddWYUg",
 				moveTimeout: null,
 				lineAnimationInterval: null,
-				mapStyle: 'mapbox://styles/kevenmenard/ckrpdty9g50cv17piyzf512cr',
+				mapStyle: 'mapbox://styles/turbofandude/cm0yfufpt007t01ql5it44w0b',
 			}
 		}
 	},

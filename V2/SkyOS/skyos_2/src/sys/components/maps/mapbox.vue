@@ -43,7 +43,7 @@ export default Vue.extend({
 						pitch: 0,
 						padding: this.padding,
 						mapStyle: '',
-						accessToken: "pk.eyJ1IjoiYmlhcnplZCIsImEiOiJja3N1d3ltaWgxNDU1MnFwanZhNzB5dDVuIn0.jV7FuhxjP7J3ltZTLVXDAA",
+						accessToken: "pk.eyJ1IjoidHVyYm9mYW5kdWRlIiwiYSI6ImNtMG9idWlrNzAydmMya3Ewcm12MWZ1d2wifQ.kKB63Sv2O6oG7cC1ddWYUg",
 						reloadOnActivate: false,
 						moveTimeout: null,
 						has3D: false,
@@ -68,7 +68,7 @@ export default Vue.extend({
 	beforeMount() {
 		this.listenerConfig(['ui','theme'], this.mapTheme);
 
-		fetch('https://api.mapbox.com/styles/v1/biarzed/cjie4rwi91za72rny0hlv9v7t?access_token=' + this.state.ui.map.accessToken, { method: 'get' })
+		fetch('https://api.mapbox.com/styles/v1/turbofandude/cm0yfufpt007t01ql5it44w0b?access_token=' + this.state.ui.map.accessToken, { method: 'get' })
 		.then(response => response.json())
 		.then((data) => {
 			if(!data.name) {
@@ -90,17 +90,17 @@ export default Vue.extend({
 
 		switch(this.mstyle) {
 			case 'big': {
-				this.state.ui.map.mapStyle = 'mapbox://styles/biarzed/ckgwhmzuh3sz219rzn38guzdh';
+				this.state.ui.map.mapStyle = 'mapbox://styles/mapbox/dark-v11';
 				this.state.ui.map.load = true;
 				break;
 			}
 			case 'small': {
-				this.state.ui.map.mapStyle = 'mapbox://styles/biarzed/ckhnv8hho189l19o2cub7trzh';
+				this.state.ui.map.mapStyle = 'mapbox://styles/mapbox/dark-v11';
 				this.state.ui.map.load = true;
 				break;
 			}
 			case 'sat3d': {
-				this.state.ui.map.mapStyle = 'mapbox://styles/biarzed/cki82hahr6hmx19l7fin77k7b';
+				this.state.ui.map.mapStyle = 'mapbox://styles/mapbox/satellite-v9';
 				this.state.ui.map.load = true;
 				break;
 			}
@@ -109,7 +109,7 @@ export default Vue.extend({
 				this.state.ui.map.load = true;
 				break;
 			}
-		}
+		}		
 		this.$root.$on('configchange', this.listenerConfig);
 		document.addEventListener('keypress', this.keyPressed);
 	},
